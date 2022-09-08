@@ -6,3 +6,13 @@
 	-o-background-size: cover;
 	min-height: 100vh;
 }
+
+
+.form-control:focus {
+	border-color: #212121 ;
+	box-shadow: 0 0 0 0.05rem #212121;
+}
+
+.student-form {
+	font-size: 1.025rem;
+}

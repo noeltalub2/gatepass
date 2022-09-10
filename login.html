@@ -19,7 +19,7 @@
                         <img src="./public/img/mmsu_logo.png" alt="" width="60px" class="img-fluid">
                         <img src="./public/img/cit_logo.png" alt="" width="60px" class="img-fluid">
 
-                        <h1 class="display-2 mb-3 mt-3 ">Gatepass Management System</h1>
+                        <h1 class="display-2 mb-3 mt-3">Gatepass Management System</h1>
                         <p class="text-dark">Welcome to the College of Industrial Technology!<br>
                             Please enter your information to access the gatepass portal.</p>
 
@@ -27,29 +27,73 @@
                     <div class="col-lg-5 col-md-6 col-sm-7">
                         <div class="card shadow-lg">
                             <div class="card-body">
-                                <h3 class="card-title mb-4 mt-1 fw-bold">Log in</h3>
+                                <h3 class="card-title mb-4 mt-1 fw-bold text-dark">Log in</h3>
                                 <form>
                                     <div class="form-group">
-                                        <div class="form-floating mb-3">
-                                            <input type="email" class="student-form form-control" id="floatingInput" placeholder="Student number" autofocus>
-                                            <label for="floatingInput">Student number</label>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-login form-control"
+                                                placeholder="Student number" autofocus>
                                         </div>
-                                        <div class="form-floating">
-                                            <input type="password" class="student-form form-control" id="floatingPassword" placeholder="Password">
-                                            <label for="floatingPassword">Password</label>
+                                        <div class="mb-3">
+                                            <input type="password" class="form-login form-control"
+                                                placeholder="Password">
                                         </div>
                                     </div>
-                                    <div class="form-group mt-4">
+                                    <div class="mt-4">
                                         <button type="submit" class="btn btn-primary w-100">
                                             Login</button>
                                     </div>
-                                    <div class="form-group mt-5">
-                                        <p class="text-center">Don't have an account?<a
-                                                class="ms-1 text-decoration-none" href="./register.html">Create an account</a></p>
+                                    <div class="my-2">
+                                        <p class="text-center text-muted">or</p>
+                                    </div>
+                                    <div class="mb-1">
+                                        <button type="button" class="btn btn-secondary w-100 " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            Create an account
+                                        </button>
                                     </div>
                                 </form>
                             </div>
-
+                        </div>
+                    </div>
+                </div>   
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h2 class="mb-4" >Create student account</h2>
+                                <form>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-reg form-control"
+                                                placeholder="Student number">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-reg form-control" placeholder="First name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-reg form-control" placeholder="Last name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="email" class="form-reg form-control" placeholder="Email">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="password" class="form-reg form-control" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <button type="submit" class="btn btn-primary w-100 mb-2">Register</button>
+                                        <p class="text-muted">By clicking Register, you agree to the terms of use.</p>
+                                    </div>
+                                </form>
+                            </div>
+    
                         </div>
                     </div>
                 </div>

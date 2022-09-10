@@ -5,14 +5,19 @@
 	background-size: cover;
 	-o-background-size: cover;
 	min-height: 100vh;
+	user-select: none;
 }
 
+.form-login,
+.form-reg {
+	height: 46px;
+	padding: 0 14px;
+	font-size: 15px;
+	color: black;
+}
 
 .form-control:focus {
-	border-color: #212121 ;
-	box-shadow: 0 0 0 0.05rem #212121;
-}
-
-.student-form {
-	font-size: 1.025rem;
+	color: black;
+	border-color: #0066ff;
+	box-shadow: 0 0 0 0rem #0066ff;
 }

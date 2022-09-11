@@ -1,11 +1,12 @@
 .app {
-	background: url("../img/wave-haikei.svg") no-repeat center center fixed;
+
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	background-size: cover;
 	-o-background-size: cover;
 	min-height: 100vh;
 }
+
 
 .form-login,
 .form-reg {
@@ -23,4 +24,19 @@
 
 .btn-reg {
 	border-color: #c5c5c5;
+}
+
+.navbar-brand {
+	color: #121212;
+}
+
+.img-profile {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	border: 1px solid #051802;
+}
+
+.student-details {
+	border-left: 1px solid rgba(0, 0, 0, 0.05)
 }

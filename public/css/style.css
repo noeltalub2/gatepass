@@ -1,13 +1,15 @@
-.app {
+#main {
+	margin-top: 70px;
+	min-height: calc(100vh - 123px);
+}
 
+.app {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	background-size: cover;
 	-o-background-size: cover;
 	min-height: 100vh;
 }
-
-
 .form-login,
 .form-reg {
 	height: 46px;
@@ -34,9 +36,20 @@
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
-	border: 1px solid #051802;
+	border: 8px solid rgba(74, 201, 55, 0.349);
+}
+#profile-out,
+.nav-item {
+	font-size: 1rem;
 }
 
-.student-details {
-	border-left: 1px solid rgba(0, 0, 0, 0.05)
+.nav-link:hover {
+	color: #0d6efd;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+	outline: none;
+	box-shadow: none;
 }

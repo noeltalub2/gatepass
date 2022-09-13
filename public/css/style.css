@@ -1,5 +1,5 @@
 #main {
-	margin-top: 70px;
+	margin-top: 75px;
 	min-height: calc(100vh - 123px);
 }
 
@@ -38,7 +38,7 @@
 	border-radius: 50%;
 	border: 8px solid rgba(74, 201, 55, 0.349);
 }
-#profile-out,
+
 .nav-item {
 	font-size: 1rem;
 }
@@ -53,3 +53,9 @@
 	outline: none;
 	box-shadow: none;
 }
+
+@media (max-width: 768px) {  
+	.nav-item {
+		font-size: 1.5rem;
+	}
+  }

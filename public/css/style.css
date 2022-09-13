@@ -3,13 +3,6 @@
 	min-height: calc(100vh - 123px);
 }
 
-.app {
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	background-size: cover;
-	-o-background-size: cover;
-	min-height: 100vh;
-}
 .form-login,
 .form-reg {
 	height: 46px;
@@ -54,8 +47,30 @@
 	box-shadow: none;
 }
 
-@media (max-width: 768px) {  
+.page-header {
+	border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+#border-info-student {
+	border-left: 5px solid #0066ff;
+}
+
+#border-gate-success {
+	border-left: 5px solid #11823b;
+}
+#border-gate-fail {
+	border-left: 5px solid #ff0000;
+}
+.card-text {
+	margin-bottom: 0.5rem;
+}
+
+#footer {
+	background-color: #11823b;
+}
+
+@media (max-width: 767px) {
 	.nav-item {
-		font-size: 1.5rem;
+		font-size: 1.25rem;
 	}
-  }
+}

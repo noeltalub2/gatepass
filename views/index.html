@@ -11,9 +11,9 @@
 
 <body>
 
-  <div class="app app-profile">
+  <div class="app">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm fixed-top">
+    <nav class="navbar navbar-expand-md bg-white navbar-light shadow-sm fixed-top">
       <div class="container-lg">
         <a class="navbar-brand" href="#">
           <img src="../public/img/app_logo.png" alt="" height="40px" width="200px" class="rounded">
@@ -23,9 +23,9 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
-            <button type="button" class="btn-close mt-2 me-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <div class="offcanvas-header border-bottom py-4 pe-4">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+            <button type="button" class="btn-close me-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body align-items-center">
             <ul class="navbar-nav me-auto">
@@ -58,91 +58,56 @@
     </nav>
     <!-- Main -->
     <main id="main">
-      <section class="pt-4 pb-4">
-        <div class="container-lg">
-          <div class="row mb-md-4">
-            <div class="col-12 col-lg-8 text-center text-lg-start">
-              <h2 class="">Welcome, Noel Michael T. Talub </h2>
-              <p class="lead">
-                Lorem ipsum massa in auctor molestie, magna lorem semper mauris, a
-                venenatis turpis purus vel metus.
+      <div class="container-lg">
+        <div class="page-header pt-4">
+          <div class="row mb-md-1">
+            <div class="col-12 col-lg-8 text-start">
+              <h2 class="">Overview</h2>
+              <p class="">
+                View your latest information
               </p>
             </div>
           </div>
-          <div class="row d-flex mb-5">
-            <div class="col-10 mx-auto col-md-4">
-              <div class="my-3 card card-body shadow p-4 ">
-                <div class="row align-items-center d-flex text-md-center text-lg-start">
-                  <div class="col-12 col-sm-3 col-md-3 text-center px-0">
-                    <div class="icon-wrap text-primary my-3">
-                      <i
-                        class="icon p-4 border-primary bg-light text-primary md-font-size rounded-circle fa fa-tint fa-lg"></i>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-9 mt-3 mt-lg-0">
-                    <h4 class="">
-                      Lorem ipsum dolor
-                    </h4>
-                    <p class=" mb-0">
-                      Praesent mollis, massa in auctor molestie
-                    </p>
-                  </div>
+        </div>
+        <div class="page-content mt-4">
+          <div class="row g-3"> 
+            <div class="col-sm-6">
+              <div class="card h-100" id="border-info-student">
+                <div class="card-body ">
+                  <h4 class="card-title">Student Information</h4>
+                  <p class="card-text">Student No : <span class="fw-bold"> 19-070228</span></p>
+                  <p class="card-text">Name : <span class="fw-bold">Noel Michael T. Talub</span></p>
+                  <p class="card-text">Degree : <span class="fw-bold">BS in Industrial Technology</span></p>
+                  <p class="card-text">Course : <span class="fw-bold">Computer Technology</span></p>
                 </div>
               </div>
             </div>
-            <div class="col-10 mx-auto col-md-4">
-              <div class="my-3 card card-body shadow p-4">
-                <div class="row align-items-center text-md-center text-lg-start">
-                  <div class="col-12 col-sm-3 col-md-3 text-center px-0">
-                    <div class="icon-wrap text-primary my-3">
-                      <i
-                        class="icon p-4 border-primary bg-light text-primary md-font-size rounded-circle fa fa-lock fa-lg"></i>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-9 mt-3 mt-lg-0">
-                    <h4 class="">
-                      Etiam sed iaculis
-                    </h4>
-                    <p class="  mb-0">
-                      Praesent mollis, massa in auctor molestie
-                    </p>
-                  </div>
+            <div class="col-sm-6">
+              <div class="card h-100" id="border-gate-fail">
+                <div class="card-body">
+                  <h4 class="card-title" id="success">Gatepass Status</h4>
+                  <p class="card-text">You are currently not registered to health portal. Please register to enter the
+                    school.
+                  </p>
+                  <p class="card-text"> <span class="fw-bold">Note : </span>After register, please wait while we approve
+                    your request to enter school.</p>
                 </div>
               </div>
-            </div>
-            <div class="col-10 mx-auto col-md-4">
-              <div class="my-3 card card-body shadow p-4">
-                <div class="row align-items-center text-md-center text-lg-start">
-                  <div class="col-12 col-sm-3 col-md-3 text-center px-0">
-                    <div class="icon-wrap text-primary my-3">
-                      <i
-                        class="icon p-4 border-primary bg-light text-primary md-font-size rounded-circle fa fa-mobile fa-lg"></i>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-9 mt-3 mt-lg-0">
-                    <h4 class="">
-                      Auctor molestie
-                    </h4>
-                    <p class="  sm-font-size text-dark-gray mb-0">
-                      Praesent mollis, massa in auctor molestie
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row pt-3 align-items-center justify-content-center">
-            <div class="col text-center">
-              <a href="#" class="btn btn-primary  btn-rounded shadow py-3 px-5">Lorem
-                Ipsum</a>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </main>
-    <!-- Main -->
+    <footer id="footer" class="mt-4">
+      <div class="container-lg">
+        <div class="py-3 text-center text-light">Developed by CIT Student
+        </div>
+        </div>
+      </div>
+    </footer>
+
   </div>
-  <!-- Navbar -->
+
 
   </div>
   <script src="../public/js/bootstrap.bundle.min.js"></script>

@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-md bg-white navbar-light shadow-sm fixed-top">
       <div class="container-lg">
         <a class="navbar-brand" href="#">
-          <img src="../public/img/app_logo.png" alt="" height="40px" width="200px" class="rounded">
+          <img src="../public/img/app_logo.png" alt="" height="30px" width="150px" class="rounded">
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -27,28 +27,27 @@
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
             <button type="button" class="btn-close me-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body align-items-center">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Home</a>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav ms-auto me-sm-2 mt-2 mt-lg-0">
+              <li class="nav-item active me-3">
+                <a class="nav-link" href="#">Home</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item me-3">
                 <a class="nav-link" href="#">Health</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item me-3">
                 <a class="nav-link" href="#">Profile</a>
               </li>
-            </ul>
-            <ul class="navbar-nav justify-content-end">
               <li class="nav-item dropdown">
-
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
-                    class="rounded-circle me-2">Noel Michael
+                  <img class="rounded-circle u-box-shadow-sm me-2" width="25" height="25"
+                    src=" https://dummyimage.com/100/007bff/efefef" alt="Htmlstream">Noel Michael
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Logout</a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -69,8 +68,8 @@
             </div>
           </div>
         </div>
-        <div class="page-content mt-4">
-          <div class="row g-3"> 
+        <div class="page-content mt-4 mb-4">
+          <div class="row g-3">
             <div class="col-sm-6">
               <div class="card h-100" id="border-info-student">
                 <div class="card-body ">
@@ -86,6 +85,7 @@
               <div class="card h-100" id="border-gate-fail">
                 <div class="card-body">
                   <h4 class="card-title" id="success">Gatepass Status</h4>
+                  
                   <p class="card-text">You are currently not registered to health portal. Please register to enter the
                     school.
                   </p>
@@ -98,13 +98,13 @@
         </div>
       </div>
     </main>
-    <footer id="footer" class="mt-4">
+    <footer id="footer">
       <div class="container-lg">
         <div class="py-3 text-center text-light">Developed by CIT Student
         </div>
-        </div>
       </div>
-    </footer>
+  </div>
+  </footer>
 
   </div>
 

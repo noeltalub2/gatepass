@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql2");
+const mysql = require("mysql2"); //built in promise
 const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
 const app = express();
@@ -33,6 +33,13 @@ app.get("/", (req, res) => {
 });
 
 // Database query promises
+
+// async function getInfo(sql,data){
+// 	var sql = "SELECT a from b where info = data"
+// 	const results = await conn.promise().query(sql)
+// 	return results[0]
+//   }
+
 const zeroParamPromise = (sql) => {
 	return new Promise((resolve, reject) => {
 		db.query(sql, (err, results) => {
@@ -52,20 +59,18 @@ const queryParamPromise = (sql, queryParam) => {
 };
 
 app.get("/register", async (req, res) => {
-	res.render("register", { msg: "" });
+	res.render("register", { msg: "error" });
 });
 
 app.post("/register", async (req, res) => {
 	//Data from the form ./register
-	const { student_number, lastname, firstname, email, password } = req.body;
-
+	const { student_number, lastname, firstname, email,phonenumber, password } = req.body;
 
 	// Catch any error
 	let error = [];
 
 	var sql =
 		"Select count(*) as `count` from student_acc where student_number = ?";
-
 
 	//To encrypt the password using hash
 	const salt = bcrypt.genSaltSync(15);
@@ -75,6 +80,7 @@ app.post("/register", async (req, res) => {
 		firstname: firstname,
 		lastname: lastname,
 		email: email,
+		phonenumber:phonenumber,
 		password: hash,
 	};
 

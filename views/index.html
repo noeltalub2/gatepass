@@ -1,21 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CIT Gatepass</title>
-  <link px-2 rel="stylesheet" href="../public/css/bootstrap.min.css">
-  <link px-2 rel="stylesheet" href="../public/css/style.css">
+  <link px-2 rel="stylesheet" href="../public/css/bootstrap.min.css" />
+  <link px-2 rel="stylesheet" href="../public/css/style.css" />
 </head>
 
 <body>
-
   <div class="app">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-md bg-white navbar-light shadow-sm fixed-top">
+    <nav class="navbar navbar-expand-md bg-white shadow-sm fixed-top pt-3 pb-3">
       <div class="container-lg">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.html">
           <img src="../public/img/app_logo.png" alt="" height="30px" width="150px" class="rounded">
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
@@ -23,23 +22,23 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header border-bottom py-4 pe-4">
+          <div class="offcanvas-header border-bottom py-3">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
             <button type="button" class="btn-close me-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            <ul class="navbar-nav ms-auto me-sm-2 mt-2 mt-lg-0">
-              <li class="nav-item active me-3">
-                <a class="nav-link" href="#">Home</a>
+            <ul class="navbar-nav ms-auto mt-lg-0 ">
+              <li class="nav-item me-lg-3 me-md-2">
+                <a class="nav-link" href="index.html">Home</a>
               </li>
-              <li class="nav-item me-3">
-                <a class="nav-link" href="#">Health</a>
+              <li class="nav-item me-lg-3 me-md-2">
+                <a class="nav-link" href="student_health.html">Health</a>
               </li>
-              <li class="nav-item me-3">
+              <li class="nav-item me-lg-3 me-md-2">
                 <a class="nav-link" href="#">Profile</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                <a class="nav-link dropdown-toggle ps-2" href="#" role="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
                   <img class="rounded-circle u-box-shadow-sm me-2" width="25" height="25"
                     src=" https://dummyimage.com/100/007bff/efefef" alt="Htmlstream">Noel Michael
@@ -62,35 +61,55 @@
           <div class="row mb-md-1">
             <div class="col-12 col-lg-8 text-start">
               <h2 class="">Overview</h2>
-              <p class="">
-                View your latest information
-              </p>
+              <p class="">View your latest information</p>
             </div>
           </div>
         </div>
-        <div class="page-content mt-4 mb-4">
+        <div class="page-content my-4">
           <div class="row g-3">
             <div class="col-sm-6">
               <div class="card h-100" id="border-info-student">
-                <div class="card-body ">
-                  <h4 class="card-title">Student Information</h4>
-                  <p class="card-text">Student No : <span class="fw-bold"> 19-070228</span></p>
-                  <p class="card-text">Name : <span class="fw-bold">Noel Michael T. Talub</span></p>
-                  <p class="card-text">Degree : <span class="fw-bold">BS in Industrial Technology</span></p>
-                  <p class="card-text">Course : <span class="fw-bold">Computer Technology</span></p>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    Student Information
+                  </h4>
+                  <p class="card-text">
+                    Student No :
+                    <span class="fw-bold">
+                      19-070228</span>
+                  </p>
+                  <p class="card-text">
+                    Name :
+                    <span class="fw-bold">Noel Michael T. Talub</span>
+                  </p>
+                  <p class="card-text">
+                    Degree :
+                    <span class="fw-bold">BS in Industrial
+                      Technology</span>
+                  </p>
+                  <p class="card-text">
+                    Course :
+                    <span class="fw-bold">Computer Technology</span>
+                  </p>
                 </div>
               </div>
             </div>
             <div class="col-sm-6">
-              <div class="card h-100" id="border-gate-fail">
+              <div class="card h-100" id="border-gate-success">
                 <div class="card-body">
-                  <h4 class="card-title" id="success">Gatepass Status</h4>
-                  
-                  <p class="card-text">You are currently not registered to health portal. Please register to enter the
+                  <h4 class="card-title">
+                    Gatepass Status
+                  </h4>
+                  <p class="card-text">
+                    You are currently not registered to
+                    health portal. Please register to
+                    enter the school.
+                  </p>
+                  <p class="card-text">
+                    <span class="fw-bold">Note : </span>After register, please wait while
+                    we approve your request to enter
                     school.
                   </p>
-                  <p class="card-text"> <span class="fw-bold">Note : </span>After register, please wait while we approve
-                    your request to enter school.</p>
                 </div>
               </div>
             </div>
@@ -100,15 +119,11 @@
     </main>
     <footer id="footer">
       <div class="container-lg">
-        <div class="py-3 text-center text-light">Developed by CIT Student
+        <div class="py-3 text-center text-light">
+          Developed by CIT Student
         </div>
       </div>
-  </div>
-  </footer>
-
-  </div>
-
-
+    </footer>
   </div>
   <script src="../public/js/bootstrap.bundle.min.js"></script>
 </body>

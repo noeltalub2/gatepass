@@ -1,62 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CIT - Gatepass System</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIT Healtpass</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://kit.fontawesome.com/020dbcd45c.js" crossorigin="anonymous"></script>
+    <link px-2 rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
     <div class="app">
-        <section class="pt-5 pb-5">
-            <div class="container-lg">
-                <div class="row align-items-center justify-content-between px-2">
-                    <div class="col-12 col-md-5 pb-3 ">
-                        <img src="img/mmsu_logo.png" alt="" width="60px" class="img-fluid">
-                        <img src="img/cit_logo.png" alt="" width="60px" class="img-fluid">
-                        <h1 class="display-2 mb-3 mt-3">Gatepass Management System</h1>
-                        <p class="text-dark">Welcome to the College of Industrial Technology!<br>
-                            Please enter your information to access the gatepass portal.</p>
-                    </div>
-                    <div class="col-lg-5 col-md-6 col-sm-7">
-                        <div class="card shadow-lg">
-                            <div class="card-body">
-                                <h3 class="card-title mb-4 mt-1 fw-bold text-dark">Log in</h3>
-                                <form>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <input type="text" class="form-login form-control"
-                                                placeholder="Student number" autofocus>
-                                        </div>
-                                        <div class="mb-3">
-                                            <input type="password" class="form-login form-control"
-                                                placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <button type="submit" class="btn btn-primary w-100">
-                                            Login</button>
-                                    </div>
-                                </form>
-                                
-                                <div class="mt-4">
-                                    <p class="text-center">Dont' have an account?<a
-                                            class="ms-1 text-decoration-none" href="/register">Register</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+        <div class="container-lg">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <img src="img/app_logo.svg" width="250px" alt="logo" class="img-fluid d-block mx-auto mt-5 mb-4">
                 </div>
             </div>
-        </section>
+            <div class="row align-items-center justify-content-center px-2">
+                <div class="col-lg-4 col-md-6">
+
+                    <h3 class="my-3">Login to your account</h3>
+                    <form class="needs-validation" novalidate>
+                        <div class="form-group">
+                            <div class="mb-2">
+                                <label for="studentNumber" class="form-label">Student Number</label>
+                                <input type="text" class="form-control custom-form" name="studentNumber " autofocus
+                                    required>
+                                <div class="invalid-feedback">
+                                    Student number is required
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control custom-form" name="password" required>
+                                <div class="invalid-feedback">
+                                    Password is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <button type="submit" class="btn btn-success w-100" id="btn-login">
+                                Login</button>
+                        </div>
+                    </form>
+
+                    <div class="mt-4">
+                        <a class="ms-1 text-decoration-none text-success" href="/register">Forgot Password?</a>
+
+                        <a class="ms-1 text-success text-decoration-none float-end" href="/register">New User?</a>
+                    </div>
+                    <footer class="py-4">
+                        <div class="text-center text-muted">MMSU CIT Gatepass © 2022</div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
 </body>
 
 </html>

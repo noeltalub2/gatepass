@@ -7,50 +7,39 @@
   <title>CIT Gatepass</title>
   <link px-2 rel="stylesheet" href="../public/css/bootstrap.min.css" />
   <link px-2 rel="stylesheet" href="../public/css/style.css" />
+  <script src="https://kit.fontawesome.com/020dbcd45c.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <div class="app">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-md bg-white shadow-sm fixed-top pt-3 pb-3">
+    <nav class="navbar navbar-light bg-white navbar-expand-md fixed-top shadow-sm">
       <div class="container-lg">
-        <a class="navbar-brand" href="index.html">
-          <img src="../public/img/app_logo.png" alt="" height="30px" width="150px" class="rounded">
+        <a class="navbar-brand" href="#">
+          <img src="../public/img/app2.png" alt="" height="45px">
         </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav1"
+          aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header border-bottom py-3">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-            <button type="button" class="btn-close me-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav ms-auto mt-lg-0 ">
-              <li class="nav-item me-lg-3 me-md-2">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item me-lg-3 me-md-2">
-                <a class="nav-link" href="student_health.html">Health</a>
-              </li>
-              <li class="nav-item me-lg-3 me-md-2">
-                <a class="nav-link" href="#">Profile</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle ps-2" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <img class="rounded-circle u-box-shadow-sm me-2" width="25" height="25"
-                    src=" https://dummyimage.com/100/007bff/efefef" alt="Htmlstream">Noel Michael
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" href="#">Logout</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+        <div class="collapse navbar-collapse" id="navbarNav1">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="student_health.html">Health</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="student_profile.html">Profile</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav justify-content-end d-lg-flex ms-md-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Logout</a>
+            </li>
+          </ul>
+
         </div>
       </div>
     </nav>
@@ -60,62 +49,121 @@
         <div class="page-header pt-4">
           <div class="row mb-md-1">
             <div class="col-12 col-lg-8 text-start">
-              <h2 class="">Overview</h2>
-              <p class="">View your latest information</p>
+              <h2 class="fw-bold">Overview</h2>
             </div>
           </div>
         </div>
-        <div class="page-content my-4">
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <div class="card h-100" id="border-info-student">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    Student Information
-                  </h4>
-                  <p class="card-text">
-                    Student No :
-                    <span class="fw-bold">
-                      19-070228</span>
-                  </p>
-                  <p class="card-text">
-                    Name :
-                    <span class="fw-bold">Noel Michael T. Talub</span>
-                  </p>
-                  <p class="card-text">
-                    Degree :
-                    <span class="fw-bold">BS in Industrial
-                      Technology</span>
-                  </p>
-                  <p class="card-text">
-                    Course :
-                    <span class="fw-bold">Computer Technology</span>
-                  </p>
+        <div class="page-content mb-4">
+          <div class="row gx-2">
+            <div class="col-lg-5 col-md-6">
+              <h5 class="mt-3 fw-bold">Your Profile</h5>
+              <div class="card border rounded-4">
+                <div class="card-body p-3 ">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0">
+                      <img src="../public/img/profile.jpg" alt="" id="img-profile" height="110px" width="110px">
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                      <h5 class="mb-1">Noel Michael T. Talub</h5>
+                      <p class="mb-4">19-070228</p>
+                      <p class="mb-0">Computer Technology 4B</p>
+                      
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="card h-100" id="border-gate-success">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    Gatepass Status
-                  </h4>
-                  <p class="card-text">
-                    You are currently not registered to
-                    health portal. Please register to
-                    enter the school.
-                  </p>
-                  <p class="card-text">
-                    <span class="fw-bold">Note : </span>After register, please wait while
-                    we approve your request to enter
-                    school.
-                  </p>
+            <div class="col-lg-7 col-md-6">
+              <h5 class="mt-3 fw-bold">Status of Clearance</h5>
+              <div id="clearance" class="mb-2 shadow-sm p-3 bg-body rounded-4 border">
+                
+                <div class="mt-1">
+                  <img src="../public/img/yes.png" alt="" width="80px" class="img-fluid d-block mx-auto mb-2" >
+                  <p class="text-center text-success fw-bold">Approved</p>
+                  <table class="table table-borderless table-sm">
+                    <tbody>
+                      <tr>
+                        <th><strong>Risk Assesment</strong></th>
+                        <td>Low</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Passcode ID</strong></th>
+                        <td>2022926</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Date Submitted</strong></th>
+                        <td>9-26-2022</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Date to Enter</strong></th>
+                        <td>9-27-2022</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
+
+          <div class="row gx-2">
+            <div class="col-lg-5 col-md-4">
+              <h5 class="mt-3 fw-bold">Prior to Entry</h5>
+              <div id="student" class="mb-2 shadow-sm p-3 bg-body rounded-4 border">
+                <p>1. Present the accomplished health clearance</p>
+                <p>2. Make sure to wear mask all the time</p>
+                <p>3. Practice social distancing</p>
+              </div>
+            </div>
+            <div class="col-lg-7 col-md-8">
+              <h5 class="mt-3 fw-bold">Recent Activity</h5>
+              <div id="clearance" class="mb-2 shadow-sm p-3 bg-body rounded-4 border">
+                <div class="mt-1">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                   
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">10-2-22</th>
+                        <td>Approved</td>
+                        <td>Otto</td>
+                   
+                      </tr>
+                      <tr>
+                        <th scope="row">10-3-22</th>
+                        <td>Declined</td>
+                        <td>Thornton</td>
+                       
+                      </tr>
+                      <tr>
+                        <th scope="row">10-4-22</th>
+                        <td>Declined</td>
+                        <td>@twitter</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">10-5-22</th>
+                        <td>Declined</td>
+                        <td>@twitter</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">10-6-22</th>
+                        <td>Declined</td>
+                        <td>@twitter</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+
+          </div>
         </div>
-      </div>
     </main>
     <footer id="footer">
       <div class="container-lg">

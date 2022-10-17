@@ -40,28 +40,29 @@ html {
 }
 body {
 	font-family: "Inter";
-	background-color: var(--bs-light);
 }
+
 
 #main {
 	margin-top: 60px;
 }
-
 .form-label {
 	color: #333;
 }
 .navbar .nav-item {
-	margin-right: 0.4rem;
-	margin-left: 0.4rem;
+	margin-right: 0.3rem;
+	margin-left: 0.3rem;
+	font-weight: 500;
 }
 
-.nav-link {
+
+.navbar-nav .nav-link {
 	color: var(--bs-gray-dark);
 	padding-right: 0.5rem;
 	padding-left: 0.5rem;
 }
 
-.nav-link:hover {
+.navbar-nav .nav-link:hover {
 	color: var(--bs-dark);
 	background-color: rgba(0, 0, 0, 0.03);
 	border-radius: 5px;
@@ -78,6 +79,10 @@ body {
 	box-shadow: none;
 }
 
+.btn-close:focus {
+	box-shadow: none;
+}
+
 .form-check {
 	padding-top: 0.33rem;
 	padding-bottom: 0.33rem;
@@ -87,15 +92,32 @@ body {
 	color: red;
 }
 
-#student-status {
-	border-left: 5px solid var(--bs-success);
+.nav-tabs {
+	border-bottom: 0;
+}
+
+.nav-tabs .nav-link {
+	border: solid transparent;
+    border-width: 0 0 2px;
+    border-radius: 0;
+    text-transform: uppercase;
+    line-height: 1;
+    font-weight: 500;
+    font-size: 12px;
+    color: rgba(0,0,0,.55);
+    padding: 17px 20px 16px;
+}
+
+.nav-tabs .nav-link.active {
+	color: #3b71ca;
+    border-color: #3b71ca;
 }
 
 #img-profile {
 	object-fit: cover;
 	border-radius: 50%;
 	border: 2px solid var(--bs-white);
-	outline: 2px solid var(--bs-red);
+	outline: 2px solid var(--bs-gray-dark);
 }
 
 #footer {

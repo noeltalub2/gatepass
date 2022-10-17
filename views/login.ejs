@@ -11,28 +11,37 @@
 </head>
 
 <body>
-    <div class="app">
-        <div class="container-lg">
+    <header>
+        <nav class="navbar pt-3">
+            <div class="container-lg">
+                <a href="/">
+                    <img src="img/app2.svg" height="55" alt="image">
+                </a>
+            </div>
+        </nav>
+    </header>
 
-            <div class="row align-items-center justify-content-center py-4">
-                <div class="col-lg-5 col-md-6">
-                    <div class="form-container bg-white shadow rounded-4 px-4 py-1">
-                        <img src="img/app2.svg" width="220px" alt="logo"
-                            class="img-fluid d-block mx-auto mt-4 mb-4">
-                        <h4 class="my-3 ">Login to your account</h4>
+    <main class="app">
+        <div class="container-lg">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-5 col-md-6 p-0">
+                    <div class="form-container bg-white px-4 py-1 mt-5">
+
+                        <h4 class="mb-3 mt-5">Sign In</h4>
                         <form class="needs-validation" novalidate>
                             <div class="form-group">
-                                <div class="mb-2">
-                                    <label for="studentNumber" class="form-label">Student Number</label>
-                                    <input type="text" class="form-control custom-form" name="studentNumber " autofocus
-                                        required>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="Student Number"
+                                        name="studentNumber" required autofocus>
+                                    <label for="studentNumber">Student Number</label>
                                     <div class="invalid-feedback">
-                                        Student number is required
+                                        Student ID is required
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control custom-form" name="password" required>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" placeholder="Password" name="password"
+                                        required>
+                                    <label for="password">Password</label>
                                     <div class="invalid-feedback">
                                         Password is required
                                     </div>
@@ -44,42 +53,35 @@
                             </div>
                         </form>
 
-                        <div class="mt-4">
+                        <div class="mt-4 mb-5">
                             <a class="ms-1 text-decoration-none text-success" href="/register">Forgot Password?</a>
 
                             <a class="ms-1 text-success text-decoration-none float-end" href="/register">New User?</a>
                         </div>
-                        <footer class="py-4">
-                            <div class="text-center text-muted">MMSU CIT Gatepass © 2022</div>
-                        </footer>
+
                     </div>
                 </div>
             </div>
         </div>
+    </main>
+    <footer class=" py-3">
+        <div class="container-lg">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <p class="col-md-6 mb-0 fw-bold">© CIT SHMC 2022</p>
 
-    </div>
+                <ul class="nav col-md-6 justify-content-end">
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Team</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Privacy Policy</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact</a></li>
+
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (() => {
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-    </script>
+    <script src="js/validator.js"></script>
 </body>
 
 </html>

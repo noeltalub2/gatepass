@@ -34,40 +34,47 @@
 	--gray-900: #212529;
 }
 
-
-body { 
+body {
 	font-family: "Inter";
-	background: url('../img/bg2.svg') no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
 }
 
-.form-label {
+.form-container {
+	border: 1px solid #dee2e6;
+	border-radius: 0.375rem;
+	
+}
+
+.form-floating .form-label {
 	color: #333;
 }
-.custom-form {
-	border: 1px solid #333;
-	padding: 10px;
-}
 
-.custom-form:focus {
-	border-color: #28a745;
-	box-shadow: 0 0 0 0.1rem rgba(40, 167, 69, 0.25);
-}
+.form-control:focus {
+	border-color: var(--bs-gray);
+	box-shadow: none!important;
+} 
 
 #btn-login,
 #btn-reg {
-	padding: 10px;
+	padding: 0.725rem;
 }
 
 .was-validated .form-control:valid {
 	background-image: none;
-	
+	border-color: #ced4da;
 }
 
 .was-validated .form-control:invalid {
 	background-image: none;
-	
+
 }
+
+footer {
+	margin-top: 20vh;
+}
+
+@media (max-width: 576px) {
+	.form-container {
+		border: none;
+	}
+}
+

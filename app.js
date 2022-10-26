@@ -5,6 +5,8 @@ const { check, validationResult } = require("express-validator");
 const app = express();
 const PORT = 3000;
 
+const student = require("./routes/student")
+
 //Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,12 +30,10 @@ app.set("view engine", "ejs");
 // 	}
 // });
 //
-app.get("/", (req, res) => {
-	res.render("signin");
-});
-app.get("/student_dashboard", (req, res) => {
-	res.render("Student/student_dashboard");
-});
+
+
+app.use("/",student)
+
 app.get("/student_health", (req, res) => {
 	res.render("Student/student_health");
 });
@@ -71,7 +71,7 @@ app.get("/signup", async (req, res) => {
 	res.render("signup", { msg: "error" });
 });
 
-app.post("/register", async (req, res) => {
+app.post("/signup", async (req, res) => {
 	//Data from the form ./register
 	const {
 		student_number,
@@ -92,11 +92,11 @@ app.post("/register", async (req, res) => {
 	const salt = bcrypt.genSaltSync(15);
 	const hash = bcrypt.hashSync(password, salt);
 	var data = {
-		student_number: student_number,
 		firstname: firstname,
 		lastname: lastname,
 		email: email,
 		phonenumber: phonenumber,
+		student_number: student_number,
 		password: hash,
 	};
 

@@ -45,7 +45,7 @@ body {
 }
 
 .form-label {
-	font-size: 0.95rem;
+	font-size: 0.913rem;
 	margin-bottom: 0;
 }
 
@@ -60,7 +60,7 @@ body {
 
 #btn-login,
 #btn-reg {
-	padding: 0.725rem;
+	padding: 0.6rem;
 }
 
 .was-validated .form-control:valid {

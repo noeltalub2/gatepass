@@ -1,0 +1,198 @@
+<%-include ("../Include/student_head.ejs")%>
+    <%-include ("../Include/student_header.ejs")%>
+        <!-- Main -->
+        <main id="main">
+            <div class="container-lg">
+                <div class="page-header pt-4">
+                    <div class="row mb-md-1">
+                        <div class="col-12 col-lg-10 text-start">
+                            <h2 class="fw-bold">My Profile Account</h2>
+                            <p class="">
+                                Edit your profile information
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="page-content mt-1 mb-4">
+
+                    <div class="card border-0">
+                        <div class="card-body p-3 ">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <img src="img/profile.jpg" alt="" id="img-profile" height="80px"
+                                        width="80px">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-1">Noel Michael T. Talub</h5>
+                                    <p class="mb-0">19-070228</p>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <nav>
+                        <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile-tab"
+                                aria-selected="true">Profile</button>
+                            <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled"
+                                aria-selected="false">Course</button>
+                            <button class="nav-link" id="nav-health-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-health" type="button" role="tab" aria-controls="nav-health"
+                                aria-selected="false">Health</button>
+                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
+                                aria-selected="false">Contact</button>
+
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <!-- Profile Information Tab -->
+                        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel"
+                            aria-labelledby="nav-profile-tab" tabindex="0">
+                            <section id="personalInformation" class="p-2">
+                                <h3 class="py-2">Personal Information</h3>
+                                <div class="mt-1">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <th><strong>Student No.</strong></th>
+                                                <td>19-070228</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Full Name</strong></th>
+                                                <td>Noel Michael T. Talub</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Date of Birth</strong></th>
+                                                <td>March 26, 2001</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Age</strong></th>
+                                                <td>21</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Sex</strong></th>
+                                                <td>Male</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab"
+                            tabindex="0">
+                            <section id="personalInformation" class="p-2">
+                                <h3 class="py-2">Course</h3>
+                                <div class="mt-1">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <th><strong>Degree</strong></th>
+                                                <td>BSIT</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Major</strong></th>
+                                                <td>Computer Technology</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Year</strong></th>
+                                                <td>4</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Section</strong></th>
+                                                <td>B</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- Health Information Tab -->
+                        <div class="tab-pane fade" id="nav-health" role="tabpanel" aria-labelledby="nav-health-tab"
+                            tabindex="0">
+                            <section id="healthInformation" class="p-2">
+                                <h3 class="py-2">Health Information</h3>
+                                <div class="mt-1">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <th><strong>Person with Disability</strong></th>
+                                                <td>No</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Disabilities</strong></th>
+                                                <td>None</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Allergies</strong></th>
+                                                <td>None</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Have you been vaccinated?</strong></th>
+                                                <td>Fully</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Vaccine Name</strong></th>
+                                                <td>Sinovac</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Date of vaccination (First dose)</strong></th>
+                                                <td>Nov 5, 2021</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Date of vaccination (Second dose)</strong></th>
+                                                <td>Dec 5, 2021</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- Contac Informaion Tab -->
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"
+                            tabindex="0">
+                            <section id="personalInformation" class="p-2">
+                                <h3 class="py-2">Contact Information</h3>
+                                <div class="mt-1">
+                                    <table class="table table-borderless table-sm">
+                                        <tbody>
+                                            <tr>
+                                                <th><strong>Address</strong></th>
+                                                <td>Brgy. 16 Abadilla St., Laoag Ciy</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Contact Number</strong></th>
+                                                <td>09079504581</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Email Address</strong></th>
+                                                <td>noelmichaeltalub@yahoo.com</td>
+                                            </tr>
+                                            <tr>
+                                                <th><strong>Facebook</strong></th>
+                                                <td><a href="https://facebook.com/noelmichaelttalub/"
+                                                        target="_blank">noelmichaelttalub</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            </div>
+        </main>
+        <%-include ("../Include/student_end.ejs")%>

@@ -116,8 +116,8 @@ body {
 #img-profile {
 	object-fit: cover;
 	border-radius: 50%;
-	border: 2px solid var(--bs-white);
-	outline: 2px solid var(--bs-gray-dark);
+	
+	
 }
 
 #footer {
@@ -127,4 +127,12 @@ body {
 input[type="checkbox"],
 input[type="checkbox"] + label {
 	cursor: pointer;
+}
+
+
+@media (max-width: 576px) {
+	.nav-link {
+		font-size: 1.3rem;
+	}
+	
 }

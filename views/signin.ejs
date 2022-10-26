@@ -1,0 +1,47 @@
+<%-include ("./Include/main_head.ejs")%>
+    <%-include ("./Include/main_header.ejs")%>
+        <main id="main">
+            <div class="container-lg">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-5 col-md-6 p-0">
+                        <div class="form-container bg-white px-4 py-1 mt-5">
+
+                            <h4 class="mb-3 mt-5">Sign In</h4>
+                            <form class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" placeholder="Student Number"
+                                            name="studentNumber" required autofocus>
+                                        <label for="studentNumber">Student Number</label>
+                                        <div class="invalid-feedback">
+                                            Student ID is required
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="password" class="form-control" placeholder="Password"
+                                            name="password" required>
+                                        <label for="password">Password</label>
+                                        <div class="invalid-feedback">
+                                            Password is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <button type="submit" class="btn btn-success w-100" id="btn-login">
+                                        Login</button>
+                                </div>
+                            </form>
+
+                            <div class="mt-4 mb-5">
+
+                                <p class="text-dark text-center">Don't have an account? <a
+                                        class="text-decoration-none text-success" href="/signup">Sign Up</a></p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%-include ("./Include/main_end.ejs")%>

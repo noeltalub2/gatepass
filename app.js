@@ -12,24 +12,33 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 //Create database connection
-const conn = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "",
-	database: "gatepass",
-});
+// const conn = mysql.createConnection({
+// 	host: "localhost",
+// 	user: "root",
+// 	password: "",
+// 	database: "gatepass",
+// });
 
-//Check if the database is working
-conn.connect((err) => {
-	if (err) {
-		console.log(err);
-	} else {
-		console.log("Database connected");
-	}
-});
+// //Check if the database is working
+// conn.connect((err) => {
+// 	if (err) {
+// 		console.log(err);
+// 	} else {
+// 		console.log("Database connected");
+// 	}
+// });
 //
 app.get("/", (req, res) => {
-	res.render("login");
+	res.render("signin");
+});
+app.get("/student_dashboard", (req, res) => {
+	res.render("Student/student_dashboard");
+});
+app.get("/student_health", (req, res) => {
+	res.render("Student/student_health");
+});
+app.get("/student_profile", (req, res) => {
+	res.render("Student/student_profile");
 });
 
 // Database query promises
@@ -58,13 +67,20 @@ const queryParamPromise = (sql, queryParam) => {
 	});
 };
 
-app.get("/register", async (req, res) => {
-	res.render("register", { msg: "error" });
+app.get("/signup", async (req, res) => {
+	res.render("signup", { msg: "error" });
 });
 
 app.post("/register", async (req, res) => {
 	//Data from the form ./register
-	const { student_number, lastname, firstname, email,phonenumber, password } = req.body;
+	const {
+		student_number,
+		lastname,
+		firstname,
+		email,
+		phonenumber,
+		password,
+	} = req.body;
 
 	// Catch any error
 	let error = [];
@@ -80,7 +96,7 @@ app.post("/register", async (req, res) => {
 		firstname: firstname,
 		lastname: lastname,
 		email: email,
-		phonenumber:phonenumber,
+		phonenumber: phonenumber,
 		password: hash,
 	};
 

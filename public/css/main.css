@@ -44,6 +44,11 @@ body {
 	
 }
 
+.form-label {
+	font-size: 0.95rem;
+	margin-bottom: 0;
+}
+
 .form-floating .form-label {
 	color: #333;
 }
@@ -68,9 +73,6 @@ body {
 
 }
 
-footer {
-	margin-top: 20vh;
-}
 
 @media (max-width: 576px) {
 	.form-container {

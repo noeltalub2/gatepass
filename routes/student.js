@@ -19,4 +19,4 @@ router.get("/profile",studentController.postProfile)
 
 
 
-module.exports = {router}
+module.exports = router

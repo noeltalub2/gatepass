@@ -38,6 +38,7 @@ app.get("/login", (req, res) => {
 });
 
 
+app.use("/student",student)
 
 
 // Database query promises

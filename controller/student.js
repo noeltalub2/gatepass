@@ -1,9 +1,37 @@
-const getLogin = (req, res) => {};
-const postLogin = (req, res) => {};
+const db = require("mysql2");
+const bcrypt = require("bcrypt");
 
-const getRegister = (req, res) => {};
-const postRegister = (req, res) => {
-	//Data from the form ./register
+const getLogin = (req, res) => {
+	res.render("Student/login", { status_msg: "" });
+};
+
+const postLogin = (req, res) => {
+	try {
+		const { student_number, password } = req.body;
+		const findUser = "SELECT * from student WHERE student_number = ?";
+		db.query(findUser, [student_number], async (err, result) => {
+			if (
+				result === 0 ||
+				!(await bcrypt.compare(password, result[0].password))
+			) {
+				res.render("student/login", {
+					errors: "Student number or Passsword is Incorrect",
+				});
+			} else {
+				res.redirect("Student/dashboard");
+			}
+		});
+	} catch {
+		throw err;
+	}
+};
+
+const getRegister = (req, res) => {
+	res.render("register", { status_msg: "" });
+};
+
+const postRegister = async (req, res) => {
+	//Data from the form ../register
 	const {
 		student_number,
 		lastname,
@@ -13,16 +41,15 @@ const postRegister = (req, res) => {
 		password,
 	} = req.body;
 
-	// Catch any error
+	// Catch any error like duplicate
 	let error = [];
 
-	var sql =
+	var sid_dupli =
 		"Select count(*) as `count` from student_acc where student_number = ?";
 
 	//To encrypt the password using hash
 	const salt = bcrypt.genSaltSync(15);
 	const hash = bcrypt.hashSync(password, salt);
-
 
 	var data = {
 		firstname: firstname,

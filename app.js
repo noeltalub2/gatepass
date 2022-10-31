@@ -5,7 +5,7 @@ const { check, validationResult } = require("express-validator");
 const app = express();
 const PORT = 3000;
 
-const student = require("./routes/student")
+const student = require("./routes/student");
 
 //Middleware
 app.use(express.json());
@@ -14,32 +14,27 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 //Create database connection
-// const conn = mysql.createConnection({
-// 	host: "localhost",
-// 	user: "root",
-// 	password: "", 
-// 	database: "gatepass",
-// });
+const conn = mysql.createConnection({
+	host: "localhost",
+	user: "root",
+	password: "",
+	database: "gatepass",
+});
 
-// //Check if the database is working
-// conn.connect((err) => {
-// 	if (err) {
-// 		console.log(err);
-// 	} else {
-// 		console.log("Database connected");
-// 	}
-// });
-//
-
-
+//Check if the database is working
+conn.connect((err) => {
+	if (err) {
+		console.log(err);
+	} else {
+		console.log("Database connected");
+	}
+});
 
 app.get("/login", (req, res) => {
 	res.render("login");
 });
 
-
-app.use("/student",student)
-
+app.use("/student", student);
 
 // Database query promises
 
@@ -70,8 +65,6 @@ const queryParamPromise = (sql, queryParam) => {
 app.get("/signup", async (req, res) => {
 	res.render("signup", { msg: "error" });
 });
-
-
 
 app.listen(PORT, () => {
 	console.log("Server is running");

@@ -1,5 +1,5 @@
-<%-include ("./Include/main_head.ejs")%>
-    <%-include ("./Include/main_header.ejs")%>
+<%-include ("../Include/main_head.ejs")%>
+    <%-include ("../Include/main_header.ejs")%>
         <main id="main">
             <div class="container-lg">
                 <div class="row mt-2">
@@ -15,7 +15,7 @@
                             <p class="text-muted mb-3">Create your account to continue.
 
                             </p>
-                            <form class="row gy-2 gx-3 needs-validation" novalidate>
+                            <form method="post" class="row gy-2 gx-3 needs-validation" novalidate>
 
                                 <div class="col-md-6">
                                     <label for="firstname" class="form-label">First Name</label>
@@ -35,28 +35,29 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control custom-form" id="email" name="email"
-                                        required>
+                                    <label for="studentnumber" class="form-label">Student Number</label>
+                                    <input type="text" class="form-control custom-form" id="studentnumber"
+                                        name="studentnumber" minlength="9" required>
                                     <div class="invalid-feedback">
-                                        Please enter a valid email address
+                                        Please enter your student number
                                     </div>
+
                                 </div>
                                 <div class="col-md-6">
                                     <label for="phonenumber" class="form-label">Phone Number</label>
-                                    <input type="number" class="form-control custom-form" id="phonenumber"
-                                        name="phonenumber" minlength="11" required>
+                                    <input type="tel" class="form-control custom-form" id="phonenumber"
+                                        name="phonenumber" minlength="11" maxlength="11" required>
                                     <div class="invalid-feedback">
                                         Please enter your phone number
                                     </div>
                                 </div>
 
                                 <div class="col-12">
-                                    <label for="studentnumber" class="form-label">Student Number</label>
-                                    <input type="text" class="form-control custom-form" id="studentnumber"
-                                        name="studentnumber" minlength="9" required>
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control custom-form" id="email" name="email"
+                                        required>
                                     <div class="invalid-feedback">
-                                        Please enter your student number
+                                        Please enter a valid email address
                                     </div>
                                 </div>
 
@@ -75,7 +76,7 @@
                                 </div>
                                 <div class="col-12 mt-4 mb-3">
                                     <p class="text-dark text-center">Already have an account? <a
-                                            class="text-decoration-none text-success" href="/">Sign In</a></p>
+                                            class="text-decoration-none text-success" href="/student/login">Log In</a></p>
                                 </div>
                             </form>
                         </div>
@@ -83,5 +84,5 @@
                 </div>
             </div>
         </main>
-        <%-include ("./Include/main_footer.ejs")%>
-        <%-include ("./Include/main_end.ejs")%>
+        <%-include ("../Include/main_footer.ejs")%>
+            <%-include ("../Include/main_end.ejs")%>

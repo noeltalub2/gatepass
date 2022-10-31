@@ -17,7 +17,7 @@ app.set("view engine", "ejs");
 // const conn = mysql.createConnection({
 // 	host: "localhost",
 // 	user: "root",
-// 	password: "",
+// 	password: "", 
 // 	database: "gatepass",
 // });
 
@@ -32,14 +32,13 @@ app.set("view engine", "ejs");
 //
 
 
-app.use("/",student)
 
-app.get("/student_health", (req, res) => {
-	res.render("Student/student_health");
+app.get("/login", (req, res) => {
+	res.render("login");
 });
-app.get("/student_profile", (req, res) => {
-	res.render("Student/student_profile");
-});
+
+
+
 
 // Database query promises
 
@@ -71,45 +70,7 @@ app.get("/signup", async (req, res) => {
 	res.render("signup", { msg: "error" });
 });
 
-app.post("/signup", async (req, res) => {
-	//Data from the form ./register
-	const {
-		student_number,
-		lastname,
-		firstname,
-		email,
-		phonenumber,
-		password,
-	} = req.body;
 
-	// Catch any error
-	let error = [];
-
-	var sql =
-		"Select count(*) as `count` from student_acc where student_number = ?";
-
-	//To encrypt the password using hash
-	const salt = bcrypt.genSaltSync(15);
-	const hash = bcrypt.hashSync(password, salt);
-	var data = {
-		firstname: firstname,
-		lastname: lastname,
-		email: email,
-		phonenumber: phonenumber,
-		student_number: student_number,
-		password: hash,
-	};
-
-	var sql1 = "Insert into student_acc set ?";
-	var query = conn.query(sql1, data, (err, rset) => {
-		if (err) {
-			console.log(err);
-			res.render("register", { msg: "error" });
-		} else {
-			res.render("register", { msg: "success" });
-		}
-	});
-});
 
 app.listen(PORT, () => {
 	console.log("Server is running");

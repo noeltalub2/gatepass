@@ -8,6 +8,16 @@ const db = mysql.createConnection({
 	database: "gatepass",
 });
 
+const queryParam = async (sql, data) => {
+	const results = await db.promise().query(sql, [data]);
+	return results;
+};
+
+const zeroParam = async (sql) => {
+	const results = await db.promise().query(sql);
+	return results;
+};
+
 const getLogin = (req, res) => {
 	res.render("Student/login", { status_msg: "" });
 };
@@ -51,45 +61,44 @@ const getRegister = (req, res) => {
 
 const postRegister = async (req, res) => {
 	//Data from the form ../register
-	const {
-		studentnumber,
-		lastname,
-		firstname,
-		email,
-		phonenumber,
-		password,
-	} = req.body;
+	const { studentnumber, lastname, firstname, email, phonenumber, password } =
+		req.body;
+	//Sql statement if there is duplciate in database
+	var email_exist = "Select count(*) as `count` from student where email = ?";
+	var phone_exist =
+		"Select count(*) as `count` from student where phonenumber = ?";
 
-	// Catch any error like duplicate
-	let error = [];
+	//Query statement
+	const email_count = await queryParam(sid_dupli, [email]);
+	const phone_count = await queryParam(sid_dupli, [phonenumber]);
+	//Check if there is duplicate
+	if (email_count || phone_count) {
 
-	var sid_dupli =
-		"Select count(*) as `count` from student where student_number = ?";
-
-	//To encrypt the password using hash
-	const salt = bcrypt.genSaltSync(15);
-	const hash = bcrypt.hashSync(password, salt);
-
-
-	
-	var data = {
-		student_number: studentnumber,
-		firstname: firstname,
-		lastname: lastname,
-		email: email,
-		phonenumber: phonenumber,
-		password: hash,
-	};
-
-	var sql1 = "Insert into student set ?";
-	db.query(sql1, data, (err, rset) => {
-		if (err) {
-			console.log(err);
-			res.render("Student/register", { msg: "error" });
-		} else {
-			res.render("Student/register", { msg: "success" });
-		}
-	});
+		res.render("sudent/register", { msg: "Email or Phone Number are already exist"});
+	} else {
+		//To encrypt the password using hash
+		const salt = bcrypt.genSaltSync(15);
+		const hash = bcrypt.hashSync(password, salt);
+		//Data to insert in sql
+		var data = {
+			student_number: studentnumber,
+			firstname: firstname,
+			lastname: lastname,
+			email: email,
+			phonenumber: phonenumber,
+			password: hash,
+		};
+		//Add account to database
+		var sql1 = "Insert into student set ?";
+		db.query(sql1, data, (err, rset) => {
+			if (err) {
+				console.log(err);
+				res.render("Student/register", { msg: "Error creating your account" });
+			} else {
+				res.render("student/login",{msg: "Account created successfully"});
+			}
+		});
+	}
 };
 
 const getDashboard = (req, res) => {};

@@ -9,13 +9,23 @@ const db = mysql.createConnection({
 });
 
 const queryParam = async (sql, data) => {
-	const results = await db.promise().query(sql, [data]);
-	return results;
+	try {
+		const result = await db.promise().query(sql,[data]);
+		return result[0]
+	} catch (err) {
+		console.log("Error => " + err)
+		return err
+	} 
 };
 
 const zeroParam = async (sql) => {
-	const results = await db.promise().query(sql);
-	return results;
+	try {
+		const result = await db.promise().query(sql,[data]);
+		return result[0]
+	} catch (err) {
+		console.log("Error => " + err)
+		return err
+	} 
 };
 
 const getLogin = (req, res) => {
@@ -69,12 +79,15 @@ const postRegister = async (req, res) => {
 		"Select count(*) as `count` from student where phonenumber = ?";
 
 	//Query statement
-	const email_count = await queryParam(sid_dupli, [email]);
-	const phone_count = await queryParam(sid_dupli, [phonenumber]);
+	const email_count = await queryParam(email_exist, [email]);
+	const phone_count = await queryParam(phone_exist, [phonenumber]);
+	console.log(email_count)
+	console.log(phone_count)
 	//Check if there is duplicate
 	if (email_count || phone_count) {
-
-		res.render("sudent/register", { msg: "Email or Phone Number are already exist"});
+		res.render("student/register", {
+			msg: "Email or Phone Number are already exist",
+		});
 	} else {
 		//To encrypt the password using hash
 		const salt = bcrypt.genSaltSync(15);
@@ -93,9 +106,13 @@ const postRegister = async (req, res) => {
 		db.query(sql1, data, (err, rset) => {
 			if (err) {
 				console.log(err);
-				res.render("Student/register", { msg: "Error creating your account" });
+				res.render("Student/register", {
+					msg: "Error creating your account",
+				});
 			} else {
-				res.render("student/login",{msg: "Account created successfully"});
+				res.render("student/login", {
+					msg: "Account created successfully",
+				});
 			}
 		});
 	}

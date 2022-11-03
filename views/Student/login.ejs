@@ -7,11 +7,12 @@
                         <div class="form-container bg-white px-4 py-1 mt-2">
                             <h3 class="mb-0 mt-lg-4 mt-md-4 mt-sm-4">Welcome back!</h3>
                             <span class="text-muted">Login to access the app</span>
-                            <form class="needs-validation" novalidate>
+                            <%=msg%>
+                            <form method="post" class="needs-validation" novalidate>
                                 <div class="form-group">
                                     <div class="form-floating mt-3 mb-3">
                                         <input type="text" class="form-control" placeholder="Student Number"
-                                            name="studentNumber" required autofocus>
+                                            name="studentnumber" required autofocus>
                                         <label for="studentNumber">Student Number</label>
                                         <div class="invalid-feedback">
                                             Student ID is required

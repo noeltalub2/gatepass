@@ -9,26 +9,48 @@
 
                     </div>
                     <div class=" col-lg-6 col-md-7">
-                        <div class="form-container bg-white px-2 px-md-4 py-1">
+                        <div class="bg-white px-2 px-md-4 py-1">
 
                             <h2 class="fw-bold mb-0 mt-3">Create an Account</h2>
                             <p class="text-muted mb-3">Create your account to continue.
 
                             </p>
+
+                            <%if (msg === "success" ) {%>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    Account created successfully!
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                                <%}%>
+                            <%if (msg === "error" ) {%>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    Error creating your account
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            <%}%>
+                            <%if (msg === "warning" ) {%>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    Phone number is already
+                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                                <%}%>
                             <form method="post" class="row gy-2 gx-3 needs-validation" novalidate>
 
                                 <div class="col-md-6">
                                     <label for="firstname" class="form-label">First Name</label>
-                                    <input type="text" class="form-control custom-form" id="firstname" name="firstname"
-                                        minlength="2" autofocus required>
+                                    <input type="text" class="form-control custom-form" id="firstname"
+                                        name="firstname" minlength="2" autofocus required>
                                     <div class="invalid-feedback">
                                         Please enter your firstname
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="lastname" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control custom-form" id="lastname" name="lastname"
-                                        minlength="2" required>
+                                    <input type="text" class="form-control custom-form" id="lastname"
+                                        name="lastname" minlength="2" required>
                                     <div class="invalid-feedback">
                                         Please enter your lastname
                                     </div>
@@ -36,8 +58,8 @@
 
                                 <div class="col-md-6">
                                     <label for="studentnumber" class="form-label">Student Number</label>
-                                    <input type="text" class="form-control custom-form" id="studentnumber"
-                                        name="studentnumber" minlength="9" required>
+                                    <input type="text" class="form-control custom-form"
+                                        id="studentnumber" name="studentnumber" minlength="9" required>
                                     <div class="invalid-feedback">
                                         Please enter your student number
                                     </div>
@@ -54,8 +76,8 @@
 
                                 <div class="col-12">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control custom-form" id="email" name="email"
-                                        required>
+                                    <input type="email" class="form-control custom-form" id="email"
+                                        name="email" required>
                                     <div class="invalid-feedback">
                                         Please enter a valid email address
                                     </div>
@@ -63,20 +85,26 @@
 
                                 <div class="col-12">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control custom-form" id="password"
-                                        name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                    <input type="password" class="form-control custom-form"
+                                        id="password" name="password"
+                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                                     <div class="invalid-feedback">
-                                        Must contain at least one number and one uppercase and lowercase letter, and at
+                                        Must contain at least one number and one uppercase and lowercase
+                                        letter,
+                                        and at
                                         least 8 or more characters
                                     </div>
                                 </div>
                                 <div class="col-12 mt-3 ">
-                                    <button type="submit" class="btn btn-success w-100" id="btn-reg">Create
+                                    <button type="submit" class="btn btn-success w-100"
+                                        id="btn-reg">Create
                                         Account</button>
                                 </div>
                                 <div class="col-12 mt-4 mb-3">
                                     <p class="text-dark text-center">Already have an account? <a
-                                            class="text-decoration-none text-success" href="/student/login">Log In</a></p>
+                                            class="text-decoration-none text-success"
+                                            href="/student/login">Log
+                                            In</a></p>
                                 </div>
                             </form>
                         </div>

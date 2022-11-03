@@ -14,7 +14,7 @@ const queryParam = async (sql, data) => {
 		return result[0]
 	} catch (err) {
 		console.log("Error => " + err)
-		return err
+		throw err
 	} 
 };
 
@@ -24,37 +24,39 @@ const zeroParam = async (sql) => {
 		return result[0]
 	} catch (err) {
 		console.log("Error => " + err)
-		return err
+		throw err
 	} 
 };
 
 const getLogin = (req, res) => {
-	res.render("Student/login", { status_msg: "" });
+	res.render("Student/login", { msg: "" });
 };
 
 const postLogin = (req, res) => {
 	try {
-		const { student_number, password } = req.body;
+		const { studentnumber, password } = req.body;
 		const findUser = "SELECT * from student WHERE student_number = ?";
-		db.query(findUser, [student_number], async (err, result) => {
+		db.query(findUser,[studentnumber], async (err, result) => {
+			console.log(result)
 			if (err) {
-				res.render("student/login", { msg: "Authentication Failed" });
+				res.render("Student/login", { msg: "Authentication Failed" });
 			} else {
 				if (result.length > 0) {
-					const match_password = bcrypt.compare(
+					const match_password = await bcrypt.compare(
 						password,
 						result[0].password
 					);
-
+					console.log(match_password)
 					if (match_password) {
-						res.redirect("student/dashboard");
+						res.redirect("/student/dashboard");
 					} else {
-						res.render("student/login", {
+						res.render("Student/login", {
 							msg: "Student ID and Password does not match",
 						});
 					}
 				} else {
-					res.render("student/login", {
+				
+					res.render("Student/login", {
 						msg: "Could'nt find your account",
 					});
 				}
@@ -66,27 +68,25 @@ const postLogin = (req, res) => {
 };
 
 const getRegister = (req, res) => {
-	res.render("Student/register", { status_msg: "" });
+	res.render("Student/register", { msg: "" });
 };
 
 const postRegister = async (req, res) => {
 	//Data from the form ../register
 	const { studentnumber, lastname, firstname, email, phonenumber, password } =
 		req.body;
+
 	//Sql statement if there is duplciate in database
-	var email_exist = "Select count(*) as `count` from student where email = ?";
-	var phone_exist =
-		"Select count(*) as `count` from student where phonenumber = ?";
+	var phone_exist = "Select count(*) as `count` from student where phonenumber = ?";
 
 	//Query statement
-	const email_count = await queryParam(email_exist, [email]);
-	const phone_count = await queryParam(phone_exist, [phonenumber]);
-	console.log(email_count)
+	const phone_count = await queryParam(phone_exist, [phonenumber])[0];
 	console.log(phone_count)
+
 	//Check if there is duplicate
-	if (email_count || phone_count) {
-		res.render("student/register", {
-			msg: "Email or Phone Number are already exist",
+	if (phone_count) {
+		res.render("Student/register", {
+			msg: "warning",
 		});
 	} else {
 		//To encrypt the password using hash
@@ -107,18 +107,20 @@ const postRegister = async (req, res) => {
 			if (err) {
 				console.log(err);
 				res.render("Student/register", {
-					msg: "Error creating your account",
+					msg: "error",
 				});
 			} else {
-				res.render("student/login", {
-					msg: "Account created successfully",
+				res.render("Student/register", {
+					msg: "success",
 				});
 			}
 		});
 	}
 };
 
-const getDashboard = (req, res) => {};
+const getDashboard = (req, res) => {
+	res.render("Student/dashboard")
+};
 
 const getHealth = (req, res) => {
 	res.render("/health");

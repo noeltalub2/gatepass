@@ -12,31 +12,8 @@
                         <div class="bg-white px-2 px-md-4 py-1">
 
                             <h2 class="fw-bold mb-0 mt-3">Create an Account</h2>
-                            <p class="text-muted mb-3">Create your account to continue.
-
-                            </p>
-
-                            <%if (msg === "success" ) {%>
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    Account created successfully!
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                                <%}%>
-                            <%if (msg === "error" ) {%>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    Error creating your account
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            <%}%>
-                            <%if (msg === "warning" ) {%>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    Phone number is already
-                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                                <%}%>
+                            <p class="text-muted mb-3">Create your account to continue.</p>
+                            <%-include ("../Include/message.ejs")%>
                             <form method="post" class="row gy-2 gx-3 needs-validation" novalidate>
 
                                 <div class="col-md-6">

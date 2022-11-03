@@ -1,0 +1,17 @@
+<%if (status === "success") {%>
+    <div class="alert alert-success custom-alert" role="alert">
+        <%=msg%>
+    </div>
+<%}%>
+
+<%if (status === "error") {%>
+    <div class="alert alert-danger custom-alert" role="alert">
+        <%=msg%>
+    </div>
+<%}%>
+
+<%if (status === "error_warning") {%>
+    <div class="alert alert-warning custom-alert" role="alert">
+        <%=msg%>
+    </div>
+<%}%>

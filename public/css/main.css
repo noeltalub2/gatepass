@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
 
-
 body {
 	font-family: "Inter";
 }
@@ -8,7 +7,6 @@ body {
 .form-container {
 	border: 1px solid #dee2e6;
 	border-radius: 0.375rem;
-	
 }
 
 .form-label {
@@ -22,8 +20,8 @@ body {
 
 .form-control:focus {
 	border-color: #6c757d;
-	box-shadow: none!important;
-} 
+	box-shadow: none !important;
+}
 
 #btn-login,
 #btn-reg {
@@ -39,10 +37,28 @@ body {
 	font-size: 0.785rem;
 }
 
+.alert {
+	border: none;
+	border-radius: 0;
+	font-size: 0.95rem;
+}
+.alert-danger {
+	background-color: #fdf0f3;
+	color: #ce1331;
+}
+
+.alert-success {
+	background-color: #d4ffbb;
+	color: #247851;
+}
+
+.alert-warning {
+	background-color: #fdf2d0;
+	color: #9f7c17;
+}
 
 @media (max-width: 576px) {
 	.form-container {
 		border: none;
 	}
 }
-

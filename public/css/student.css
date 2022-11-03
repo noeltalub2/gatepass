@@ -113,11 +113,10 @@ body {
     border-color: #3b71ca;
 }
 
+
 #img-profile {
 	object-fit: cover;
 	border-radius: 50%;
-	
-	
 }
 
 #footer {

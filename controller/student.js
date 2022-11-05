@@ -12,21 +12,17 @@ const db = mysql.createConnection({
 
 const queryParam = async (sql, data) => {
 	try {
-		const result = await db.promise().query(sql, [data]);
-		return result[0];
+		return (await db.promise().query(sql, [data]))[0];
 	} catch (err) {
-		console.log("Error => " + err);
-		throw err;
+		throw (console.log("Error => " + err), err);
 	}
 };
 
 const zeroParam = async (sql) => {
 	try {
-		const result = await db.promise().query(sql, [data]);
-		return result[0];
+		return (await db.promise().query(sql))[0];
 	} catch (err) {
-		console.log("Error => " + err);
-		throw err;
+		throw (console.log("Error => " + err), err);
 	}
 };
 
@@ -51,12 +47,10 @@ const postLogin = (req, res) => {
 						result[0].password
 					);
 					if (match_password) {
-						const accessToken = createTokens(result);
-						console.log(accessToken)
-						res.cookie("token", accessToken, {
-							maxAge: 1000 * 60 * 60 * 24,
-							httpOnly: true,
-						});
+						const generateToken = createTokens(
+							result[0].studentnumber
+						);
+						res.cookie("token", generateToken, { httpOnly: true });
 						res.redirect("/student/dashboard");
 					} else {
 						res.render("Student/login", {

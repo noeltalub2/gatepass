@@ -1,22 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const studentController = require("../controller/student")
+const studentController = require("../controller/student");
+const { forwardAuth, requireAuth } = require("../middleware/auth");
 
-router.get("/login",studentController.getLogin)
-router.post("/login",studentController.postLogin)
+router.get("/login", forwardAuth, studentController.getLogin);
+router.post("/login", forwardAuth, studentController.postLogin);
 
-router.get("/register",studentController.getRegister)
-router.post("/register",studentController.postRegister)
+router.get("/register", requireAuth, studentController.getRegister);
+router.post("/register", requireAuth, studentController.postRegister);
 
-router.get("/dashboard",studentController.getDashboard)
+router.get("/dashboard", requireAuth, studentController.getDashboard);
 
-router.get("/health",studentController.getHealth)
-router.post("/health",studentController.postHealth)
+router.get("/health", requireAuth, studentController.getHealth);
+router.post("/health", requireAuth, studentController.postHealth);
 
-router.get("/profile:student_id",studentController.getProfile)
-router.get("/profile",studentController.postProfile)
+router.get("/profile:student_id", requireAuth, studentController.getProfile);
+router.get("/profile", requireAuth, studentController.postProfile);
 
-
-
-module.exports = router
+module.exports = router;

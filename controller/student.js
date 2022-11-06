@@ -14,7 +14,7 @@ const queryParam = async (sql, data) => {
 	try {
 		return (await db.promise().query(sql, [data]))[0];
 	} catch (err) {
-		throw (console.log("Error => " + err), err);
+		throw (err);
 	}
 };
 
@@ -22,7 +22,7 @@ const zeroParam = async (sql) => {
 	try {
 		return (await db.promise().query(sql))[0];
 	} catch (err) {
-		throw (console.log("Error => " + err), err);
+		throw (err);
 	}
 };
 
@@ -76,6 +76,7 @@ const getRegister = (req, res) => {
 };
 
 const postRegister = async (req, res) => {
+	
 	//Data from the form ../register
 	const { studentnumber, lastname, firstname, email, phonenumber, password } =
 		req.body;
@@ -90,7 +91,7 @@ const postRegister = async (req, res) => {
 
 	//Check if there is duplicate
 	if (phone_count) {
-		return res.render("Student/register", {
+		res.render("Student/register", {
 			status: "error_warning",
 			msg: "Phone number already registered",
 		});

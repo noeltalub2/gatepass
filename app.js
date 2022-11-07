@@ -10,6 +10,8 @@ const dotenv = require("dotenv");
 dotenv.config()
 
 
+
+
 const app = express();
 
 //Middleware
@@ -37,9 +39,6 @@ conn.connect((err) => {
 	}
 });
 
-app.get("/login", (req, res) => {
-	res.render("login");
-});
 
 app.use("/student", student);
 

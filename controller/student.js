@@ -14,7 +14,7 @@ const queryParam = async (sql, data) => {
 	try {
 		return (await db.promise().query(sql, [data]))[0];
 	} catch (err) {
-		throw (err);
+		throw err;
 	}
 };
 
@@ -22,7 +22,7 @@ const zeroParam = async (sql) => {
 	try {
 		return (await db.promise().query(sql))[0];
 	} catch (err) {
-		throw (err);
+		throw err;
 	}
 };
 
@@ -76,7 +76,6 @@ const getRegister = (req, res) => {
 };
 
 const postRegister = async (req, res) => {
-	
 	//Data from the form ../register
 	const { studentnumber, lastname, firstname, email, phonenumber, password } =
 		req.body;
@@ -126,7 +125,9 @@ const postRegister = async (req, res) => {
 	});
 };
 
-const getDashboard = (req, res) => {
+const getDashboard = async (req, res) => {
+	const user = (await queryParam("SELECT * from student WHERE studentnumber = ?",[res.locals.sid]))[0]
+	console.log(user)
 	res.render("Student/dashboard");
 };
 
@@ -146,6 +147,11 @@ const postProfile = (req, res) => {
 	res.render("/profile:s_id");
 };
 
+const getLogout = (req, res) => {
+	res.clearCookie("token")
+	res.redirect("/student/login");
+};
+
 module.exports = {
 	getLogin,
 	postLogin,
@@ -156,4 +162,5 @@ module.exports = {
 	postHealth,
 	getProfile,
 	postProfile,
+	getLogout,
 };

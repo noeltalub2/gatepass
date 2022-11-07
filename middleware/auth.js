@@ -19,10 +19,8 @@ const requireAuth = async (req, res, next) => {
 	if (token) {
 		verify(token, process.env.JWT_SECRET_KEY, async (err, rset) => {
 			if (err) res.redirect("/student/login");
-			else {
-				0 === (await queryId(rset.studentnumber)).length
-					? res.redirect("/student/login")
-					: ((req.user = rset.studentnumber), next());
+			else {0 === (await queryId(rset.studentnumber)).length ?
+				res.redirect("/student/login") : ((res.locals.sid = rset.studentnumber), next());
 			}
 		});
 	} else res.redirect("/student/login");
@@ -33,11 +31,8 @@ const forwardAuth = async (req, res, next) => {
 	if (token) {
 		verify(token, process.env.JWT_SECRET_KEY, async (err, rset) => {
 			if (err) next();
-			else {
-				0 === (await queryId(rset.studentnumber)).length
-					? next()
-					: ((req.user = rset.studentnumber),
-					  res.redirect("/student/dashboard"));
+			else { 0 === (await queryId(rset.studentnumber)).length ? 
+				next() : ((res.locals.sid = rset.studentnumber), res.redirect("/student/dashboard"));
 			}
 		});
 	} else next();

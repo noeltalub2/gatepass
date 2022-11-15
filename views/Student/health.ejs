@@ -15,160 +15,48 @@
                     <div class="alert alert-success" role="alert">
                         Date Submitted: October 2, 2022 (Sunday)
                     </div>
-                    <form>
-                        <h5 class="mt-3 fw-bold">Medical Condition</h5>
-                        <section id="medical-history" class="mb-4 shadow-sm p-4 bg-body rounded border">
+                    <form method="post" onsubmit="return handleData()">
 
-                            <div class="form-group">
-                                <h6>Do you have or had any of the following comorbidities or health condition? If yes,
-                                    please
-                                    choose them below <span class="req-form">*</span>
-                                </h6>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="None"
-                                                id="no-healthcondition" name="health-condition"
-                                                onClick="noHealthCondition(this)">
-                                            <label class="form-check-label" for="no-healthcondition">
-                                                None
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Cancer" id="cancer"
-                                                name="health-condition" onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="cancer">
-                                                Cancer (ex. Lung Cancer)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                value="Cardio Vascular Disease" id="cardio-vascular"
-                                                name="health-condition" onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="cardio-vascular">
-                                                Cardio Vascular Disease (ex. Hypertension)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                value="Cerebrovascular Accident" id="cerebrovascular-accident"
-                                                name="health-condition" onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="cerebrovascular-accident">
-                                                Cerebrovascular Accident (ex. Stroke)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Chronic Lung Disease"
-                                                id="chronic-lung-disease" name="health-condition"
-                                                onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="chronic-lung-disease">
-                                                Chronic Lung Disease (ex. Asthma)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Diabetes"
-                                                id="diabetes" name="health-condition"
-                                                onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="diabetes">
-                                                Diabetes
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                value="Depression and Anxiety" id="depressionAnxiety"
-                                                name="health-condition" onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="depressionAnxiety">
-                                                Depression and Anxiety (ex. Social Anxiety)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Obesity" id="obesity"
-                                                name="health-condition" onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="obesity">
-                                                Obesity
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Liver Disease"
-                                                id="liver-disease" name="health-condition"
-                                                onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="liver-disease">
-                                                Liver Disease (ex. Hepatitis)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Kidney Disease"
-                                                id="kidney-disease" name="health-condition"
-                                                onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="kidney-disease">
-                                                Kidney Disease (ex. Acute Renal Failure)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                value="Immunodeficient Disease" id="immunodeficient-disease"
-                                                name="health-condition" onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="immunodeficient-disease">
-                                                Immunodeficient Disease (ex. HIV)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                value="Surgery due to medical condition with the past six (6) months"
-                                                id="surgery" name="health-condition"
-                                                onClick="haveHealthCondition(this)">
-                                            <label class="form-check-label" for="surgery">
-                                                Surgery due to medical condition with the past six (6) months (ex.
-                                                Removal of tumor)
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </section>
                         <h5 class="mt-3 fw-bold">Symptoms</h5>
                         <section id="symptoms" class="mb-4 shadow-sm p-4 bg-body rounded border">
                             <div class="form-group">
                                 <h6>Do you have the following symptoms in the past twenty four (24) hours? Multiple
                                     answers may be chosen <span class="req-form">*</span>
                                 </h6>
+
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="None" id="nosymptom"
-                                                name="symptoms" onClick="noSymptoms(this)">
+                                                name="symptoms[]" onClick="noSymptoms(this)">
                                             <label class="form-check-label" for="nosymptom">
                                                 None
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Fever" id="fever"
-                                                name="symptoms" onClick="haveSymptoms(this)">
+                                                name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="fever">
                                                 Fever
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Cold" id="cold"
-                                                name="symptoms" onClick="haveSymptoms(this)">
+                                                name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="cold">
                                                 Cold
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Cough" id="cough"
-                                                name="symptoms" onClick="haveSymptoms(this)">
+                                                name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="cough">
                                                 Cough
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="No Smell"
-                                                id="nosmell" name="symptoms" onClick="haveSymptoms(this)">
+                                                id="nosmell" name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="nosmell">
                                                 Lost of taste or smell
                                             </label>
@@ -177,40 +65,43 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Diarrhea"
-                                                id="diarrhea" name="symptoms" onClick="haveSymptoms(this)">
+                                                id="diarrhea" name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="diarrhea">
                                                 Diarrhea
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Sore Throat"
-                                                id="sorethroat" name="symptoms" onClick="haveSymptoms(this)">
+                                                id="sorethroat" name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="sorethroat">
                                                 Sore throat
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Difficulty Breathing"
-                                                id="diffbreath" name="symptoms" onClick="haveSymptoms(this)">
+                                                id="diffbreath" name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="diffbreath">
                                                 Difficulty of Breathing
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Muscle Pain"
-                                                id="bodyache" name="symptoms" onClick="haveSymptoms(this)">
+                                                id="bodyache" name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="bodyache">
                                                 Body Ache
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Nausea" id="nausea"
-                                                name="symptoms" onClick="haveSymptoms(this)">
+                                                name="symptoms[]" onClick="haveSymptoms(this)">
                                             <label class="form-check-label" for="nausea">
                                                 Nausea
                                             </label>
                                         </div>
                                     </div>
+                                </div>
+                                <div style="visibility:hidden; color:red; " id="chk_option_error">
+                                    Please select at least one option.
                                 </div>
                             </div>
                         </section>
@@ -218,78 +109,116 @@
                         <section id="exposure" class="mb-4 shadow-sm p-4 bg-body rounded border">
 
                             <div class="form-group">
-                                <h6>Have you been in contact with anyone who is suspected to have or/has been diagnosed
-                                    with
-                                    Covid-19 within the last 14 days? <span class="req-form">*</span>
-                                </h6>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="covidContact"
-                                        id="covidContactYes" value="YES">
-                                    <label class="form-check-label" for="covidContactYes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="covidContact" id="covidContactNo"
-                                        value="NO">
-                                    <label class="form-check-label" for="covidContactNo">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <h6>Have you travelled to any area aside from your home location? <span
+                                <h6>HISTORY OF TRAVEL/VISIT FROM ANY PLACE OUTSIDE ILOCOS NORTE? <span
                                         class="req-form">*</span>
                                 </h6>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="covidTravel" id="covidTravelYes"
-                                        value="YES">
-                                    <label class="form-check-label" for="covidTravelYes">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="historyTravel"
+                                        id="historyTravelYes" value="YES" required>
+                                    <label class="form-check-label" for="historyTravelYes">
                                         Yes
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="covidTravel" id="covidTravelNo"
-                                        value="NO">
-                                    <label class="form-check-label" for="covidTravelNo">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="historyTravel"
+                                        id="historyTravelNo" value="NO" required>
+                                    <label class="form-check-label" for="historyTravelNo">
                                         No
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group mt-3">
-                                <h6>Have you been diagnosed with COVID 19? <span class="req-form">*</span>
+                                <h6>VISITORS/RELATIVES THAT COME FROM OTHER PLACE? <span class="req-form">*</span>
                                 </h6>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="covidDiagnosed"
-                                        id="covidDiagnosedYes" value="YES">
-                                    <label class="form-check-label" for="covidDiagnosedYes">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pplFromOtherPlace"
+                                        id="pplFromOtherPlaceYes" value="YES" required>
+                                    <label class="form-check-label" for="pplFromOtherPlaceYes">
                                         Yes
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="covidDiagnosed"
-                                        id="covidDiagnosedNo" value="NO">
-                                    <label class="form-check-label" for="covidDiagnosedNo">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pplFromOtherPlace"
+                                        id="pplFromOtherPlaceNo" value="NO" required>
+                                    <label class="form-check-label" for="pplFromOtherPlaceNo">
                                         No
                                     </label>
                                 </div>
                             </div>
-
+                            <div class="form-group mt-3">
+                                <h6>EXPOSURE TO ANYONE WITH SYMPTOMS OF FEVER, COUGH, COLDS
+                                    OR DIARRHEA IN YOUR HOME, WORK, SCHOOL, OR ANY GATHERINGS
+                                    (BITHDAY, WAKES, FIESTA, ETC.)? <span class="req-form">*</span>
+                                </h6>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="exposureAnyone"
+                                        id="exposureAnyoneYes" value="YES" required>
+                                    <label class="form-check-label" for="exposureAnyoneYes">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="exposureAnyone"
+                                        id="exposureAnyoneNo" value="NO" required>
+                                    <label class="form-check-label" for="exposureAnyoneNo">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <h6>TAKING CARE OF RELATIVE/PATIENT AT HOME WITH SYMPTOMS OF
+                                    FEVER, COUGH, COLDS OR DIARRHEA? <span class="req-form">*</span>
+                                </h6>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="takeCarePeople"
+                                        id="takeCarePeopleYes" value="YES" required>
+                                    <label class="form-check-label" for="takeCarePeopleYes">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="takeCarePeople"
+                                        id="takeCarePeopleNo" value="NO" required>
+                                    <label class="form-check-label" for="takeCarePeopleNo">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <h6>VISITED/MONITORED BY BARANGAY HEALTH WORKERS/OFFICIALS? <span
+                                        class="req-form">*</span>
+                                </h6>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="monitorByBrgy"
+                                        id="monitorByBrgyYes" value="YES" required>
+                                    <label class="form-check-label" for="monitorByBrgyYes">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="monitorByBrgy"
+                                        id="monitorByBrgyNo" value="NO" required>
+                                    <label class="form-check-label" for="monitorByBrgyNo">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
                         </section>
                         <div class="agree px-1">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="agreeBtn" name="agreeBtn"
-                                    onClick="">
-                                <label class="form-check-label" for="agreeBtn">
-                                    I declare that all my responses are true and accurate to the best of my knowledge. I
-                                    understand that any false information will be subject to legal actions.
-                                </label>
-                            </div>
-                            <button class="btn btn-primary w-lg-100 w-md-50 mt-2 mb-3">Submit</button>
+
+                            <p>
+                                I hereby certify that all information is true and complete. I do understand that
+                                any false/wrong information can be used by the court against me under Article 161
+                                of the Revised Penal Code of the Philippines, RA 11332 “Law on Reporting
+                                Communicable Diseases”.
+                            </p>
+
+                            <button type="submit" class="btn btn-primary w-lg-100 w-md-50 mt-2 mb-3">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
 
         </main>
+
         <%-include ("../Include/student_end.ejs")%>

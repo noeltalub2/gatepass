@@ -15,7 +15,7 @@ router.get("/dashboard", requireAuth, studentController.getDashboard);
 router.get("/health", requireAuth, studentController.getHealth);
 router.post("/health", requireAuth, studentController.postHealth);
 
-router.get("/profile:student_id", requireAuth, studentController.getProfile);
+router.get("/profile", requireAuth, studentController.getProfile);
 router.get("/profile", requireAuth, studentController.postProfile);
 
 router.get("/logout",requireAuth,studentController.getLogout)

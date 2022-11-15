@@ -1,5 +1,21 @@
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/validator.js"></script>
+<script src="/js/checkboxChange.js"></script>
+<script>
+    function handleData() {
+        var form_data = new FormData(document.querySelector("form"));
+        if (!form_data.has("symptoms[]")) {
+            document.getElementById("chk_option_error").style.visibility = "visible";
+            document.getElementById('symptoms').scrollIntoView({block: "end", behavior: "smooth"});
+     
+            return false
+        } else {
+            document.getElementById("chk_option_error").style.visibility = "hidden";
+
+        }
+        return true
+    }
+</script>
 </body>
 
 </html>

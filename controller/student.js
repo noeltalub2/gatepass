@@ -127,24 +127,23 @@ const postRegister = async (req, res) => {
 
 const getDashboard = async (req, res) => {
 	const user = (await queryParam("SELECT * from student WHERE studentnumber = ?",[res.locals.sid]))[0]
-	console.log(user)
-	res.render("Student/dashboard");
+	res.render("Student/dashboard",{user});
 };
 
 const getHealth = (req, res) => {
-	res.render("/health");
+	res.render("Student/health");
 };
 
 const postHealth = (req, res) => {
-	res.render("/health");
+	res.render("Student/health");
 };
 
 const getProfile = (req, res) => {
-	res.render("/profile");
+	res.render("Student/profile");
 };
 
 const postProfile = (req, res) => {
-	res.render("/profile:s_id");
+	res.render("Student/profile");
 };
 
 const getLogout = (req, res) => {

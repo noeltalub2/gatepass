@@ -9,6 +9,16 @@ const db = mysql.createConnection({
 	password: "",
 	database: "gatepass",
 });
+const today = () => {
+	let today = new Date();
+	today.setDate(today.getDate());
+	return today.toISOString().split("T")[0];
+};
+const tomorrow = () => {
+	let today = new Date();
+	today.setDate(today.getDate() + 1);
+	return today.toISOString().split("T")[0];
+};
 
 const queryParam = async (sql, data) => {
 	try {
@@ -126,16 +136,98 @@ const postRegister = async (req, res) => {
 };
 
 const getDashboard = async (req, res) => {
-	const user = (await queryParam("SELECT * from student WHERE studentnumber = ?",[res.locals.sid]))[0]
-	res.render("Student/dashboard",{user});
+	var sid = res.locals.sid;
+	var date = today();
+	const user = (
+		await queryParam("SELECT * from student WHERE studentnumber = ?", [
+			res.locals.sid,
+		])
+	)[0];
+	var gatepass =
+		"SELECT *, count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date = ?";
+
+	db.query(gatepass, [sid.toString(), today()], async (err, data) => {
+		if (err) throw err;
+		console.log(data)
+		if (data[0].count !== 0) {
+			res.render("Student/dashboard", { user, gatepass: data, date });
+			
+		} else {
+			res.render("Student/dashboard", { user, gatepass: "Unavailable", date });
+		}
+		
+	});
 };
 
 const getHealth = (req, res) => {
-	res.render("Student/health");
+	var sid = res.locals.sid;
+	var sql1 =
+		"SELECT gatepass_id,submit_date,count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date = ?";
+
+	db.query(sql1, [sid.toString(), today()], (err, data) => {
+		if (err) throw err;
+		if (data[0].count !== 0) {
+			console.log(data);
+			res.render("Student/health", { submitted: true, data });
+		} else {
+			res.render("Student/health", { submitted: false });
+		}
+	});
 };
 
-const postHealth = (req, res) => {
-	res.render("Student/health");
+const postHealth = async (req, res) => {
+	const {
+		// Symptoms
+		fever,
+		cough,
+		cold,
+		no_sense_smell,
+		diarrhea,
+		sore_throat,
+		difficult_breath,
+		muscle_joint_pain,
+		// Exposure
+		travel_history,
+		visit_other_place,
+		exposure_anyone,
+		takecare_people,
+		monitor_by_personnel,
+	} = req.body;
+
+	//Sql statement if there is duplciate in database
+	var hdf = {
+		studentnumber: res.locals.sid,
+		submit_date: today(),
+		effective_date: tomorrow(),
+		status: 1,
+		fever: fever,
+		cough: cough,
+		cold: cold,
+		no_sense_smell: no_sense_smell,
+		diarrhea: diarrhea,
+		sore_throat: sore_throat,
+		difficult_breath: difficult_breath,
+		muscle_joint_pain: muscle_joint_pain,
+
+		travel_history: travel_history,
+		visit_other_place: visit_other_place,
+		exposure_anyone: exposure_anyone,
+		takecare_people: takecare_people,
+		monitor_by_personnel: monitor_by_personnel,
+	};
+
+	//Add to database
+	var sql = "Insert into gatepass set ?";
+	db.query(sql, hdf, (err, rset, row) => {
+		if (err) {
+			res.render("Student/health", {
+				status: "error",
+				msg: "An error occur while uploading your declaration",
+			});
+		} else {
+			res.render("Student/health", { submitted: true, data: [hdf] });
+		}
+	});
 };
 
 const getProfile = (req, res) => {
@@ -147,7 +239,7 @@ const postProfile = (req, res) => {
 };
 
 const getLogout = (req, res) => {
-	res.clearCookie("token")
+	res.clearCookie("token");
 	res.redirect("/student/login");
 };
 

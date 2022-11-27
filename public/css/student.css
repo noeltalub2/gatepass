@@ -42,19 +42,31 @@ body {
 	font-family: "Inter";
 }
 
-
 #main {
 	margin-top: 60px;
 }
+
+#historyInput {
+	display: none;
+}
+#visitorInput {
+	display: none;
+}
+a.navbar-brand {
+	font-weight: bold;
+	font-size: 1.75rem;
+	letter-spacing: 0.02rem;
+}
+
+
 .form-label {
 	color: #333;
 }
 .navbar .nav-item {
 	margin-right: 0.3rem;
 	margin-left: 0.3rem;
-	font-weight: 500;
+	font-weight: 700;
 }
-
 
 .navbar-nav .nav-link {
 	color: var(--bs-gray-dark);
@@ -98,22 +110,41 @@ body {
 
 .nav-tabs .nav-link {
 	border: solid transparent;
-    border-width: 0 0 2px;
-    border-radius: 0;
-    text-transform: uppercase;
-    line-height: 1;
-    font-weight: 500;
-    font-size: 12px;
-    color: rgba(0,0,0,.55);
-    padding: 17px 20px 16px;
+	border-width: 0 0 2px;
+	border-radius: 0;
+	text-transform: uppercase;
+	line-height: 1;
+	font-weight: 500;
+	font-size: 12px;
+	color: rgba(0, 0, 0, 0.55);
+	padding: 17px 20px 16px;
 }
 
 .nav-tabs .nav-link.active {
 	color: #3b71ca;
-    border-color: #3b71ca;
+	border-color: #3b71ca;
+}
+
+.alert {
+	border: none;
+	border-radius: 0;
+	font-size: 0.95rem;
 }
 
 
+
+.was-validated .form-check-input:valid:checked {
+	background-color: #0d6efd;
+	border-color: #0d6efd;
+}
+
+.was-validated .form-check-input:valid ~ .form-check-label {
+	color: #212529;
+}
+
+.was-validated .form-check-input:valid {
+	border-color: rgba(0, 0, 0, 0.25);
+}
 #img-profile {
 	object-fit: cover;
 	border-radius: 50%;
@@ -123,15 +154,19 @@ body {
 	background-color: #009428;
 }
 
+
+
 input[type="checkbox"],
 input[type="checkbox"] + label {
 	cursor: pointer;
 }
 
-
+input[type="radio"],
+input[type="radio"] + label {
+	cursor: pointer;
+}
 @media (max-width: 576px) {
 	.nav-link {
 		font-size: 1.3rem;
 	}
-	
 }

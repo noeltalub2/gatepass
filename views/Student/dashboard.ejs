@@ -15,13 +15,13 @@
 						<div class="col-lg-5 col-md-6">
 
 							<h5 class="mt-3 fw-bold">Your Profile</h5>
-							<div class="card rounded-4 border-0 shadow-sm">
+							<div class="card rounded-3 border">
 								<div class="card-body text-center">
 									<div class="mt-2 mb-4">
 										<img src="/img/profile.jpg" class="d-block mx-auto mb-3" height="120px"
 											width="120px" id="img-profile">
 									</div>
-									<h4 class="mb-2"><%=user.firstname%> <%=user.lastname%></h4>
+									<h4 class="mb-2"><%=user.lastname%>, <%=user.firstname%></h4>
 									<p class=" mb-2"><%=user.studentnumber%> <span class="mx-2">|</span>BSIT CMPT4B
 									</p>
 									<span class="badge bg-primary">Verified Student</span>
@@ -33,28 +33,98 @@
 						</div>
 						<div class="col-lg-7 col-md-6">
 							<h5 class="mt-3 fw-bold">Status of Clearance</h5>
-							<div id="clearance" class="mb-2 shadow-sm p-3 bg-body rounded-4">
+							<div id="clearance" class="mb-2 border p-3 bg-body rounded-3">
 
-								<div class="mt-2">
-									<img src="/img/yes.png" alt="" width="80px"
-										class="img-fluid d-block mx-auto mb-2">
-									<p class="text-center text-success fw-bold">Approved</p>
-									<table class="table table-borderless table-sm">
-										<tbody>
-											<tr>
-												<th><strong>Risk Assesment</strong></th>
-												<td>Low</td>
-											</tr>
-											<tr>
-												<th><strong>Clearance ID</strong></th>
-												<td>2022926</td>
-											</tr>
-											<tr>
-												<th><strong>Date Submitted</strong></th>
-												<td>9-26-2022</td>
-											</tr>
-										</tbody>
-									</table>
+								<div class="">
+									<%if (gatepass === "Unavailable") {%>
+										<div class="card border-0 p-0" style="max-width: 700px;">
+											<div class="row g-0">
+											  <div class="col-md-4 my-auto">
+												<div class="iamge-card">
+													<img src="/img/list.png" width="140px"
+												class="d-block mx-auto mb-2" alt="checklist">
+												</div>
+											  </div>
+											  <div class="col-md-8">
+												<div class="card-body">
+												  <h4 class="card-title">For New User:</h4>
+												  <p class="card-text">A Health Declaration Form is a requirement for those who are going in of school CIT MMSU. This will serve as their clearance to enter school.</p>
+												  <a href="/student/health" class="card-link btn btn-secondary btn-sm">Go to health</a>
+												</div>
+											  </div>
+											</div>
+										  </div>
+									<%} else {%>
+										<% if(gatepass[0].status === 0) {%>
+											<img src="/img/no.png" alt="" width="80px"
+											class="img-fluid d-block mx-auto mb-2">
+											<p class="text-center text-danger fw-bold">Danger</p>
+											<table class="table table-borderless table-sm">
+												<tbody>
+													<tr>
+														<th><strong>Risk Assesment</strong></th>
+														<td>High</td>
+													</tr>
+													<tr>
+														<th><strong>Clearance ID</strong></th>
+														<td><%=gatepass[0].gatepass_id%></td>
+													</tr>
+													<tr>
+														<th><strong>Date Submitted</strong></th>
+														<td><%=gatepass[0].submit_date%></td>
+													</tr>
+													
+												</tbody>
+											</table>
+										<%}%>
+										<% if(gatepass[0].status === 1) {%>
+											<img src="/img/pending.png" alt="" width="80px"
+											class="img-fluid d-block mx-auto mb-2">
+											<p class="text-center text-warning fw-bold">Pending</p>
+											<table class="table table-borderless table-sm">
+												<tbody>
+													
+													<tr>
+														<th><strong>Clearance ID</strong></th>
+														<td><%=gatepass[0].gatepass_id%></td>
+													</tr>
+													<tr>
+														<th><strong>Date Submitted</strong></th>
+														<td><%=gatepass[0].submit_date%></td>
+													</tr>
+													<tr>
+														<th><strong>Valid Until Date</strong></th>
+														<td><%=gatepass[0].effective_date%></td>
+													</tr>
+												</tbody>
+											</table>
+										<%}%>
+										<% if(gatepass[0].status === 2) {%>
+											<img src="/img/yes.png" alt="" width="80px"
+											class="img-fluid d-block mx-auto mb-2">
+											<p class="text-center text-success fw-bold">Approved</p>
+											<table class="table table-borderless table-sm">
+												<tbody>
+													<tr>
+														<th><strong>Risk Assesment</strong></th>
+														<td>Low</td>
+													</tr>
+													<tr>
+														<th><strong>Clearance ID</strong></th>
+														<td><%=gatepass[0].gatepass_id%></td>
+													</tr>
+													<tr>
+														<th><strong>Date Submitted</strong></th>
+														<td><%=gatepass[0].submit_date%></td>
+													</tr>
+													<tr>
+														<th><strong>Valid Until Date</strong></th>
+														<td><%=gatepass[0].effective_date%></td>
+													</tr>
+												</tbody>
+											</table>
+										<%}%>
+									<%}%>
 								</div>
 							</div>
 						</div>
@@ -63,7 +133,7 @@
 					<div class="row gx-2">
 						<div class="col-lg-5 col-md-4">
 							<h5 class="mt-3 fw-bold">Prior to Entry</h5>
-							<div id="student" class="mb-2 shadow-sm p-3 bg-body rounded-4">
+							<div id="student" class="mb-2 border p-3 bg-body rounded-3">
 								<p>1. Present the accomplished health clearance</p>
 								<p>2. Make sure to wear mask all the time</p>
 								<p>3. Practice social distancing</p>
@@ -71,7 +141,7 @@
 						</div>
 						<div class="col-lg-7 col-md-8">
 							<h5 class="mt-3 fw-bold">Recent Activity</h5>
-							<div id="clearance" class="mb-2 shadow-sm p-3 bg-body rounded-4">
+							<div id="clearance" class="mb-2 border p-3 bg-body rounded-3">
 								<div class="mt-1">
 									<table class="table">
 

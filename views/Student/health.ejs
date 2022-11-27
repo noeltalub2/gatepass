@@ -12,212 +12,345 @@
                     </div>
                 </div>
                 <div class="page-content my-4">
-                    <div class="alert alert-success" role="alert">
-                        Date Submitted: October 2, 2022 (Sunday)
-                    </div>
-                    <form method="post" onsubmit="return handleData()">
-
-                        <h5 class="mt-3 fw-bold">Symptoms</h5>
-                        <section id="symptoms" class="mb-4 shadow-sm p-4 bg-body rounded border">
-                            <div class="form-group">
-                                <h6>Do you have the following symptoms in the past twenty four (24) hours? Multiple
-                                    answers may be chosen <span class="req-form">*</span>
-                                </h6>
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="None" id="nosymptom"
-                                                name="symptoms[]" onClick="noSymptoms(this)">
-                                            <label class="form-check-label" for="nosymptom">
-                                                None
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Fever" id="fever"
-                                                name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="fever">
-                                                Fever
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Cold" id="cold"
-                                                name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="cold">
-                                                Cold
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Cough" id="cough"
-                                                name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="cough">
-                                                Cough
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="No Smell"
-                                                id="nosmell" name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="nosmell">
-                                                Lost of taste or smell
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Diarrhea"
-                                                id="diarrhea" name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="diarrhea">
-                                                Diarrhea
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Sore Throat"
-                                                id="sorethroat" name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="sorethroat">
-                                                Sore throat
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Difficulty Breathing"
-                                                id="diffbreath" name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="diffbreath">
-                                                Difficulty of Breathing
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Muscle Pain"
-                                                id="bodyache" name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="bodyache">
-                                                Body Ache
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Nausea" id="nausea"
-                                                name="symptoms[]" onClick="haveSymptoms(this)">
-                                            <label class="form-check-label" for="nausea">
-                                                Nausea
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="visibility:hidden; color:red; " id="chk_option_error">
-                                    Please select at least one option.
-                                </div>
+                    <%if (submitted === true) {%>
+                        
+                        <div class="card mx-auto" style="max-width: 550px;">
+                            <div class="card-body">
+                                <img src="/img/check.png" alt="" width="80px"
+										class="img-fluid mb-2">
+                                <h5 class="card-title">A form has been already submitted.</h5>
+                                <h6 class="text-muted">Date Submitted: <%=data[0].submit_date%></h6>
+                                <p class="card-text">Please wait while we are processing your request...</p>
+                                <a href="/student/dashboard" class="card-link btn btn-secondary btn-sm">Return to dashboard</a>
+    
                             </div>
-                        </section>
-                        <h5 class="mt-3 fw-bold">Exposure</h5>
-                        <section id="exposure" class="mb-4 shadow-sm p-4 bg-body rounded border">
-
-                            <div class="form-group">
-                                <h6>HISTORY OF TRAVEL/VISIT FROM ANY PLACE OUTSIDE ILOCOS NORTE? <span
-                                        class="req-form">*</span>
-                                </h6>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="historyTravel"
-                                        id="historyTravelYes" value="YES" required>
-                                    <label class="form-check-label" for="historyTravelYes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="historyTravel"
-                                        id="historyTravelNo" value="NO" required>
-                                    <label class="form-check-label" for="historyTravelNo">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <h6>VISITORS/RELATIVES THAT COME FROM OTHER PLACE? <span class="req-form">*</span>
-                                </h6>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pplFromOtherPlace"
-                                        id="pplFromOtherPlaceYes" value="YES" required>
-                                    <label class="form-check-label" for="pplFromOtherPlaceYes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pplFromOtherPlace"
-                                        id="pplFromOtherPlaceNo" value="NO" required>
-                                    <label class="form-check-label" for="pplFromOtherPlaceNo">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <h6>EXPOSURE TO ANYONE WITH SYMPTOMS OF FEVER, COUGH, COLDS
-                                    OR DIARRHEA IN YOUR HOME, WORK, SCHOOL, OR ANY GATHERINGS
-                                    (BITHDAY, WAKES, FIESTA, ETC.)? <span class="req-form">*</span>
-                                </h6>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="exposureAnyone"
-                                        id="exposureAnyoneYes" value="YES" required>
-                                    <label class="form-check-label" for="exposureAnyoneYes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="exposureAnyone"
-                                        id="exposureAnyoneNo" value="NO" required>
-                                    <label class="form-check-label" for="exposureAnyoneNo">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <h6>TAKING CARE OF RELATIVE/PATIENT AT HOME WITH SYMPTOMS OF
-                                    FEVER, COUGH, COLDS OR DIARRHEA? <span class="req-form">*</span>
-                                </h6>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="takeCarePeople"
-                                        id="takeCarePeopleYes" value="YES" required>
-                                    <label class="form-check-label" for="takeCarePeopleYes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="takeCarePeople"
-                                        id="takeCarePeopleNo" value="NO" required>
-                                    <label class="form-check-label" for="takeCarePeopleNo">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <h6>VISITED/MONITORED BY BARANGAY HEALTH WORKERS/OFFICIALS? <span
-                                        class="req-form">*</span>
-                                </h6>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="monitorByBrgy"
-                                        id="monitorByBrgyYes" value="YES" required>
-                                    <label class="form-check-label" for="monitorByBrgyYes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="monitorByBrgy"
-                                        id="monitorByBrgyNo" value="NO" required>
-                                    <label class="form-check-label" for="monitorByBrgyNo">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                        </section>
-                        <div class="agree px-1">
-
-                            <p>
-                                I hereby certify that all information is true and complete. I do understand that
-                                any false/wrong information can be used by the court against me under Article 161
-                                of the Revised Penal Code of the Philippines, RA 11332 “Law on Reporting
-                                Communicable Diseases”.
-                            </p>
-
-                            <button type="submit" class="btn btn-primary w-lg-100 w-md-50 mt-2 mb-3">Submit</button>
                         </div>
-                    </form>
+                        
+                    <%} else {%>
+                        <form method="post" class=" needs-validation" novalidate>
+                            <!-- Symptoms -->
+                            <h5 class="mt-3 fw-bold">Symptoms</h5>
+                            <section id="symptoms" class="mb-4 shadow-sm p-3 bg-body rounded border">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <thead class="table-secondary">
+                                            <th>
+                                                &nbsp;
+                                            </th>
+                                            <th scope="col" class="text-center">
+                                                <label class="table-label">YES</label>
+                                            </th>
+                                            <th scope="col" class="text-center">
+                                                <label class="table-label">NO</label>
+                                            </th>
+                                        </thead>
+                                        <tr>
+                                            <th scope="row">
+                                                <label id="label_fever">Fever</label>
+                                            </th>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="fever"
+                                                    value="Yes" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="fever" value="No"
+                                                    required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <th scope="row">
+                                                <label id="label_cough">Cough</label>
+                                            </th>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="cough"
+                                                    value="Yes" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="cough" value="No"
+                                                    required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <th scope="row">
+                                                <label id="label_cold">Cold</label>
+                                            </th>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="cold" value="Yes"
+                                                    required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="cold" value="No"
+                                                    required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <th scope="row">
+                                                <label id="label_no_sense_smell">No Sense of Smell</label>
+                                            </th>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="no_sense_smell"
+                                                    value="Yes" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="no_sense_smell"
+                                                    value="No" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <th scope="row">
+                                                <label id="label_diarrhea">Diarrhea</label>
+                                            </th>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="diarrhea"
+                                                    value="Yes" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="diarrhea"
+                                                    value="No" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <th scope="row">
+                                                <label id="label_sore_throat">Sore Throat</label>
+                                            </th>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="sore_throat"
+                                                    value="Yes" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="sore_throat"
+                                                    value="No" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <th scope="row">
+                                                <label id="label_difficult_breath">Difficulty of Breathing</label>
+                                            </th>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="difficult_breath"
+                                                    value="Yes" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input" name="difficult_breath"
+                                                    value="No" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <th scope="row">
+                                                <label id="label_muscle_joint_pain">Muscle & Joint Pain
+                                                </label>
+                                            </th>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input"
+                                                    name="muscle_joint_pain" value="Yes" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="radio" class="form-check-input"
+                                                    name="muscle_joint_pain" value="No" required>
+                                                <label>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                            <!-- End Symptoms -->
+                            <!-- Exposure -->
+                            <h5 class="mt-3 fw-bold">Exposure</h5>
+                            <section id="exposure" class="mb-4 p-3 bg-body rounded border">
+                                <div class="card mx-auto  mb-3" style="max-width: 100%;">
+    
+                                    <div class="card-body">
+    
+                                        <p class="card-text">HISTORY OF TRAVEL/VISIT FROM ANY PLACE OUTSIDE
+                                            ILOCOS NORTE?</p>
+    
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="form-check form-check-inline me-4">
+                                            <input class="form-check-input" type="radio" name="travel_history"
+                                                id="travel_historyYes" value="YES" required>
+                                            <label class="form-check-label" for="travel_historyYes">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="travel_history"
+                                                id="travel_historyNo" value="NO" required>
+                                            <label class="form-check-label" for="travel_historyNo">
+                                                No
+                                            </label>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                                <div class="card mx-auto mb-3" style="max-width: 100%;">
+    
+                                    <div class="card-body">
+    
+                                        <p class="card-text">VISITORS/RELATIVES THAT COME FROM OTHER PLACE?</p>
+    
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="form-check form-check-inline me-4">
+                                            <input class="form-check-input" type="radio" name="visit_other_place"
+                                                id="visit_other_placeYes" required>
+                                            <label class="form-check-label" for="visit_other_placeYes">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="visit_other_place"
+                                                id="visit_other_placeNo" value="NO" required>
+                                            <label class="form-check-label" for="visit_other_placeNo">
+                                                No
+                                            </label>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                                <div class="card mx-auto mb-3" style="max-width: 100%;">
+    
+                                    <div class="card-body">
+    
+                                        <p class="card-text">EXPOSURE TO ANYONE WITH SYMPTOMS OF FEVER, COUGH, cold
+                                            OR DIARRHEA IN YOUR HOME, WORK, SCHOOL, OR ANY GATHERINGS
+                                            (BITHDAY, WAKES, FIESTA, ETC.)?</p>
+    
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="form-check form-check-inline me-4">
+                                            <input class="form-check-input" type="radio" name="exposure_anyone"
+                                                id="exposure_anyoneYes" value="YES" required>
+                                            <label class="form-check-label" for="exposure_anyoneYes">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="exposure_anyone"
+                                                id="exposure_anyoneNo" value="NO" required>
+                                            <label class="form-check-label" for="exposure_anyoneNo">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mx-auto mb-3" style="max-width: 100%;">
+    
+                                    <div class="card-body">
+    
+                                        <p class="card-text">TAKING CARE OF RELATIVE/PATIENT AT HOME WITH SYMPTOMS
+                                            OF
+                                            FEVER, COUGH, cold OR DIARRHEA?</p>
+    
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="form-check form-check-inline me-4">
+                                            <input class="form-check-input" type="radio" name="takecare_people"
+                                                id="takecare_peopleYes" value="YES" required>
+                                            <label class="form-check-label" for="takecare_peopleYes">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="takecare_people"
+                                                id="takecare_peopleNo" value="NO" required>
+                                            <label class="form-check-label" for="takecare_peopleNo">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mx-auto mb-3" style="max-width: 100%;">
+    
+                                    <div class="card-body">
+    
+                                        <p class="card-text">VISITED/MONITORED BY BARANGAY HEALTH WORKERS/OFFICIALS?
+                                        </p>
+    
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="form-check form-check-inline me-4">
+                                            <input class="form-check-input" type="radio" name="monitor_by_personnel"
+                                                id="monitor_by_personnelYes" value="YES" required>
+                                            <label class="form-check-label" for="monitor_by_personnelYes">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="monitor_by_personnel"
+                                                id="monitor_by_personnelNo" value="NO" required>
+                                            <label class="form-check-label" for="monitor_by_personnelNo">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                            </section>
+                            <!-- End Exposure -->
+                            <h5 class="mt-3 fw-bold">Agreement</h5>
+                            <section class="mb-4 p-3 bg-body rounded border">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck"
+                                        required>
+                                    <label class="form-check-label" for="invalidCheck">
+    
+                                        I declare that all my responses are true and accurate to the best of my
+                                        knowledge. I
+                                        understand that any false information will be subject to legal actions.
+                                    </label>
+    
+                                </div>
+                            </section>
+    
+                            <div class="row">
+                                <div class="col col-lg-2 col-md-4 col-sm-5"> <button type="submit"
+                                        class="btn btn-primary w-100 mb-5">Submit</button></div>
+                            </div>
+                        </form>
+                    <%}%>
                 </div>
+
             </div>
+
 
         </main>
 

@@ -17,6 +17,7 @@ body {
 .form-label {
 	font-size: 0.913rem;
 	margin-bottom: 0;
+	font-weight: bold;
 }
 
 .form-floating .form-label {
@@ -41,14 +42,25 @@ body {
 	box-shadow: none !important;
 }
 
+.form-select:focus {
+	color: #5E6278;
+    background-color: #ffffff;
+    border-color: #B5B5C3;
+	box-shadow: none !important;
+}
 
 #btn-login,
 #btn-reg {
-	padding: 0.6rem;
+	padding: 0.45rem;
 }
 
 
 .was-validated .form-control:valid {
+	background-image: none;
+	border-color: #ced4da;
+}
+
+.was-validated .form-select:valid:not([multiple]):not([size]) {
 	background-image: none;
 	border-color: #ced4da;
 }

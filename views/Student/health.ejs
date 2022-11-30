@@ -17,8 +17,9 @@
                         <div class="card mx-auto" style="max-width: 550px;">
                             <div class="card-body">
                                 <img src="/img/check.png" alt="" width="80px"
-										class="img-fluid mb-2">
-                                <h5 class="card-title">A form has been already submitted.</h5>
+										class="d-block mx-auto mb-2">
+                                <h5 class="card-title">Your health details was successfully submitted.</h5>
+                                <h6 class="text-muted mb-0">Gatepass ID: <%=data[0].gatepass_id%></h6>
                                 <h6 class="text-muted">Date Submitted: <%=data[0].submit_date%></h6>
                                 <p class="card-text">Please wait while we are processing your request...</p>
                                 <a href="/student/dashboard" class="card-link btn btn-secondary btn-sm">Return to dashboard</a>

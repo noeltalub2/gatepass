@@ -1,7 +1,9 @@
 const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
+const { nanoid } = require("nanoid");
 
 const { createTokens } = require("../utils/token");
+const { today, tomorrow } = require("../utils/date");
 
 const db = mysql.createConnection({
 	host: "localhost",
@@ -9,16 +11,6 @@ const db = mysql.createConnection({
 	password: "",
 	database: "gatepass",
 });
-const today = () => {
-	let today = new Date();
-	today.setDate(today.getDate());
-	return today.toISOString().split("T")[0];
-};
-const tomorrow = () => {
-	let today = new Date();
-	today.setDate(today.getDate() + 1);
-	return today.toISOString().split("T")[0];
-};
 
 const queryParam = async (sql, data) => {
 	try {
@@ -87,7 +79,7 @@ const getRegister = (req, res) => {
 
 const postRegister = async (req, res) => {
 	//Data from the form ../register
-	const { studentnumber, lastname, firstname, email, phonenumber, password } =
+	const { studentnumber, lastname, firstname, course, email, phonenumber, password } =
 		req.body;
 
 	//Sql statement if there is duplciate in database
@@ -96,7 +88,6 @@ const postRegister = async (req, res) => {
 
 	//Query statement
 	const phone_count = (await queryParam(phone_exist, [phonenumber]))[0].count;
-	console.log(phone_count);
 
 	//Check if there is duplicate
 	if (phone_count) {
@@ -113,6 +104,7 @@ const postRegister = async (req, res) => {
 		studentnumber: studentnumber,
 		firstname: firstname,
 		lastname: lastname,
+		course: course,
 		email: email,
 		phonenumber: phonenumber,
 		password: hash,
@@ -121,7 +113,6 @@ const postRegister = async (req, res) => {
 	var sql = "Insert into student set ?";
 	db.query(sql, data, (err, rset) => {
 		if (err) {
-			console.log(err);
 			res.render("Student/register", {
 				status: "error",
 				msg: "An error occur while creating your account",
@@ -137,7 +128,7 @@ const postRegister = async (req, res) => {
 
 const getDashboard = async (req, res) => {
 	var sid = res.locals.sid;
-	var date = today();
+
 	const user = (
 		await queryParam("SELECT * from student WHERE studentnumber = ?", [
 			res.locals.sid,
@@ -148,18 +139,18 @@ const getDashboard = async (req, res) => {
 
 	db.query(gatepass, [sid.toString(), today()], async (err, data) => {
 		if (err) throw err;
-		console.log(data)
 		if (data[0].count !== 0) {
-			res.render("Student/dashboard", { user, gatepass: data, date });
+			res.render("Student/dashboard", { user, gatepass: data });
 			
 		} else {
-			res.render("Student/dashboard", { user, gatepass: "Unavailable", date });
+			res.render("Student/dashboard", { user, gatepass: "Unavailable" });
 		}
 		
 	});
 };
 
 const getHealth = (req, res) => {
+
 	var sid = res.locals.sid;
 	var sql1 =
 		"SELECT gatepass_id,submit_date,count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date = ?";
@@ -167,7 +158,6 @@ const getHealth = (req, res) => {
 	db.query(sql1, [sid.toString(), today()], (err, data) => {
 		if (err) throw err;
 		if (data[0].count !== 0) {
-			console.log(data);
 			res.render("Student/health", { submitted: true, data });
 		} else {
 			res.render("Student/health", { submitted: false });
@@ -176,6 +166,7 @@ const getHealth = (req, res) => {
 };
 
 const postHealth = async (req, res) => {
+	const ID = nanoid(8)
 	const {
 		// Symptoms
 		fever,
@@ -194,8 +185,9 @@ const postHealth = async (req, res) => {
 		monitor_by_personnel,
 	} = req.body;
 
-	//Sql statement if there is duplciate in database
+	var sql = "Insert into gatepass set ?";
 	var hdf = {
+		gatepass_id: ID,
 		studentnumber: res.locals.sid,
 		submit_date: today(),
 		effective_date: tomorrow(),
@@ -217,17 +209,12 @@ const postHealth = async (req, res) => {
 	};
 
 	//Add to database
-	var sql = "Insert into gatepass set ?";
-	db.query(sql, hdf, (err, rset, row) => {
-		if (err) {
-			res.render("Student/health", {
-				status: "error",
-				msg: "An error occur while uploading your declaration",
-			});
-		} else {
-			res.render("Student/health", { submitted: true, data: [hdf] });
-		}
-	});
+	db.query(sql,hdf,(err,rset) => {
+		if (err) throw err
+		res.redirect("/student/health")
+	})
+	
+	
 };
 
 const getProfile = (req, res) => {

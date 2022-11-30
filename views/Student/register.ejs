@@ -11,79 +11,98 @@
                     <div class=" col-lg-6 col-md-7">
                         <div class="bg-white px-2 px-md-4 py-1">
 
-                            <h2 class="fw-bold mb-0 mt-3">Create an Account</h2>
+                            <h2 class="fw-bold mb-0">Create an Account</h2>
                             <p class="text-muted mb-3">Create your account to continue.</p>
                             <%-include ("../Include/message.ejs")%>
-                            <form method="post" class="row gy-2 gx-3 needs-validation" novalidate>
+                                <form method="post" class="row gy-2 gx-3 needs-validation" novalidate>
 
-                                <div class="col-md-6">
-                                    <label for="firstname" class="form-label">First Name</label>
-                                    <input type="text" class="form-control custom-form" id="firstname"
-                                        name="firstname" minlength="2" autofocus required>
-                                    <div class="invalid-feedback">
-                                        Please enter your firstname
+                                    <div class="col-md-6">
+                                        <label for="firstname" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstname" name="firstname"
+                                            minlength="2" autofocus required>
+                                        <div class="invalid-feedback">
+                                            Please enter your firstname
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="lastname" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control custom-form" id="lastname"
-                                        name="lastname" minlength="2" required>
-                                    <div class="invalid-feedback">
-                                        Please enter your lastname
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="studentnumber" class="form-label">Student Number</label>
-                                    <input type="text" class="form-control custom-form"
-                                        id="studentnumber" name="studentnumber" minlength="9" required>
-                                    <div class="invalid-feedback">
-                                        Please enter your student number
+                                    <div class="col-md-6">
+                                        <label for="lastname" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastname" name="lastname"
+                                            minlength="2" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your lastname
+                                        </div>
                                     </div>
 
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="phonenumber" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control custom-form" id="phonenumber"
-                                        name="phonenumber" minlength="11" maxlength="11" required>
-                                    <div class="invalid-feedback">
-                                        Please enter your phone number
-                                    </div>
-                                </div>
+                                    <div class="col-md-6">
+                                        <label for="studentnumber" class="form-label">Student Number</label>
+                                        <input type="text" class="form-control" id="studentnumber" name="studentnumber"
+                                            minlength="9" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your student number
+                                        </div>
 
-                                <div class="col-12">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control custom-form" id="email"
-                                        name="email" required>
-                                    <div class="invalid-feedback">
-                                        Please enter a valid email address
                                     </div>
-                                </div>
+                                    <div class="col-md-6">
+                                        <label for="phonenumber" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phonenumber" name="phonenumber"
+                                            minlength="11" maxlength="11" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your phone number
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-12">
+                                        <label for="course" class="form-label">Course</label>
+                                        <select class="form-select" name="course" id="course" aria-describedby="courseFeedback" required>
+                                          <option selected hidden></option>
+                                          <option value="FPSM">FPSM</option>
 
-                                <div class="col-12">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control custom-form"
-                                        id="password" name="password"
-                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                                    <div class="invalid-feedback">
-                                        Must contain at least one number and one uppercase and lowercase
-                                        letter,
-                                        and at
-                                        least 8 or more characters
+                                          <option value="GT">GT</option>
+
+                                          <option value="CADT">CADT</option>
+
+                                          <option value="ELTR">ELTR</option>
+
+                                          <option value="CT">CT</option>
+
+                                          <option value="EXTR">EXTR</option>
+
+                                          <option value="BAT">BAT</option>
+                                        </select>
+                                        <div id="courseFeedback" class="invalid-feedback">
+                                          Please select a course.
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 mt-3 ">
-                                    <button type="submit" class="btn btn-success w-100"
-                                        id="btn-reg">Create
-                                        Account</button>
-                                </div>
-                                <div class="col-12 mt-4 mb-3">
-                                    <p class="text-dark text-center">Already have an account? <a
-                                            class="text-decoration-none text-success"
-                                            href="/student/login">Log
-                                            In</a></p>
-                                </div>
-                            </form>
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <div class="invalid-feedback">
+                                            Please enter a valid email address
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                        <div class="invalid-feedback">
+                                            Must contain at least one number and one uppercase and lowercase
+                                            letter,
+                                            and at
+                                            least 8 or more characters
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-3 ">
+                                        <button type="submit" class="btn btn-success w-100" id="btn-reg">Create
+                                            Account</button>
+                                    </div>
+                                    <div class="col-12 mt-4 mb-3">
+                                        <p class="text-dark text-center">Already have an account? <a
+                                                class="text-decoration-none text-success" href="/student/login">Log
+                                                In</a></p>
+                                    </div>
+
+                                </form>
                         </div>
                     </div>
                 </div>

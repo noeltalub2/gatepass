@@ -1,0 +1,52 @@
+<%-include ("../Include/student_head.ejs")%>
+    <%-include ("../Include/student_header.ejs")%>
+        <!-- Main -->
+        <main id="main">
+            <div class="container-lg">
+                <div class="page-header pt-4">
+                    <div class="row mb-md-1">
+                        <div class="col-12 col-lg-10 text-start">
+                            <h2 class="fw-bold">Edit Profile</h2>
+                            <p class="">
+                                Edit your profile information
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="page-content mt-1 mb-4">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card bg-white shadow mb-4">
+
+                                <div class="card-body">
+                                    <form method="post" action="/student/profile/edit_avatar" class="needs-validation"
+                                        novalidate enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="mb-3">
+                                                <img src="/img/avatar/<%=student.avatar%>" alt="" class="mb-2"
+                                                    id="img-profile" height="175px" width="175px">
+                                                    <input class="form-control" type="text"
+                                                    value="<%=student.studentnumber%>"
+                                                    aria-label="Disabled input example" name="studentnumber" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Upload Avatar</label>
+                                                <input class="form-control" type="file" id="avatar" name="avatar"
+                                                    value="public/img/avatar/<%=student.avatar%>" required>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm">Update Avatar</button>
+                                        <a href="/student/profile" class="card-link btn btn-secondary btn-sm">Cancel</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+        <%-include ("../Include/student_end.ejs")%>

@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2"); //built in promise
 const cookieParser = require("cookie-parser");
+const path = require('path');
 
 //Routes
 const student = require("./routes/student");
@@ -8,8 +9,6 @@ const student = require("./routes/student");
 
 const dotenv = require("dotenv");
 dotenv.config()
-
-
 
 
 const app = express();

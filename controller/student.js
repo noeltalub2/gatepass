@@ -4,6 +4,7 @@ const { nanoid } = require("nanoid");
 
 const { createTokens } = require("../utils/token");
 const { today, tomorrow } = require("../utils/date");
+const e = require("express");
 
 const db = mysql.createConnection({
 	host: "localhost",
@@ -79,8 +80,16 @@ const getRegister = (req, res) => {
 
 const postRegister = async (req, res) => {
 	//Data from the form ../register
-	const { studentnumber, lastname, firstname, course, email, phonenumber, password } =
-		req.body;
+	const {
+		studentnumber,
+		lastname,
+		firstname,
+		degree,
+		email,
+		phonenumber,
+		
+		password,
+	} = req.body;
 
 	//Sql statement if there is duplciate in database
 	var phone_exist =
@@ -104,15 +113,18 @@ const postRegister = async (req, res) => {
 		studentnumber: studentnumber,
 		firstname: firstname,
 		lastname: lastname,
-		course: course,
+		degree: degree,
 		email: email,
 		phonenumber: phonenumber,
+		avatar: "default.png",
 		password: hash,
+		join_date: today(),
 	};
 	//Add account to database
 	var sql = "Insert into student set ?";
 	db.query(sql, data, (err, rset) => {
 		if (err) {
+			console.log(err);
 			res.render("Student/register", {
 				status: "error",
 				msg: "An error occur while creating your account",
@@ -141,16 +153,13 @@ const getDashboard = async (req, res) => {
 		if (err) throw err;
 		if (data[0].count !== 0) {
 			res.render("Student/dashboard", { user, gatepass: data });
-			
 		} else {
 			res.render("Student/dashboard", { user, gatepass: "Unavailable" });
 		}
-		
 	});
 };
 
 const getHealth = (req, res) => {
-
 	var sid = res.locals.sid;
 	var sql1 =
 		"SELECT gatepass_id,submit_date,count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date = ?";
@@ -166,7 +175,7 @@ const getHealth = (req, res) => {
 };
 
 const postHealth = async (req, res) => {
-	const ID = nanoid(8)
+	const ID = nanoid(8);
 	const {
 		// Symptoms
 		fever,
@@ -209,22 +218,101 @@ const postHealth = async (req, res) => {
 	};
 
 	//Add to database
-	db.query(sql,hdf,(err,rset) => {
-		if (err) throw err
-		res.redirect("/student/health")
-	})
-	
-	
+	db.query(sql, hdf, (err, rset) => {
+		if (err) throw err;
+		res.redirect("/student/health");
+	});
 };
 
-const getProfile = (req, res) => {
-	res.render("Student/profile");
+const getProfile = async (req, res) => {
+	const studentData = (
+		await queryParam("SELECT * from student WHERE studentnumber = ?", [
+			res.locals.sid,
+		])
+	)[0];
+
+	res.render("Student/profile", {
+		student: studentData,
+		status:"",
+		msg:"",
+	});
 };
 
-const postProfile = (req, res) => {
-	res.render("Student/profile");
+const getProfileEditInfo = async (req, res) => {
+	const studentnumber = req.params.id;
+	const studentData = (
+		await queryParam("SELECT * from student WHERE studentnumber = ?", [
+			studentnumber,
+		])
+	)[0];
+	res.render("Student/editprofile", {
+		student: studentData,
+	});
 };
 
+const postProfileEditInfo = async (req, res) => {
+	const {
+		firstname,
+		lastname,
+		gender,
+		dob,
+		degree,
+		year,
+		section,
+		address,
+		email,
+		phonenumber,
+		studentnumber,
+	} = req.body;
+	var sql =
+		"UPDATE student SET firstname=?, lastname=?,gender=?,dob=?, degree=?, year=?,section=?, address=?, email=?, phonenumber=? WHERE studentnumber = ?";
+	//Add account to database
+	db.query(sql, [
+		firstname,
+		lastname,
+		gender,
+		dob,
+		degree,
+		year,
+		section,
+		address,
+		email,
+		phonenumber,
+		studentnumber], (err, rset) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect("/student/profile")
+		}
+	});
+};
+
+const getProfileEditAvatar = async (req,res) => {
+	const studentnumber = req.params.id;
+	const studentData = (
+		await queryParam("SELECT studentnumber,avatar from student WHERE studentnumber = ?", [
+			studentnumber,
+		])
+	)[0];
+	res.render("Student/editavatar", {
+		student: studentData,
+	});
+}
+
+const postProfileEditAvatar = async (req, res) => {
+	const {studentnumber} = req.body;
+	var avatar = req.file.filename
+	var sql = "UPDATE student SET avatar = ? WHERE studentnumber = ?"
+	console.log(avatar)
+	db.query(sql, [avatar,
+		studentnumber], (err, rset) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect("/student/profile")
+		}
+	});
+};
 const getLogout = (req, res) => {
 	res.clearCookie("token");
 	res.redirect("/student/login");
@@ -239,6 +327,9 @@ module.exports = {
 	getHealth,
 	postHealth,
 	getProfile,
-	postProfile,
+	getProfileEditInfo,
+	postProfileEditInfo,
+	getProfileEditAvatar,
+	postProfileEditAvatar,
 	getLogout,
 };

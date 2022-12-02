@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const studentController = require("../controller/student");
+const imageUpload = require("../middleware/imageUpload")
 const { forwardAuth, requireAuth } = require("../middleware/auth");
 
 router.get("/login", forwardAuth, studentController.getLogin);
@@ -16,7 +17,12 @@ router.get("/health", requireAuth, studentController.getHealth);
 router.post("/health", requireAuth, studentController.postHealth);
 
 router.get("/profile", requireAuth, studentController.getProfile);
-router.get("/profile", requireAuth, studentController.postProfile);
+
+router.get("/profile/edit_information/:id", requireAuth, studentController.getProfileEditInfo);
+router.post("/profile/edit_information", requireAuth, studentController.postProfileEditInfo);
+
+router.get("/profile/edit_avatar/:id", requireAuth, studentController.getProfileEditAvatar);
+router.post("/profile/edit_avatar", requireAuth, imageUpload.single("avatar"),studentController.postProfileEditAvatar);
 
 router.get("/logout",requireAuth,studentController.getLogout)
 

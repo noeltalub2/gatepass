@@ -142,6 +142,16 @@ a.navbar-brand {
 	color: #212529;
 }
 
+.was-validated .form-control:valid {
+	background-image: none;
+	border-color: #ced4da;
+}
+
+.was-validated .form-select:valid:not([multiple]):not([size]) {
+	background-image: none;
+	border-color: #ced4da;
+}
+
 .was-validated .form-check-input:valid {
 	border-color: rgba(0, 0, 0, 0.25);
 }
@@ -150,6 +160,33 @@ a.navbar-brand {
 	border-radius: 50%;
 }
 
+.form-control {
+	color: #5E6278;
+	font-size: 0.95rem;
+}
+
+.form-control:focus {
+	color: #5E6278;
+    background-color: #ffffff;
+    border-color: #B5B5C3;
+	box-shadow: none !important;
+}
+
+.form-select:focus {
+	color: #5E6278;
+    background-color: #ffffff;
+    border-color: #B5B5C3;
+	box-shadow: none !important;
+}
+.form-label {
+	font-size: 0.913rem;
+	margin-bottom: 0;
+	font-weight: bold;
+}
+
+.form-floating .form-label {
+	color: #333;
+}
 #footer {
 	background-color: #009428;
 }

@@ -1,0 +1,151 @@
+<%-include ("../Include/faculty_head.ejs")%>
+	<%-include ("../Include/faculty_header.ejs")%>
+
+		<div class="app-wrapper">
+
+			<div class="app-content pt-3 p-md-3 p-lg-4">
+				<div class="container-xl">
+
+					<h1 class="app-page-title">Dashboard</h1>
+
+					<!--//app-card-->
+
+					<div class="row g-4 mb-4">
+						<div class="col-6 col-lg-3">
+							<div class="app-card app-card-stat shadow-sm h-100">
+								<div class="app-card-body p-3 p-lg-4">
+									<h4 class="stats-type mb-1">Total Registered</h4>
+									<div class="stats-figure">
+										<%=totalRegistered%>
+									</div>
+									<div class="stats-meta text-secondary">
+										Today
+									</div>
+								</div>
+
+							</div>
+							<!--//app-card-->
+						</div>
+						<!--//col-->
+
+						<div class="col-6 col-lg-3">
+							<div class="app-card app-card-stat shadow-sm h-100">
+								<div class="app-card-body p-3 p-lg-4">
+									<h4 class="stats-type mb-1">Total Approved</h4>
+									<div class="stats-figure">
+										<%=totalApproved%>
+									</div>
+									<div class="stats-meta text-success">
+										Clear
+									</div>
+								</div>
+								<!--//app-card-body-->
+
+							</div>
+							<!--//app-card-->
+						</div>
+						<!--//col-->
+						<div class="col-6 col-lg-3">
+							<div class="app-card app-card-stat shadow-sm h-100">
+								<div class="app-card-body p-3 p-lg-4">
+									<h4 class="stats-type mb-1">Today Pending</h4>
+									<div class="stats-figure">
+										<%=totalPending%>
+									</div>
+									<div class="stats-meta text-warning">
+										Awaiting
+									</div>
+								</div>
+								<!--//app-card-body-->
+
+							</div>
+							<!--//app-card-->
+						</div>
+						<!--//col-->
+						<div class="col-6 col-lg-3">
+							<div class="app-card app-card-stat shadow-sm h-100">
+								<div class="app-card-body p-3 p-lg-4">
+									<h4 class="stats-type mb-1">Today Warning</h4>
+									<div class="stats-figure">
+										<%=totalWarning%>
+									</div>
+									<div class="stats-meta text-danger">
+										Danger
+									</div>
+								</div>
+
+							</div>
+							<!--//app-card-->
+						</div>
+						<!--//col-->
+					</div>
+
+
+					<h5 class="text-secondary mb-2">Recent</h5>
+					<div class="app-card app-card-orders-table shadow-sm mb-5">
+						<div class="app-card-body">
+
+							<div class="table-responsive">
+								<table class="table app-table-hover mb-0 text-left">
+									<thead>
+										<tr>
+											<th class="cell">ID #</th>
+											<th class="cell">Date</th>
+											<th class="cell">Gatepass ID</th>
+											<th class="cell">Student Number</th>
+											<th class="cell">Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										
+										<%gatepass.forEach((gatepass) => {%>
+										<tr>
+											<th class="cell">
+												<%=gatepass.gatepass_id%>
+											</th>
+											<td class="cell">
+												<%=gatepass.submit_date%>
+											</td>
+											<td class="cell">
+												<%=gatepass.gatepass_ref%>
+											</td>
+											<td class="cell">
+												<%=gatepass.studentnumber%>
+											</td>
+
+											<%if (gatepass.status === "Approved") {%>
+												<td><span class="badge bg-success">
+													<%=gatepass.status%>
+												</span>
+											</td>
+											<%}%>
+											<%if (gatepass.status === "Pending") {%>
+												<td><span class="badge bg-warning">
+													<%=gatepass.status%>
+												</span>
+											</td>
+											<%}%>
+											<%if (gatepass.status === "Reject") {%>
+												<td><span class="badge bg-danger">
+													<%=gatepass.status%>
+												</span>
+											</td>
+											<%}%>
+											
+										</tr>
+										<%})%>
+								
+									</tbody>
+								</table>
+							</div>
+							<!--//table-responsive-->
+
+						</div>
+						<!--//app-card-body-->
+					</div>
+				</div>
+				<!--//container-fluid-->
+			</div>
+		</div>
+		<!--//app-content-->
+		<%-include ("../Include/faculty_end.ejs")%>

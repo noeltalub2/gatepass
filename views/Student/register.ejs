@@ -32,39 +32,39 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label for="studentnumber" class="form-label">Student Number</label>
-                                        <input type="text" class="form-control" id="studentnumber" name="studentnumber"
-                                        minlength="9" maxlength="9" required>
-                                        <div class="invalid-feedback">
-                                            Please enter your student number
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="phonenumber" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phonenumber" name="phonenumber"
-                                            minlength="11" maxlength="11" required>
-                                        <div class="invalid-feedback">
-                                            Please enter your phone number
-                                        </div>
-                                    </div>
+                                 
+                            
+                                 
 
                                     <div class="col-12">
-                                        <label for="degree" class="form-label">Degree</label>
-                                        <select class="form-select" name="degree" id="degree"
-                                            aria-describedby="degreeFeedback" required>
-                                            <option selected hidden></option>
-                                            <option value="BAT">Bachelor in Automotive Technology</option>
-                                            <option value="CMPT">BSIT in Computer Technology</option>
-                                            <option value="CADT">BSIT in Civil & Drafting Technology</option>
-                                            <option value="ELTR">BSIT in Electrical Technology</option>
-                                            <option value="EXTR">BSIT in Electronics Technology</option>
-                                            <option value="FPSM">BSIT in Food Processing & Service Mgt</option>
-                                            <option value="GT">BSIT in Garments Technology</option>
+                                        <label for="course" class="form-label">Course</label>
+                                        <select class="form-select" name="course" id="course" aria-describedby="courseFeedback" required="">
+                                            <option selected="" hidden=""></option>
+                                            
+                                                <option value="BAT">Automotive Technology</option>
+                                            
+                                                <option value="CADT">Civil & Drafting Technology</option>
+                                            
+                                                <option value="CMPT">Computer Technology</option>
+                                            
+                                                <option value="ELTR">Electrical Technology</option>
+                                            
+                                                <option value="EXTR">Electronics Technology</option>
+                                            
+                                                <option value="FPSM">Food Processing & Service Mgt</option>
+                                            
+                                                <option value="GT">Garments Technology</option>
+                                            
                                         </select>
-                                        <div id="degreeFeedback" class="invalid-feedback">
-                                            Please select a degree.
+                                        <div id="courseFeedback" class="invalid-feedback">
+                                            Please select a course.
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="phonenumber" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="phonenumber" name="phonenumber"
+                                                minlength="11" maxlength="11" required>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -73,8 +73,16 @@
                                         <div class="invalid-feedback">
                                             Please enter a valid email address
                                         </div>
-                                    </div>
+                                    </div>  
+                                    <div class="col-md-12">
+                                        <label for="studentnumber" class="form-label">Student Number</label>
+                                        <input type="text" class="form-control" id="studentnumber" name="studentnumber"
+                                        minlength="9" maxlength="9" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your student number
+                                        </div>
 
+                                    </div>
                                     <div class="col-12">
                                         <label for="password" class="form-label">Password</label>
                                         <input type="password" class="form-control" id="password" name="password"

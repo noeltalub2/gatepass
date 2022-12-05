@@ -25,10 +25,13 @@
                             <h5 class="mb-1"><%=student.lastname%>,<%=student.firstname%></h5>
                             <p class="mb-0"><%=student.studentnumber%></p>
                             <p class="mb-0"><%=student.email%></p>
-
-                            <span class="badge bg-primary">Verified Student</span>
+                            <%if(student.is_verified === 1) {%>
+                                <span class="badge bg-primary">Verified Student</span>
+                            <%} else {%>
+                                <span class="badge bg-danger">Unverified Student</span>
+                            <%}%>
                             <div class="text-muted"><small>Joined <%=student.join_date%></small></div>
-                            <a href="/student/profile/edit_avatar/<%=student.studentnumber%>" class="card-link btn btn-secondary btn-sm mt-3">Change Avatar</a>
+                            <a href="/student/profile/edit_avatar/<%=student.studentnumber%>" class="card-link btn btn-primary btn-sm mt-3">Change Avatar</a>
                             <a href="/student/profile/edit_information/<%=student.studentnumber%>" class="card-link btn btn-outline-secondary btn-sm mt-3">Edit Profile</a>
                         </div>
                     </div>
@@ -40,7 +43,7 @@
                                 aria-selected="true">Profile</button>
                             <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled"
-                                aria-selected="false">Degree</button>
+                                aria-selected="false">Course</button>
                             
                             <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
@@ -87,31 +90,17 @@
                         <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab"
                             tabindex="0">
                             <section id="personalInformation" class="p-2">
-                                <h3 class="py-2">Degree</h3>
+                                <h3 class="py-2">Course</h3>
                                 <div class="mt-1">
                                     <table class="table table-borderless">
                                         <tbody>
                                             <tr>
-                                                <th><strong>Degree</strong></th>
-                                                <% var studentdegree = ""
-                                                
-                                                if (student.degree === "BAT") {
-                                                    studentdegree = "Bachelor in Automotive Technology"
-                                                }  else if (student.degree === "CADT") {
-                                                    studentdegree = "BSIT in Civil & Drafting Technology"
-                                                } else if (student.degree === "CMPT") {
-                                                    studentdegree = "BSIT in Computer Technology"
-                                                } else if (student.degree === "ELTR") {
-                                                    studentdegree = "BSIT in Electrical Technology"
-                                                } else if (student.degree === "EXTR") {
-                                                    studentdegree = "BSIT in Electronics Technology"
-                                                } else if (student.degree === "FPSM") {
-                                                    studentdegree = "BSIT in Food Processing & Service Mgt"
-                                                } else if (student.degree === "GT") {
-                                                    studentdegree = "Garments Technology"
-                                                }
-                                                %>
-                                                <td><%=studentdegree%></td>
+                                                <th><strong>Course</strong></th>
+                                                <%course.forEach((courses) => {%>
+                                                   <%if (courses.course_id === student.course) {%>
+                                                        <td><%=courses.course_name%></td>
+                                                    <%}%>
+                                                <%})%>
                                             </tr>
                                         
                                             <tr>

@@ -1,12 +1,11 @@
-const today = () => {
+const date_time = () => {
 	let today = new Date();
-	today.setDate(today.getDate());
-	return today.toISOString().split("T")[0];
-};
-const tomorrow = () => {
-	let today = new Date();
-	today.setDate(today.getDate() + 1);
-	return today.toISOString().split("T")[0];
+	return today.toLocaleString();
 };
 
-module.exports = {today, tomorrow}
+const date = () => {
+	let today = new Date();
+	return today.toLocaleDateString();
+};
+
+module.exports = {date_time,date}

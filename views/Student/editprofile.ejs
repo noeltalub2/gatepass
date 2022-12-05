@@ -68,51 +68,36 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="gender">Gender</label>
                                                     <select class="form-select" id="gender" name="gender">
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
+                                                        <%
+                                                        var male = ""
+                                                        var female = ""
+                                                        if (student.gender === "Male") {
+                                                            male = "selected"
+                                                        } else if (student.gender === "Female") {
+                                                            female = "selected"
+                                                        }
+                                                        %>
+                                                        <option value="Male" <%=male%>>Male</option>
+                                                        <option value="Female" <%=female%>>Female</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <hr class="my-4">
-                                        <h6 class="heading-small text-muted mb-4">Degree</h6>
+                                        <h6 class="heading-small text-muted mb-4">Course</h6>
                                         <div class="row">
                                             <div class="col-lg-4">
-                                                <label for="degree" class="form-label">Degree</label>
-                                                <select class="form-select" name="degree" id="degree"
-                                                    aria-describedby="degreeFeedback" required>
-                                                    <% var BAT = ""
-                                                    CADT = ""
-                                                    CMPT = ""
-                                                    ELTR = ""
-                                                    EXTR = ""
-                                                    FPSM = ""
-                                                    GT = ""
-                                                
-                                                    if (student.degree === "BAT") {
-                                                        BAT = "SELECTED"
-                                                    }  else if (student.degree === "CADT") {
-                                                        CADT = "SELECTED"
-                                                    } else if (student.degree === "CMPT") {
-                                                        CMPT = "SELECTED"
-                                                    } else if (student.degree === "ELTR") {
-                                                        ELTR = "SELECTED"
-                                                    } else if (student.degree === "EXTR") {
-                                                       EXTR = "SELECTED"
-                                                    } else if (student.degree === "FPSM") {
-                                                        FPSM = "SELECTED"
-                                                    } else if (student.degree === "GT") {
-                                                       GT = "SELECTED"
-                                                    }
-                                                    %>
-                                                    <option value="BAT" <%=BAT%> >Bachelor in Automotive Technology</option>
-                                                    <option value="CMPT"<%=CMPT%> >BSIT in Computer Technology</option>
-                                                    <option value="CADT" <%=CADT%>>BSIT in Civil & Drafting Technology</option>
-                                                    <option value="ELTR" <%=ELTR%>>BSIT in Electrical Technology</option>
-                                                    <option value="EXTR" <%=EXTR%>>BSIT in Electronics Technology</option>
-                                                    <option value="FPSM" <%=FPSM%>>BSIT in Food Processing & Service Mgt</option>
-                                                    <option value="GT" <%=GT%>>BSIT in Garments Technology</option>
+                                                <label for="course" class="form-label">Course</label>
+                                                <select class="form-select" name="course" id="course"
+                                                    aria-describedby="courseFeedback" required>
+                                                   
+                                                    <%course.forEach((courses) => {%>
+                                                        <%if (courses.course_id === student.course) {%>
+                                                            <option selected value="<%=courses.course_id%>"><%=courses.course_name%></option>
+                                                         <%}%>
+                                                         <option value="<%=courses.course_id%>"><%=courses.course_name%></option>
+                                                     <%})%>
                                                 </select>
                                                
                                             </div>
@@ -120,12 +105,29 @@
                                                 <label for="year" class="form-label">Year</label>
                                                 <select class="form-select" name="year" id="year"
                                                     aria-describedby="yearFeedback" required>
-                                           
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
+                                                    <% 
+                                                        var year_1 = "";
+                                                        var year_2 = "";
+                                                        var year_3 = "";
+                                                        var year_4 = "";
+                                                        var year_5 = "";
+                                                        if (student.year === "1") {
+                                                            year_1 = "selected"
+                                                        } else if (student.year === "2") {
+                                                            year_2 = "selected"
+                                                        } else if (student.year === "3") {
+                                                            year_3 = "selected"
+                                                        } else if (student.year === "4") {
+                                                            year_4 = "selected"
+                                                        } else if (student.year === "5") {
+                                                            year_5 = "selected"
+                                                        }
+                                                    %>
+                                                    <option value="1" <%=year_1%>>1</option>
+                                                    <option value="2" <%=year_2%>>2</option>
+                                                    <option value="3" <%=year_3%>>3</option>
+                                                    <option value="4" <%=year_4%>>4</option>
+                                                    <option value="5" <%=year_5%>>5</option>
                                                 </select>
                                              
                                             </div>
@@ -134,11 +136,25 @@
                                                 <label for="section" class="form-label">Section</label>
                                                 <select class="form-select" name="section" id="section"
                                                     aria-describedby="sectionFeedback" required>
-                                             
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
-                                                    <option value="D">D</option>
+                                                    <%
+                                                    var section_a = ""
+                                                    var section_b = ""
+                                                    var section_c = ""
+                                                    var section_d = ""
+                                                    if (student.section === "A") {
+                                                    section_a = "selected"
+                                                    } else if (student.section === "B") {
+                                                        section_b = "selected"
+                                                    } else if (student.section === "C") {
+                                                        section_c = "selected"
+                                                    } else if (student.section === "D") {
+                                                        section_d = "selected"
+                                                    }
+                                                    %>
+                                                    <option value="A" <%=section_a%>>A</option>
+                                                    <option value="B" <%=section_b%>>B</option>
+                                                    <option value="C" <%=section_c%>>C</option>
+                                                    <option value="D" <%=section_d%>>D</option>
                                                 </select>
                                                
                                             </div>
@@ -167,7 +183,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="address">Address</label>
                                                     <input id="address" name="address" class="form-control" type="text"
-                                                        required value="<%=student.address%>">
+                                                        required value="<%=student.address%>" maxlength="50">
                                                 </div>
                                             </div>
                                            
@@ -176,6 +192,7 @@
 
                                         <hr class="my-4">
                                         <button type="submit" class="btn btn-primary btn-sm">Update Account</button>
+                                        <a href="/student/profile" class="card-link btn btn-secondary btn-sm">Cancel</a>
                                     </form>
 
 

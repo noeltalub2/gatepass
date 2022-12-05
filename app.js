@@ -5,6 +5,7 @@ const path = require('path');
 
 //Routes
 const student = require("./routes/student");
+const faculty = require("./routes/faculty");
 
 
 const dotenv = require("dotenv");
@@ -40,6 +41,7 @@ conn.connect((err) => {
 
 
 app.use("/student", student);
+app.use("/faculty", faculty);
 
 
 PORT = process.env.PORT || 3000

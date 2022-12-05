@@ -1,0 +1,217 @@
+<%-include ("../Include/faculty_head.ejs")%>
+	<%-include ("../Include/faculty_header.ejs")%>
+		<div class="app-wrapper">
+			<div class="app-content pt-3 p-md-3 p-lg-4">
+				<div class="container-xl">
+					<h1 class="app-page-title">Gatepass</h1>
+					<div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
+						
+						<div class="app-card-body">
+
+							<div class="table-responsive">
+
+								<table id="pending" class="table app-table-hover" style="width:100%">
+									<thead>
+										<tr>
+											<th class="cell">#</th>
+											<th class="cell">Avatar</th>
+											<th class="cell">Submit Date</th>
+											<th class="cell">Gatepass Ref</th>
+											<th class="cell">First Name</th>
+											<th class="cell">Last Name</th>
+											<th class="cell">Student Number</th>
+											<th class="cell">Status</th>
+											<th class="cell">Action</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<%gatepass.forEach((gatepass)=> {%>
+
+											<tr>
+												<th class="cell">
+													<%=gatepass.gatepass_id%>
+												</th>
+												<th class="cell">
+													<img src="/img/avatar/<%=gatepass.avatar%>" alt="avatar" height="50"
+														width="50" style="border-radius: 50%;object-fit: cover;">
+												</th>
+												<td class="cell">
+													<%=gatepass.submit_date%>
+												</td>
+												<td class="cell">
+													<%=gatepass.gatepass_ref%>
+												</td>
+												<td class="cell">
+													<%=gatepass.firstname%>
+												</td>
+												<td class="cell">
+													<%=gatepass.lastname%>
+												</td>
+												<td class="cell">
+													<%=gatepass.studentnumber%>
+												</td>
+
+												<%if (gatepass.status==="Approved" ) {%>
+													<td class="cell">
+														<span class="badge bg-success">
+															<%=gatepass.status%>
+														</span>
+													</td>
+													<%}%>
+														<%if (gatepass.status==="Pending" ) {%>
+															<td class="cell">
+																<span class="badge bg-warning">
+																	<%=gatepass.status%>
+																</span>
+															</td>
+															<%}%>
+																<%if (gatepass.status==="Reject" ) {%>
+																	<td class="cell">
+																		<span class="badge bg-danger">
+																			<%=gatepass.status%>
+																		</span>
+																	</td>
+																	<%}%>
+																		<td class="cell">
+
+																			<a type="button"
+																				class="btn btn-secondary btn-sm text-white"
+																				data-bs-toggle="modal"
+																				data-bs-target="#<%=gatepass.gatepass_ref%>">Review</a>
+
+																			<!-- Modal -->
+																			<div class="modal fade"
+																				id="<%=gatepass.gatepass_ref%>"
+																				tabindex="-1"
+																				aria-labelledby="<%=gatepass.gatepass_ref%>Label"
+																				aria-hidden="true">
+																				<div class="modal-dialog">
+																					<div class="modal-content">
+																						<div class="modal-header">
+																							<h1 class="modal-title fs-5"
+																								id="<%=gatepass.gatepass_ref%>Label">
+																								Health Details</h1>
+																							<button type="button"
+																								class="btn-close"
+																								data-bs-dismiss="modal"
+																								aria-label="Close"></button>
+																						</div>
+																						<div class="modal-body">
+																							<h4 class="mb-0">Gatepass
+																								Ref:
+																								<%=gatepass.gatepass_ref%>
+																							</h4>
+																							<span
+																								class="text-muted">Submit
+																								Date:
+																								<%=gatepass.submit_date%>
+																									</span>
+
+																							<h5 class="mt-3">SYMPTOMS
+																							</h5>
+																							<div class="mb-3">
+
+																								<p class="mb-0">Fever:
+																									<strong>
+																										<%=gatepass.fever%>
+																									</strong></p>
+																								<p class="mb-0">Cough:
+																									<strong>
+																										<%=gatepass.cough%>
+																									</strong></p>
+																								<p class="mb-0">Cold:
+																									<strong>
+																										<%=gatepass.cold%>
+																									</strong></p>
+																								<p class="mb-0">No Sense
+																									of Smell: <strong>
+																										<%=gatepass.no_sense_smell%>
+																									</strong></p>
+																								<p class="mb-0">
+																									Diarrhea: <strong>
+																										<%=gatepass.diarrhea%>
+																									</strong></p>
+																								<p class="mb-0">Sore
+																									Throat: <strong>
+																										<%=gatepass.sore_throat%>
+																									</strong></p>
+																								<p class="mb-0">
+																									Difficulty
+																									Breathing: <strong>
+																										<%=gatepass.difficult_breath%>
+																									</strong></p>
+																								<p class="mb-0">Muscle &
+																									Joint Pain: <strong>
+																										<%=gatepass.muscle_joint_pain%>
+																									</strong></p>
+
+																							</div>
+																							<h5>EXPOSURE</h5>
+																							<div class="">
+																								<p class="mb-0">History
+																									of travel/visit from
+																									any place outside
+																									Ilocos Norte:
+																									<strong>
+																										<%=gatepass.travel_history%>
+																									</strong></p>
+																								<p class="mb-0">
+																									Visitors/relatives
+																									that come from other
+																									place: <strong>
+																										<%=gatepass.visit_other_place%>
+																									</strong></p>
+																								<p class="mb-0">Exposure
+																									to anyone with
+																									symptoms: <strong>
+																										<%=gatepass.exposure_anyone%>
+																									</strong></p>
+																								<p class="mb-0">Taking
+																									care of
+																									relative/patient at
+																									home with symptoms:
+																									<strong>
+																										<%=gatepass.takecare_people%>
+																									</strong></p>
+																								<p class="mb-0">
+																									Visited/monitored by
+																									barangay health
+																									workers/officials:
+																									<strong>
+																										<%=gatepass.monitor_by_personnel%>
+																									</strong></p>
+																							</div>
+																						</div>
+																						<div class="modal-footer">
+																							<a class="btn btn-success text-white"
+																								href="/faculty/gatepass/approved=<%=gatepass.gatepass_ref%>">Approved</a>
+																							<a class="btn btn-danger text-white"
+																								href="/faculty/gatepass/reject=<%=gatepass.gatepass_ref%>">
+																								Reject
+																							</a>
+																							<button type="button"
+																								class="btn btn-secondary "
+																								data-bs-dismiss="modal">Close</button>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+
+																		</td>
+											</tr>
+											<%})%>
+									</tbody>
+
+								</table>
+							</div>
+							<!--//table-responsive-->
+
+						</div>
+						<!--//app-card-body-->
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<%-include ("../Include/faculty_end.ejs")%>

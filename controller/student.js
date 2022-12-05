@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 const { nanoid } = require("nanoid");
 
 const { createTokens } = require("../utils/token");
-const { today, tomorrow } = require("../utils/date");
-const e = require("express");
+const { date_time,date } = require("../utils/date");
+
 
 const db = mysql.createConnection({
 	host: "localhost",
@@ -74,7 +74,7 @@ const postLogin = (req, res) => {
 	}
 };
 
-const getRegister = (req, res) => {
+const getRegister = async (req, res) => {
 	res.render("Student/register", { status: "", msg: "" });
 };
 
@@ -84,27 +84,39 @@ const postRegister = async (req, res) => {
 		studentnumber,
 		lastname,
 		firstname,
-		degree,
-		email,
+		course,
 		phonenumber,
-		
+		email,
 		password,
 	} = req.body;
 
 	//Sql statement if there is duplciate in database
-	var phone_exist =
-		"Select count(*) as `count` from student where phonenumber = ?";
-
+	var student_exist =
+		"Select count(*) as `count` from student where studentnumber = ?";
+	var email_exist =
+		"Select count(*) as `count` from student where email = ?";
 	//Query statement
-	const phone_count = (await queryParam(phone_exist, [phonenumber]))[0].count;
+	const student_count = (await queryParam(student_exist, [studentnumber]))[0].count;
+	const email_count = (await queryParam(email_exist, [email]))[0].count;
 
 	//Check if there is duplicate
-	if (phone_count) {
+	if ((student_count > 0) && (email_count > 0)) {
 		res.render("Student/register", {
 			status: "error_warning",
-			msg: "Phone number already registered",
+			msg: "Student number and Email is already registered",
+		});
+	} else if (student_count > 0) {
+		res.render("Student/register", {
+			status: "error_warning",
+			msg: "Student number is already registered",
+		});
+	} else if (email_count > 0) {
+		res.render("Student/register", {
+			status: "error_warning",
+			msg: "Email is already registered",
 		});
 	}
+
 	//To encrypt the password using hash
 	const salt = bcrypt.genSaltSync(15);
 	const hash = bcrypt.hashSync(password, salt);
@@ -113,15 +125,17 @@ const postRegister = async (req, res) => {
 		studentnumber: studentnumber,
 		firstname: firstname,
 		lastname: lastname,
-		degree: degree,
-		email: email,
+		course: course,
 		phonenumber: phonenumber,
+		email: email,
 		avatar: "default.png",
 		password: hash,
-		join_date: today(),
+		complete_details: 0,
+		is_verified: 0,
+		join_date: date_time(),
 	};
 	//Add account to database
-	var sql = "Insert into student set ?";
+	var sql = "INSERT INTO student SET ?";
 	db.query(sql, data, (err, rset) => {
 		if (err) {
 			console.log(err);
@@ -139,32 +153,31 @@ const postRegister = async (req, res) => {
 };
 
 const getDashboard = async (req, res) => {
-	var sid = res.locals.sid;
-
-	const user = (
+	var sid = res.locals.sid.toString();
+	const course = (await zeroParam("SELECT * FROM course"));
+	const student = (
 		await queryParam("SELECT * from student WHERE studentnumber = ?", [
 			res.locals.sid,
 		])
 	)[0];
 	var gatepass =
-		"SELECT *, count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date = ?";
+		`SELECT *, count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date LIKE '%${date()}%'`;
 
-	db.query(gatepass, [sid.toString(), today()], async (err, data) => {
+	db.query(gatepass, [sid], async (err, data) => {
 		if (err) throw err;
 		if (data[0].count !== 0) {
-			res.render("Student/dashboard", { user, gatepass: data });
+			res.render("Student/dashboard", { course,student, gatepass: data });
 		} else {
-			res.render("Student/dashboard", { user, gatepass: "Unavailable" });
+			res.render("Student/dashboard", { course,student, gatepass: "Unavailable" });
 		}
 	});
 };
 
 const getHealth = (req, res) => {
-	var sid = res.locals.sid;
+	var sid = res.locals.sid.toString();
 	var sql1 =
-		"SELECT gatepass_id,submit_date,count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date = ?";
-
-	db.query(sql1, [sid.toString(), today()], (err, data) => {
+		`SELECT gatepass_ref,submit_date,count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date LIKE '%${date()}%'`;
+	db.query(sql1, [sid], (err, data) => {
 		if (err) throw err;
 		if (data[0].count !== 0) {
 			res.render("Student/health", { submitted: true, data });
@@ -172,9 +185,10 @@ const getHealth = (req, res) => {
 			res.render("Student/health", { submitted: false });
 		}
 	});
+
 };
 
-const postHealth = async (req, res) => {
+const postHealth = (req, res) => {
 	const ID = nanoid(8);
 	const {
 		// Symptoms
@@ -194,13 +208,12 @@ const postHealth = async (req, res) => {
 		monitor_by_personnel,
 	} = req.body;
 
-	var sql = "Insert into gatepass set ?";
+	var sql = "INSERT INTO gatepass SET ?";
 	var hdf = {
-		gatepass_id: ID,
+		gatepass_ref: ID,
 		studentnumber: res.locals.sid,
-		submit_date: today(),
-		effective_date: tomorrow(),
-		status: 1,
+		submit_date: date_time(),
+		status: "Pending",
 		fever: fever,
 		cough: cough,
 		cold: cold,
@@ -225,54 +238,70 @@ const postHealth = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
+	const course = (await zeroParam("SELECT * FROM course"));
 	const studentData = (
 		await queryParam("SELECT * from student WHERE studentnumber = ?", [
 			res.locals.sid,
 		])
 	)[0];
-
-	res.render("Student/profile", {
-		student: studentData,
-		status:"",
-		msg:"",
-	});
+	if (studentData.complete_details) {
+		res.render("Student/profile", {
+			course,
+			student: studentData,
+			status:"",
+			msg:"",
+		});
+	} else {
+		res.render("Student/profile", {
+			course,
+			student: studentData,
+			status:"error_warning",
+			msg:"To verify your account please complete your information details and add your picture.",
+		});
+	}
+	
 };
 
 const getProfileEditInfo = async (req, res) => {
 	const studentnumber = req.params.id;
+	const course = (await zeroParam("SELECT * FROM course"));
 	const studentData = (
 		await queryParam("SELECT * from student WHERE studentnumber = ?", [
 			studentnumber,
 		])
 	)[0];
+
 	res.render("Student/editprofile", {
+		course,
 		student: studentData,
 	});
 };
 
-const postProfileEditInfo = async (req, res) => {
+const postProfileEditInfo = (req, res) => {
+	
 	const {
 		firstname,
 		lastname,
 		gender,
 		dob,
-		degree,
+		course,
 		year,
 		section,
 		address,
 		email,
 		phonenumber,
 		studentnumber,
+		
 	} = req.body;
 	var sql =
-		"UPDATE student SET firstname=?, lastname=?,gender=?,dob=?, degree=?, year=?,section=?, address=?, email=?, phonenumber=? WHERE studentnumber = ?";
+		"UPDATE student SET firstname=?, lastname=?,gender=?,dob=?, course=?, year=?,section=?, address=?, email=?, phonenumber=?, complete_details=1 WHERE studentnumber = ?";
 	//Add account to database
 	db.query(sql, [
 		firstname,
 		lastname,
 		gender,
 		dob,
-		degree,
+		course,
 		year,
 		section,
 		address,
@@ -299,7 +328,7 @@ const getProfileEditAvatar = async (req,res) => {
 	});
 }
 
-const postProfileEditAvatar = async (req, res) => {
+const postProfileEditAvatar = (req, res) => {
 	const {studentnumber} = req.body;
 	var avatar = req.file.filename
 	var sql = "UPDATE student SET avatar = ? WHERE studentnumber = ?"

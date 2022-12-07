@@ -1,0 +1,195 @@
+<%-include ("../Include/admin_head.ejs")%>
+    <%-include ("../Include/admin_header.ejs")%>
+
+        <div class="app-wrapper">
+
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+
+                    <h1 class="app-page-title">Modify Student</h1>
+                    <div class="app-card app-card-settings shadow-sm p-4">
+
+                        <div class="app-card-body">
+
+
+                            <form method="post" action="/admin/student/edit" class="needs-validation" novalidate>
+                                <h6 class="heading-small text-muted mb-4">Student information</h6>
+
+                                <div class="text-center mb-3">
+                                    <img src="/img/avatar/<%=student.avatar%>" alt="" class="d-block mx-auto mb-1"
+                                        height="200px" width="200px" style="border-radius: 50%; object-fit: cover;">
+                                    <span class="text-muted">Avatar Profile</span>
+                                    <div class="text-muted"><small>Joined <%=student.join_date%></small></div>  
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group">
+                                            <label class="form-label fw-bold" for="studentnumber">Student Number</label>
+                                            <input class="form-control" type="text" value="<%=student.studentnumber%>"
+                                                aria-label="Disabled input example" name="studentnumber" readonly>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="firstname">First Name</label>
+                                            <input type="text" id="firstname" name="firstname" class="form-control"
+                                                required value="<%=student.firstname%>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="lastname">Last Name</label>
+                                            <input type="text" id="lastname" name="lastname" class="form-control"
+                                                required value="<%=student.lastname%>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="dob">Date of Birth</label>
+                                            <input type="date" id="dob" name="dob" class="form-control" required
+                                                value="<%=student.dob%>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="gender">Gender</label>
+                                            <select class="form-select" id="gender" name="gender">
+                                                <% var male="" ; var female="" ; if (student.gender==="Male" ) {
+                                                    male="selected" } else if (student.gender==="Female" ) {
+                                                    female="selected" } %>
+                                                    <option value="Male" <%=male%>>Male</option>
+                                                    <option value="Female" <%=female%>>Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+                                <h6 class="heading-small text-muted mb-4">Course</h6>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label for="course" class="form-label">Course</label>
+                                        <select class="form-select" name="course" id="course"
+                                            aria-describedby="courseFeedback" required>
+
+                                            <%course.forEach((courses)=> {%>
+                                                <%if (courses.course_id===student.course) {%>
+                                                    <option selected value="<%=courses.course_id%>">
+                                                        <%=courses.course_name%>
+                                                    </option>
+                                                    <%}%>
+                                                        <option value="<%=courses.course_id%>">
+                                                            <%=courses.course_name%>
+                                                        </option>
+                                                        <%})%>
+                                        </select>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="year" class="form-label">Year</label>
+                                        <select class="form-select" name="year" id="year"
+                                            aria-describedby="yearFeedback" required>
+                                            <% var year_1="" ; var year_2="" ; var year_3="" ; var year_4="" ; var
+                                                year_5="" ; if (student.year==="1" ) { year_1="selected" } else if
+                                                (student.year==="2" ) { year_2="selected" } else if (student.year==="3"
+                                                ) { year_3="selected" } else if (student.year==="4" ) {
+                                                year_4="selected" } else if (student.year==="5" ) { year_5="selected" }
+                                                %>
+                                                <option value="1" <%=year_1%>>1</option>
+                                                <option value="2" <%=year_2%>>2</option>
+                                                <option value="3" <%=year_3%>>3</option>
+                                                <option value="4" <%=year_4%>>4</option>
+                                                <option value="5" <%=year_5%>>5</option>
+                                        </select>
+
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="section" class="form-label">Section</label>
+                                        <select class="form-select" name="section" id="section"
+                                            aria-describedby="sectionFeedback" required>
+                                            <% var section_a="" ; var section_b="" ; var section_c="" ; var section_d=""
+                                                ; if (student.section==="A" ) { section_a="selected" } else if
+                                                (student.section==="B" ) { section_b="selected" } else if
+                                                (student.section==="C" ) { section_c="selected" } else if
+                                                (student.section==="D" ) { section_d="selected" } %>
+                                                <option value="A" <%=section_a%>>A</option>
+                                                <option value="B" <%=section_b%>>B</option>
+                                                <option value="C" <%=section_c%>>C</option>
+                                                <option value="D" <%=section_d%>>D</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="email">Email
+                                                address</label>
+                                            <input type="email" id="email" name="email" class="form-control" required
+                                                value="<%=student.email%>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="phonenumber" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="phonenumber" name="phonenumber"
+                                                minlength="11" maxlength="11" value="<%=student.phonenumber%>" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="address">Address</label>
+                                            <input id="address" name="address" class="form-control" type="text" required
+                                                value="<%=student.address%>" maxlength="50">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr class="my-4">
+                                <h6 class="heading-small text-muted mb-4">Account</h6>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="is_verified" class="form-label">Status</label>
+                                    <select class="form-select" name="is_verified" id="is_verified"
+                                        aria-describedby="sectionFeedback" required>
+                                        <% var verified="" ; var not_verified="" ; if (student.is_verified===0 ) {
+                                            verified="selected" } else { not_verified="selected" } %>
+                                            <option value="0" <%=verified%>>Unverified</option>
+                                            <option value="1" <%=not_verified%>>Verified</option>
+                                     
+                                    </select>
+                                    </div>
+                                    
+                                </div>
+
+
+                                <hr class="my-4">
+                                <button type="submit" class="btn btn-primary btn-sm text-white">Update Account</button>
+                                <a href="/admin/student" class="card-link btn btn-secondary btn-sm">Cancel</a>
+                            </form>
+                        </div>
+                        <!--//app-card-body-->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--//app-content-->
+        <%-include ("../Include/admin_end.ejs")%>

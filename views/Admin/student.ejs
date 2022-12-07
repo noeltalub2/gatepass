@@ -1,0 +1,87 @@
+<%-include ("../Include/admin_head.ejs")%>
+    <%-include ("../Include/admin_header.ejs")%>
+
+        <div class="app-wrapper">
+
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+
+                    <h1 class="app-page-title">Manage Student</h1>
+                    <div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
+
+                        <div class="app-card-body">
+
+                            <div class="table-responsive">
+
+                                <table id="student" class="table app-table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+                             
+                                            <th class="cell">Avatar</th>
+                                            <th class="cell">Student No.</th>
+                                            <th class="cell">Email</th>
+                                            <th class="cell">First Name</th>
+                                            <th class="cell">Last Name</th>
+                                            <th class="cell">Course</th>
+                                            <th class="cell">Account</th>
+                                            <th class="cell">Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                
+                                        <%students.forEach((student)=> {%>
+
+                                            <tr>
+                                               
+                                                <th class="cell">
+                                                    <img src="/img/avatar/<%=student.avatar%>" alt="avatar" height="50"
+                                                        width="50" style="border-radius: 50%;object-fit: cover;">
+                                                </th>
+                                                <td class="cell">
+                                                    <%=student.studentnumber%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.email%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.firstname%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.lastname%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.course%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%if (student.is_verified) {%>
+                                                        <span class="badge bg-primary">Verified</span>
+                                                    <%} else {%>
+                                                        <span class="badge bg-danger">Unverified</span>
+                                                    <%}%>
+                                                </td>
+
+                                                <td class="cell">
+
+                                                    <a class="btn btn-secondary btn-sm text-white" href="/admin/student/edit=<%=student.studentnumber%>">Modify</a>
+                                                </td>
+                                            </tr>
+                                        <%})%>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!--//table-responsive-->
+
+                        </div>
+                        <!--//app-card-body-->
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--//app-content-->
+        <%-include ("../Include/admin_end.ejs")%>

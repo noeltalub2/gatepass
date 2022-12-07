@@ -1,0 +1,198 @@
+<%-include ("../Include/admin_head.ejs")%>
+    <%-include ("../Include/admin_header.ejs")%>
+
+        <div class="app-wrapper">
+
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+
+                    <div class="row justify-content-between">
+                        <div class="col-7">
+                            <h1 class="app-page-title">Report Data</h1>
+
+                        </div>
+                        <div class="col-5"><a class="btn btn-primary text-white float-end" href="/admin/generate/">Generate Daily
+                                Report</a></div>
+                    </div>
+                    <div class="row g-4 mb-4">
+                        <div class="col-12 col-lg-6">
+                            <div class="app-card app-card-chart h-100 shadow-sm">
+                                <div class="app-card-header p-3 border-0">
+                                    <h4 class="app-card-title">Registered Student</h4>
+                                </div>
+                                <!--//app-card-header-->
+                                <div class="app-card-body p-4">
+                                    <div class="chart-container">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="studentCourse" style="width:100%;max-width:700px"></canvas>
+                                    </div>
+                                </div>
+                                <!--//app-card-body-->
+                            </div>
+                            <!--//app-card-->
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="app-card app-card-chart h-100 shadow-sm">
+                                <div class="app-card-header p-3 border-0">
+                                    <h4 class="app-card-title">Overall Gatepass Registered</h4>
+                                </div>
+                                <!--//app-card-header-->
+                                <div class="app-card-body p-4">
+                                    <div class="chart-container">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="totalGatepass" style="width:100%;max-width:700px"></canvas>
+                                    </div>
+                                </div>
+                                <!--//app-card-body-->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            window.chartColors = {
+                green: '#75c181',
+                gray: '#a9b5c9',
+                text: '#252930',
+                border: '#e7e9ed',
+                red: "#dc3545",
+                yellow: "#ffc107",
+            };
+            new Chart("studentCourse", {
+                type: 'bar',
+                data: {
+                    labels: ['BAT', 'CADT', 'CMPT', 'ELTR', 'EXTR', 'FPSM', 'GT'],
+                    datasets: [{
+                        label: 'Numbers',
+
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        borderWidth: 1,
+                        maxBarThickness: 16,
+
+                        data: [
+                            '<%-registeredBAT%>',
+                            '<%-registeredCADT%>',
+                            '<%-registeredCMPT%>',
+                            '<%-registeredELTR%>',
+                            '<%-registeredEXTR%>',
+                            '<%-registeredFPSM%>',
+                            '<%-registeredGT%>',
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    aspectRatio: 1.5,
+                    legend: {
+                        position: 'bottom',
+                        align: 'end',
+                    },
+
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                        titleMarginBottom: 10,
+                        bodySpacing: 10,
+                        xPadding: 16,
+                        yPadding: 16,
+                        borderColor: window.chartColors.border,
+                        borderWidth: 1,
+                        backgroundColor: '#fff',
+                        bodyFontColor: window.chartColors.text,
+                        titleFontColor: window.chartColors.text,
+
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                drawBorder: false,
+                                color: window.chartColors.border,
+                            },
+
+                        }],
+                        yAxes: [{
+                            display: true,
+                            gridLines: {
+                                drawBorder: false,
+                                color: window.chartColors.borders,
+                            },
+
+
+                        }]
+                    }
+
+                }
+            });
+
+            new Chart("totalGatepass", {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: [
+                            '<%-totalApproved%>',
+                            '<%-totalReject%>',
+                        ],
+                        backgroundColor: [
+                            window.chartColors.green,
+                            window.chartColors.red,
+
+
+                        ],
+                        label: 'Dataset 1'
+                    }],
+                    labels: [
+                        'Approved',
+                        'Reject',
+
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        align: 'center',
+                    },
+
+                    tooltips: {
+                        titleMarginBottom: 10,
+                        bodySpacing: 10,
+                        xPadding: 16,
+                        yPadding: 16,
+                        borderColor: window.chartColors.border,
+                        borderWidth: 1,
+                        backgroundColor: '#fff',
+                        bodyFontColor: window.chartColors.text,
+                        titleFontColor: window.chartColors.text,
+
+                        /* Display % in tooltip - https://stackoverflow.com/questions/37257034/chart-js-2-0-doughnut-tooltip-percentages */
+
+
+                    },
+                }
+            });
+        </script>
+
+        <!--//app-content-->
+        <%-include ("../Include/admin_end.ejs")%>

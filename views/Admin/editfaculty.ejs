@@ -1,0 +1,54 @@
+<%-include ("../Include/admin_head.ejs")%>
+    <%-include ("../Include/admin_header.ejs")%>
+
+        <div class="app-wrapper">
+
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+
+                    <h1 class="app-page-title">Add Faculty</h1>
+                
+                    <div class="app-card app-card-settings shadow-sm p-4">
+
+                        <div class="app-card-body">
+                            <form method="POST" action="/admin/faculty/edit" class="settings-form needs-validation" novalidate>
+                                <div class="mb-2">
+                                    <label for="faculty_id" class="form-label">Faculty ID</label>
+                                    <input type="text" class="form-control" id="faculty_id" name="faculty_id" value="<%=faculty.faculty_id%>"
+                                    readonly>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="firstname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstname" name="firstname" value="<%=faculty.firstname%>"
+                                    minlength="2" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="lastname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastname" name="lastname" value="<%=faculty.lastname%>" minlength="2" required
+                                        >
+                                </div>
+                                <div class="mb-2">
+                                    <label for="phonenumber" class="form-label">Phonenumber</label>
+                                    <input type="text" class="form-control" id="phonenumber" name="phonenumber" value="<%=faculty.phonenumber%>"  minlength="11" maxlength="11" 
+                                        required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="<%=faculty.email%>"
+                                        required>
+                                </div>
+                             
+                               
+                                <button type="submit" class="btn btn-success text-white">Add Faculty</button>
+                            </form>
+                        </div>
+                        <!--//app-card-body-->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--//app-content-->
+        <%-include ("../Include/admin_end.ejs")%>

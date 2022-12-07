@@ -2,8 +2,10 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const { nanoid } = require("nanoid");
 
-const { createTokens } = require("../utils/token");
+const { createTokensStudent } = require("../utils/token");
 const { date_time,date } = require("../utils/date");
+
+const fs = require('fs');
 
 
 const db = mysql.createConnection({
@@ -50,7 +52,7 @@ const postLogin = (req, res) => {
 						result[0].password
 					);
 					if (match_password) {
-						const generateToken = createTokens(
+						const generateToken = createTokensStudent(
 							result[0].studentnumber
 						);
 						res.cookie("token", generateToken, { httpOnly: true });
@@ -166,9 +168,9 @@ const getDashboard = async (req, res) => {
 	db.query(gatepass, [sid], async (err, data) => {
 		if (err) throw err;
 		if (data[0].count !== 0) {
-			res.render("Student/dashboard", { course,student, gatepass: data });
+			res.render("Student/dashboard", { title: "Student | Dashboard",course,student, gatepass: data });
 		} else {
-			res.render("Student/dashboard", { course,student, gatepass: "Unavailable" });
+			res.render("Student/dashboard", {title: "Student | Dashboard", course,student, gatepass: "Unavailable" });
 		}
 	});
 };
@@ -180,9 +182,9 @@ const getHealth = (req, res) => {
 	db.query(sql1, [sid], (err, data) => {
 		if (err) throw err;
 		if (data[0].count !== 0) {
-			res.render("Student/health", { submitted: true, data });
+			res.render("Student/health", { title: "Student | Health",submitted: true, data });
 		} else {
-			res.render("Student/health", { submitted: false });
+			res.render("Student/health", { title: "Student | Health",submitted: false });
 		}
 	});
 
@@ -246,6 +248,7 @@ const getProfile = async (req, res) => {
 	)[0];
 	if (studentData.complete_details) {
 		res.render("Student/profile", {
+			title: "Student | Profile",
 			course,
 			student: studentData,
 			status:"",
@@ -253,6 +256,7 @@ const getProfile = async (req, res) => {
 		});
 	} else {
 		res.render("Student/profile", {
+			title: "Student | Profile",
 			course,
 			student: studentData,
 			status:"error_warning",
@@ -272,6 +276,7 @@ const getProfileEditInfo = async (req, res) => {
 	)[0];
 
 	res.render("Student/editprofile", {
+		title: "Student | Profile",
 		course,
 		student: studentData,
 	});
@@ -328,11 +333,25 @@ const getProfileEditAvatar = async (req,res) => {
 	});
 }
 
-const postProfileEditAvatar = (req, res) => {
+const postProfileEditAvatar = async (req, res) => {
 	const {studentnumber} = req.body;
 	var avatar = req.file.filename
+
+	var avatarSql = (await queryParam("SELECT avatar FROM student WHERE studentnumber = ?",[studentnumber]))[0].avatar
+
+	if (avatarSql) {
+		const avatarPath = `public/img/avatar/${avatarSql}`
+		if (fs.existsSync(avatarPath)) {
+			fs.unlink(avatarPath,(err) => {
+				if (err) {
+					console.log(err)
+				}
+			})
+		}
+	}
+	
 	var sql = "UPDATE student SET avatar = ? WHERE studentnumber = ?"
-	console.log(avatar)
+
 	db.query(sql, [avatar,
 		studentnumber], (err, rset) => {
 		if (err) {

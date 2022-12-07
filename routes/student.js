@@ -4,7 +4,7 @@ const router = express.Router();
 const studentController = require("../controller/student");
 
 const imageUpload = require("../middleware/imageUpload")
-const { forwardAuth, requireAuth } = require("../middleware/auth");
+const { forwardAuth, requireAuth } = require("../middleware/studentAuth");
 
 router.get("/login", forwardAuth, studentController.getLogin);
 router.post("/login", forwardAuth, studentController.postLogin);

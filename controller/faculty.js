@@ -1,7 +1,8 @@
 const mysql = require("mysql2");
+const bcrypt = require("bcrypt");
 const { nanoid } = require("nanoid");
 
-const { createTokens } = require("../utils/token");
+const { createTokensFaculty } = require("../utils/token");
 const { date_time, date } = require("../utils/date");
 
 const db = mysql.createConnection({
@@ -33,11 +34,11 @@ const getLogin = (req, res) => {
 
 const postLogin = (req, res) => {
 	try {
-		const { studentnumber, password } = req.body;
-		const findUser = "SELECT * from student WHERE studentnumber = ?";
-		db.query(findUser, [studentnumber], async (err, result) => {
+		const { email, password } = req.body;
+		const findUser = "SELECT * from faculty WHERE email = ?";
+		db.query(findUser, [email], async (err, result) => {
 			if (err) {
-				res.render("Student/login", {
+				res.render("Faculty/login", {
 					status: "error",
 					msg: "Authentication Failed",
 				});
@@ -48,19 +49,19 @@ const postLogin = (req, res) => {
 						result[0].password
 					);
 					if (match_password) {
-						const generateToken = createTokens(
-							result[0].studentnumber
+						const generateToken = createTokensFaculty(
+							result[0].email
 						);
 						res.cookie("token", generateToken, { httpOnly: true });
-						res.redirect("/student/dashboard");
+						res.redirect("/faculty/dashboard");
 					} else {
-						res.render("Student/login", {
+						res.render("Faculty/login", {
 							status: "error",
 							msg: "Incorrect student number or password",
 						});
 					}
 				} else {
-					res.render("Student/login", {
+					res.render("Faculty/login", {
 						status: "error",
 						msg: "Could'nt find your account",
 					});
@@ -135,6 +136,11 @@ const getProfile = (req, res) => {
 	res.render("Faculty/profile");
 };
 
+const getLogout = (req, res) => {
+	res.clearCookie("token");
+	res.redirect("/faculty/login");
+};
+
 module.exports = {
 	getLogin,
 	postLogin,
@@ -143,4 +149,5 @@ module.exports = {
 	getProfile,
 	getGatepassApproved,
 	getGatepassReject,
+	getLogout
 };

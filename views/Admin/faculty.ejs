@@ -1,0 +1,82 @@
+<%-include ("../Include/admin_head.ejs")%>
+    <%-include ("../Include/admin_header.ejs")%>
+
+        <div class="app-wrapper">
+
+            <div class="app-content pt-3 p-md-3 p-lg-4">
+                <div class="container-xl">
+                    <div class="row justify-content-between">
+                        <div class="col-7">
+                            <h1 class="app-page-title">Manage Faculty</h1>
+
+                        </div>
+                        <div class="col-5"> <a href="/admin/faculty/add" class="btn btn-primary text-white float-end">Add Faculty</a></div>
+                    </div>
+
+                    <div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
+                        <div class="app-card-body">
+
+                            <div class="table-responsive">
+
+                                <table id="faculty" class="table app-table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">Avatar</th>
+                                       
+                                            <th class="cell">Email</th>
+                                            <th class="cell">Phonenumber</th>
+                                            <th class="cell">First Name</th>
+                                            <th class="cell">Last Name</th>
+
+
+                                            <th class="cell">Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <%faculty.forEach((faculty)=> {%>
+
+                                            <tr>
+
+                                                <th class="cell">
+                                                    <img src="/img/avatar/<%=faculty.avatar%>" alt="avatar" height="50"
+                                                        width="50" style="border-radius: 50%;object-fit: cover;">
+                                                </th>
+                                               
+                                                <td class="cell">
+                                                    <%=faculty.email%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=faculty.phonenumber%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=faculty.firstname%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=faculty.lastname%>
+                                                </td>
+
+
+                                                <td class="cell">
+
+                                                    <a class="btn btn-secondary btn-sm text-white"
+                                                        href="/admin/faculty/edit=<%=faculty.faculty_id%>">Modify</a>
+                                                </td>
+                                            </tr>
+                                            <%})%>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!--//table-responsive-->
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--//app-content-->
+        <%-include ("../Include/admin_end.ejs")%>

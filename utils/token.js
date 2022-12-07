@@ -1,6 +1,6 @@
 const {sign} = require("jsonwebtoken");
 
-const createTokens = (user) => {
+const createTokensStudent = (user) => {
 	const accessToken = sign(
 		{ studentnumber: user },
 		process.env.JWT_SECRET_KEY,
@@ -9,4 +9,22 @@ const createTokens = (user) => {
 	return accessToken
 };
 
-module.exports = {createTokens};
+const createTokensFaculty = (user) => {
+	const accessToken = sign(
+		{ email: user },
+		process.env.JWT_SECRET_KEY,
+		{ expiresIn: process.env.JWT_EXPIRE }
+	);
+	return accessToken
+};
+
+const createTokensAdmin = (user) => {
+	const accessToken = sign(
+		{ username: user },
+		process.env.JWT_SECRET_KEY,
+		{ expiresIn: process.env.JWT_EXPIRE }
+	);
+	return accessToken
+};
+
+module.exports = {createTokensStudent,createTokensFaculty,createTokensAdmin};

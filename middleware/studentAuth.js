@@ -18,12 +18,12 @@ const requireAuth = async (req, res, next) => {
 	const token = req.cookies.token;
 	if (token) {
 		verify(token, process.env.JWT_SECRET_KEY, async (err, rset) => {
-			if (err) res.redirect("/student/login");
+			if (err) res.redirect("/unauthorized");
 			else {0 === (await queryId(rset.studentnumber)).length ?
-				res.redirect("/student/login") : ((res.locals.sid = rset.studentnumber), next());
+				res.redirect("/unauthorized") : ((res.locals.sid = rset.studentnumber), next());
 			}
 		});
-	} else res.redirect("/student/login");
+	} else res.redirect("/unauthorized");
 };
 
 const forwardAuth = async (req, res, next) => {

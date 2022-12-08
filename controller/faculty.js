@@ -50,7 +50,7 @@ const postLogin = (req, res) => {
 					);
 					if (match_password) {
 						const generateToken = createTokensFaculty(
-							result[0].email
+							result[0].faculty_id
 						);
 						res.cookie("token", generateToken, { httpOnly: true });
 						res.redirect("/faculty/dashboard");
@@ -132,8 +132,68 @@ const getGatepassReject = async (req, res) => {
 	res.redirect("/faculty/gatepass");
 };
 
-const getProfile = (req, res) => {
-	res.render("Faculty/profile");
+const getProfile = async (req, res) => {
+	const faculty = (await zeroParam("SELECT * FROM faculty"))[0];
+	res.render("Faculty/profile", { faculty });
+};
+
+
+const getUpdateAccount = async (req, res) => {
+	const faculty = (await queryParam("SELECT * FROM faculty WHERE faculty_id = ?",[res.locals.sid]))[0];
+	res.render("Faculty/update-account",{faculty, status: "",msg: ""})
+};
+
+const postUpdateAccount = async (req, res) => {
+	const {firstname,lastname,email,phonenumber} = req.body
+	var sql = "UPDATE faculty SET firstname=?, lastname=?, email=?, phonenumber=? WHERE faculty_id = ?"
+
+	db.query(
+		sql,
+		[
+			firstname,
+			lastname,
+			email,
+			phonenumber,
+			res.locals.sid,
+		],
+		(err, rset) => {
+			if (err) {
+				req.flash("error_msg", "Failed to update your account");
+				res.redirect("/faculty/profile");
+			} else {
+				req.flash("success_msg", "Successfully updated your personal information");
+				res.redirect("/faculty/profile");
+			}
+		}
+	);
+};
+
+const getUpdatePass = async (req, res) => {
+	res.render("Faculty/update-password")
+};
+
+const postUpdatePass = async (req, res) => {
+	const {password} = req.body
+	const salt = bcrypt.genSaltSync(15);
+	const hash = bcrypt.hashSync(password, salt);
+	var sql = "UPDATE faculty SET password=? WHERE faculty_id = ?"
+	db.query(
+		sql,
+		[
+			hash,
+			res.locals.sid,
+		],
+		(err, rset) => {
+			if (err) {
+				req.flash("error_msg", "Failed to update your password");
+				res.redirect("/faculty/profile");
+			} else {
+				req.flash("success_msg", "Successfully updated your password");
+				res.redirect("/faculty/profile");
+			}
+		}
+	);
+	
 };
 
 const getLogout = (req, res) => {
@@ -144,10 +204,21 @@ const getLogout = (req, res) => {
 module.exports = {
 	getLogin,
 	postLogin,
+
 	getDashboard,
+
 	getGatepass,
-	getProfile,
 	getGatepassApproved,
 	getGatepassReject,
-	getLogout
+
+	getProfile,
+	
+	getUpdateAccount,
+	postUpdateAccount,
+
+	getUpdatePass,
+	postUpdatePass,
+	
+	
+	getLogout,
 };

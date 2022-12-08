@@ -2,7 +2,8 @@
     <%-include ("../Include/student_header.ejs")%>
         <!-- Main -->
         <main id="main">
-            <div class="container-lg">
+            <div class="container-xl">
+                <%-include ("../Include/message.ejs")%>
                 <div class="page-header pt-4">
                     <div class="row mb-md-1">
                         <div class="col-12 col-lg-10 text-start">
@@ -27,9 +28,7 @@
                                             <div class="mb-3">
                                                 <img src="/img/avatar/<%=student.avatar%>" alt="" class="mb-2"
                                                     id="img-profile" height="175px" width="175px">
-                                                    <input class="form-control" type="text"
-                                                    value="<%=student.studentnumber%>"
-                                                    aria-label="Disabled input example" name="studentnumber" readonly>
+                                        
                                             </div>
                                             <div class="mb-3">
                                                 <label for="formFile" class="form-label">Upload Avatar</label>

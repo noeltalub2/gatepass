@@ -3,10 +3,9 @@ const bcrypt = require("bcrypt");
 const { nanoid } = require("nanoid");
 
 const { createTokensStudent } = require("../utils/token");
-const { date_time,date } = require("../utils/date");
+const { date_time, date } = require("../utils/date");
 
-const fs = require('fs');
-
+const fs = require("fs");
 
 const db = mysql.createConnection({
 	host: "localhost",
@@ -32,19 +31,22 @@ const zeroParam = async (sql) => {
 };
 
 const getLogin = (req, res) => {
-	res.render("Student/login", { status: "", msg: "" });
+	res.render("Student/login", {title: "Student | Login"});
 };
 
 const postLogin = (req, res) => {
 	try {
 		const { studentnumber, password } = req.body;
 		const findUser = "SELECT * from student WHERE studentnumber = ?";
+
+	
 		db.query(findUser, [studentnumber], async (err, result) => {
 			if (err) {
-				res.render("Student/login", {
-					status: "error",
-					msg: "Authentication Failed",
-				});
+				req.flash(
+					"error_msg",
+					"Authentication failed."
+				);
+				res.redirect("/student/login");
 			} else {
 				if (result.length > 0) {
 					const match_password = await bcrypt.compare(
@@ -58,16 +60,15 @@ const postLogin = (req, res) => {
 						res.cookie("token", generateToken, { httpOnly: true });
 						res.redirect("/student/dashboard");
 					} else {
-						res.render("Student/login", {
-							status: "error",
-							msg: "Incorrect student number or password",
-						});
+						req.flash(
+							"error_msg",
+							"Incorrect student number or password"
+						);
+						res.redirect("/student/login");
 					}
 				} else {
-					res.render("Student/login", {
-						status: "error",
-						msg: "Could'nt find your account",
-					});
+					req.flash("error_msg", "Could'nt find your account");
+					res.redirect("/student/login");
 				}
 			}
 		});
@@ -77,7 +78,7 @@ const postLogin = (req, res) => {
 };
 
 const getRegister = async (req, res) => {
-	res.render("Student/register", { status: "", msg: "" });
+	res.render("Student/register", {title: "Student | Register"});
 };
 
 const postRegister = async (req, res) => {
@@ -91,33 +92,30 @@ const postRegister = async (req, res) => {
 		email,
 		password,
 	} = req.body;
-
+	let errors = [];
 	//Sql statement if there is duplciate in database
 	var student_exist =
 		"Select count(*) as `count` from student where studentnumber = ?";
-	var email_exist =
-		"Select count(*) as `count` from student where email = ?";
+	var email_exist = "Select count(*) as `count` from student where email = ?";
+	var phone_exist = "Select count(*) as `count` from student where phonenumber = ?";
 	//Query statement
-	const student_count = (await queryParam(student_exist, [studentnumber]))[0].count;
+	const student_count = (await queryParam(student_exist, [studentnumber]))[0]
+		.count;
 	const email_count = (await queryParam(email_exist, [email]))[0].count;
+	const phone_count = (await queryParam(phone_exist, [phonenumber]))[0].count;
 
 	//Check if there is duplicate
-	if ((student_count > 0) && (email_count > 0)) {
-		res.render("Student/register", {
-			status: "error_warning",
-			msg: "Student number and Email is already registered",
-		});
-	} else if (student_count > 0) {
-		res.render("Student/register", {
-			status: "error_warning",
-			msg: "Student number is already registered",
-		});
-	} else if (email_count > 0) {
-		res.render("Student/register", {
-			status: "error_warning",
-			msg: "Email is already registered",
-		});
+
+	if (email_count > 0) {
+		errors.push({ msg: "Email is already registered" });
 	}
+	if (phone_count > 0) {
+		errors.push({ msg: "Phonenumber is already registered" });
+	}
+	if (student_count > 0) {
+		errors.push({ msg: "Student number is already registered" });
+	}
+	
 
 	//To encrypt the password using hash
 	const salt = bcrypt.genSaltSync(15);
@@ -140,54 +138,62 @@ const postRegister = async (req, res) => {
 	var sql = "INSERT INTO student SET ?";
 	db.query(sql, data, (err, rset) => {
 		if (err) {
-			console.log(err);
-			res.render("Student/register", {
-				status: "error",
-				msg: "An error occur while creating your account",
-			});
+			res.render("Student/register",{errors, title: "Student | Register"});
 		} else {
-			res.render("Student/register", {
-				status: "success",
-				msg: "Account created successfully",
-			});
+			req.flash("success_msg", "Account created successfully");
+			res.redirect("/student/register");
 		}
 	});
 };
 
 const getDashboard = async (req, res) => {
 	var sid = res.locals.sid.toString();
-	const course = (await zeroParam("SELECT * FROM course"));
+	const course = await zeroParam("SELECT * FROM course");
 	const student = (
 		await queryParam("SELECT * from student WHERE studentnumber = ?", [
 			res.locals.sid,
 		])
 	)[0];
-	var gatepass =
-		`SELECT *, count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date LIKE '%${date()}%'`;
+	var gatepass = `SELECT *, count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date LIKE '%${date()}%'`;
 
 	db.query(gatepass, [sid], async (err, data) => {
 		if (err) throw err;
 		if (data[0].count !== 0) {
-			res.render("Student/dashboard", { title: "Student | Dashboard",course,student, gatepass: data });
+			res.render("Student/dashboard", {
+				title: "Student | Dashboard",
+				course,
+				student,
+				gatepass: data,
+			});
 		} else {
-			res.render("Student/dashboard", {title: "Student | Dashboard", course,student, gatepass: "Unavailable" });
+			res.render("Student/dashboard", {
+				title: "Student | Dashboard",
+				course,
+				student,
+				gatepass: "Unavailable",
+			});
 		}
 	});
 };
 
 const getHealth = (req, res) => {
 	var sid = res.locals.sid.toString();
-	var sql1 =
-		`SELECT gatepass_ref,submit_date,count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date LIKE '%${date()}%'`;
+	var sql1 = `SELECT gatepass_ref,submit_date,count(*) as 'count' FROM gatepass WHERE studentnumber = ? AND submit_date LIKE '%${date()}%'`;
 	db.query(sql1, [sid], (err, data) => {
 		if (err) throw err;
 		if (data[0].count !== 0) {
-			res.render("Student/health", { title: "Student | Health",submitted: true, data });
+			res.render("Student/health", {
+				title: "Student | Health",
+				submitted: true,
+				data,
+			});
 		} else {
-			res.render("Student/health", { title: "Student | Health",submitted: false });
+			res.render("Student/health", {
+				title: "Student | Health",
+				submitted: false,
+			});
 		}
 	});
-
 };
 
 const postHealth = (req, res) => {
@@ -240,50 +246,47 @@ const postHealth = (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-	const course = (await zeroParam("SELECT * FROM course"));
+	const course = await zeroParam("SELECT * FROM course");
 	const studentData = (
 		await queryParam("SELECT * from student WHERE studentnumber = ?", [
 			res.locals.sid,
 		])
 	)[0];
+
+	let errors = []
 	if (studentData.complete_details) {
 		res.render("Student/profile", {
 			title: "Student | Profile",
 			course,
 			student: studentData,
-			status:"",
-			msg:"",
 		});
 	} else {
+		errors.push({msg:"To get verified account, User must complete information details and add real avatar."})
 		res.render("Student/profile", {
 			title: "Student | Profile",
 			course,
 			student: studentData,
-			status:"error_warning",
-			msg:"To verify your account please complete your information details and add your picture.",
+			errors
 		});
 	}
-	
 };
 
 const getProfileEditInfo = async (req, res) => {
-	const studentnumber = req.params.id;
-	const course = (await zeroParam("SELECT * FROM course"));
+	const course = await zeroParam("SELECT * FROM course");
 	const studentData = (
 		await queryParam("SELECT * from student WHERE studentnumber = ?", [
-			studentnumber,
+			res.locals.sid,
 		])
 	)[0];
 
 	res.render("Student/editprofile", {
-		title: "Student | Profile",
+		title: "Student | Edit Profile",
 		course,
 		student: studentData,
 	});
 };
 
 const postProfileEditInfo = (req, res) => {
-	
 	const {
 		firstname,
 		lastname,
@@ -296,70 +299,115 @@ const postProfileEditInfo = (req, res) => {
 		email,
 		phonenumber,
 		studentnumber,
-		
 	} = req.body;
 	var sql =
 		"UPDATE student SET firstname=?, lastname=?,gender=?,dob=?, course=?, year=?,section=?, address=?, email=?, phonenumber=?, complete_details=1 WHERE studentnumber = ?";
 	//Add account to database
-	db.query(sql, [
-		firstname,
-		lastname,
-		gender,
-		dob,
-		course,
-		year,
-		section,
-		address,
-		email,
-		phonenumber,
-		studentnumber], (err, rset) => {
+	db.query(
+		sql,
+		[
+			firstname,
+			lastname,
+			gender,
+			dob,
+			course,
+			year,
+			section,
+			address,
+			email,
+			phonenumber,
+			studentnumber,
+		],
+		(err, rset) => {
+			if (err) {
+				req.flash("error_msg", "Failed to update your account");
+				res.redirect("/student/profile");
+			} else {
+				req.flash("success_msg", "Successfully updated your personal information");
+				res.redirect("/student/profile");
+			}
+		}
+	);
+};
+
+const getProfileEditAvatar = async (req, res) => {
+	const studentData = (
+		await queryParam(
+			"SELECT studentnumber,avatar from student WHERE studentnumber = ?",
+			[res.locals.sid]
+		)
+	)[0];
+	res.render("Student/editavatar", {
+		student: studentData,
+		title: "Student | Edit Avatar"
+	});
+};
+
+const postProfileEditAvatar = async (req, res) => {
+	var avatar = req.file.filename;
+
+	var avatarSql = (
+		await queryParam("SELECT avatar FROM student WHERE studentnumber = ?", [
+			res.locals.sid,
+		])
+	)[0].avatar;
+
+	if (avatarSql !== "default.png") {
+		const avatarPath = `public/img/avatar/${avatarSql}`;
+		if (fs.existsSync(avatarPath)) {
+			fs.unlink(avatarPath, (err) => {
+				if (err) {
+					console.log(err);
+				}
+			});
+		}
+	}
+
+	var sql = "UPDATE student SET avatar = ? WHERE studentnumber = ?";
+
+	db.query(sql, [avatar, res.locals.sid], (err, rset) => {
 		if (err) {
-			console.log(err);
+			req.flash("error_msg", "Failed to update your avatar");
+			res.redirect("/student/profile");
 		} else {
-			res.redirect("/student/profile")
+			req.flash("success_msg", "Successfully updated your avatar");
+			res.redirect("/student/profile");
 		}
 	});
 };
 
-const getProfileEditAvatar = async (req,res) => {
-	const studentnumber = req.params.id;
+const getProfileEditPass = async (req, res) => {
 	const studentData = (
-		await queryParam("SELECT studentnumber,avatar from student WHERE studentnumber = ?", [
-			studentnumber,
-		])
+		await queryParam(
+			"SELECT password from student WHERE studentnumber = ?",
+			[res.locals.sid]
+		)
 	)[0];
-	res.render("Student/editavatar", {
+	res.render("Student/update-password", {
 		student: studentData,
+		title: "Student | Update Password"
 	});
-}
+};
 
-const postProfileEditAvatar = async (req, res) => {
-	const {studentnumber} = req.body;
-	var avatar = req.file.filename
+const postProfileEditPass = async (req, res) => {
+	const {password} = req.body
+	//To encrypt the password using hash
+	const salt = bcrypt.genSaltSync(15);
+	const hash = bcrypt.hashSync(password, salt);
 
-	var avatarSql = (await queryParam("SELECT avatar FROM student WHERE studentnumber = ?",[studentnumber]))[0].avatar
-
-	if (avatarSql) {
-		const avatarPath = `public/img/avatar/${avatarSql}`
-		if (fs.existsSync(avatarPath)) {
-			fs.unlink(avatarPath,(err) => {
-				if (err) {
-					console.log(err)
-				}
-			})
+	sql = "UPDATE student SET password = ? WHERE studentnumber = ?"
+	db.query(sql,[hash,res.locals.sid],
+		(err, rset) => {
+			if (err) {
+				req.flash("error_msg", "Failed to update your password");
+				res.redirect("/student/profile");
+			} else {
+				req.flash("success_msg", "Successfully updated your password");
+				res.redirect("/student/profile");
+			}
 		}
-	}
-	
-	var sql = "UPDATE student SET avatar = ? WHERE studentnumber = ?"
+	);
 
-	db.query(sql, [avatar,
-		studentnumber], (err, rset) => {
-		if (err) {
-			console.log(err);
-		} else {
-			res.redirect("/student/profile")
-		}
-	});
 };
 const getLogout = (req, res) => {
 	res.clearCookie("token");
@@ -379,5 +427,8 @@ module.exports = {
 	postProfileEditInfo,
 	getProfileEditAvatar,
 	postProfileEditAvatar,
+	getProfileEditPass,
+
+	postProfileEditPass,
 	getLogout,
 };

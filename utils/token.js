@@ -11,7 +11,7 @@ const createTokensStudent = (user) => {
 
 const createTokensFaculty = (user) => {
 	const accessToken = sign(
-		{ email: user },
+		{ faculty_id: user },
 		process.env.JWT_SECRET_KEY,
 		{ expiresIn: process.env.JWT_EXPIRE }
 	);

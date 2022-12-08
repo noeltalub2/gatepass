@@ -22,8 +22,7 @@ router.post("/faculty/add", requireAuth, adminController.postFacultyAdd);
 router.get("/faculty/edit=:id", requireAuth, adminController.getFacultyEdit);
 router.post("/faculty/edit", requireAuth, adminController.postFacultyEdit);
 
-router.get("/generate", requireAuth, adminController.getGenerate);
-router.get("/report", requireAuth, adminController.getReport);
+router.get("/reportdata", requireAuth, adminController.getReportData);
 
 router.get("/logout", requireAuth, adminController.getLogout)
 

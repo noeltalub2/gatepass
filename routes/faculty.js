@@ -18,6 +18,13 @@ router.get("/gatepass/reject=:gatepass_ref",requireAuth, facultyController.getGa
 
 router.get("/profile", requireAuth,facultyController.getProfile);
 
+router.get("/profile/update-account", requireAuth, facultyController.getUpdateAccount);
+router.post("/profile/update-account", requireAuth, facultyController.postUpdateAccount);
+
+router.get("/profile/update-password", requireAuth, facultyController.getUpdatePass);
+router.post("/profile/update-password", requireAuth, facultyController.postUpdatePass);
+
+
 router.get("/logout", requireAuth, facultyController.getLogout)
 
 module.exports = router

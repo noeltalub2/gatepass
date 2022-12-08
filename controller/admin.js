@@ -109,11 +109,16 @@ const getDashboard = async (req, res) => {
 	const totalStudent = (
 		await zeroParam("SELECT count(*) as 'count' FROM student")
 	)[0].count;
+
+	const totalFaculty = (
+		await zeroParam("SELECT count(*) as 'count' FROM faculty")
+	)[0].count;
 	res.render("Admin/dashboard", {
 		recentGatepass,
 		totalGatepass,
 		todayRegistered,
 		totalStudent,
+		totalFaculty,
 		todayApproved,
 		todayPending,
 		todayReject,
@@ -286,7 +291,9 @@ const postFacultyEdit = (req, res) => {
 	);
 };
 
-const getReport = async (req, res) => {
+const getReportData = async (req, res) => {
+	const students = (await zeroParam("SELECT * from student"));
+	const gatepass = (await zeroParam("SELECT * from gatepass"));
 	const totalApproved = (
 		await zeroParam(
 			"SELECT count(*) as 'count' FROM gatepass WHERE status = 'Approved'"
@@ -336,6 +343,8 @@ const getReport = async (req, res) => {
 	)[0].count;
 
 	res.render("Admin/report", {
+		students,
+		gatepass,
 		totalApproved,
 		totalReject,
 		registeredBAT,
@@ -348,45 +357,6 @@ const getReport = async (req, res) => {
 	});
 };
 
-const getGenerate = async (req, res) => {
-	const gatepass = (
-		await zeroParam(
-			"SELECT count(*) as 'count' FROM gatepass WHERE status = 'Approved'"
-		)
-	)[0].count;
-	const doc = new PDFDocument({ size: "A4", margin: 30 });
-
-	doc.pipe(fs.createWriteStream("./public/pdf/report.pdf")); // write to PDF
-	doc.pipe(res); // HTTP response
-	doc.font("Helvetica-Bold");
-	// add stuff to PDF here using methods described below...
-	// finalize the PDF and end the stream
-	doc.image("./public/img/mmsu_logo.png", 30, 30, { width: 40 });
-	doc.image("./public/img/cit_logo.png", 75, 33, { width: 40 });
-
-	doc.fontSize(18);
-	doc.text("CIT Gatepass Management", { align: "center" });
-	doc.fontSize(16);
-	doc.text("Daily Report", { align: "center" });
-	doc.fontSize(10).text(`Date & time generated: ${date_time()}`, {
-		align: "center",
-	});
-	doc.moveDown(2);
-
-	doc.font("Helvetica");
-	doc.fontSize(11);
-
-	doc.text(`REGISTERED :`, 50, 180, { align: "left" });
-	doc.text(`${gatepass}`, 150, 180, { align: "left" });
-
-	doc.text(`APPROVED :`, 50, 200, { align: "left" });
-	doc.text(`${gatepass}`, 150, 200, { align: "left" });
-
-	doc.text(`REJECTED :`, 50, 220, { align: "left" });
-	doc.text(`${gatepass}`, 150, 220, { align: "left" });
-
-	doc.end();
-};
 const getLogout = (req, res) => {
 	res.clearCookie("token");
 	res.redirect("/admin/login");
@@ -403,7 +373,7 @@ module.exports = {
 	postFacultyAdd,
 	getFacultyEdit,
 	postFacultyEdit,
-	getReport,
-	getGenerate,
+	getReportData,
+
 	getLogout,
 };

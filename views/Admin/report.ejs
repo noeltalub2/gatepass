@@ -6,14 +6,7 @@
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
 
-                    <div class="row justify-content-between">
-                        <div class="col-7">
-                            <h1 class="app-page-title">Report Data</h1>
-
-                        </div>
-                        <div class="col-5"><a class="btn btn-primary text-white float-end" href="/admin/generate/">Generate Daily
-                                Report</a></div>
-                    </div>
+                    <h1 class="app-page-title">Report Data</h1>
                     <div class="row g-4 mb-4">
                         <div class="col-12 col-lg-6">
                             <div class="app-card app-card-chart h-100 shadow-sm">
@@ -62,7 +55,138 @@
                         </div>
 
                     </div>
+                    <h2 class="app-page-title">Student Data</h2>
+                    <div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
 
+                        <div class="app-card-body">
+
+                            <div class="table-responsive">
+
+                                <table id="studentReport" class="table app-table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+
+                                            <th class="cell">Student No.</th>
+                                            <th class="cell">First Name</th>
+                                            <th class="cell">Last Name</th>
+                                            <th class="cell">Gender</th>
+                                            <th class="cell">DOB</th>
+                                            <th class="cell">Course</th>
+                                            <th class="cell">Year</th>
+                                            <th class="cell">Section</th>
+                                            <th class="cell">Address</th>
+                                            <th class="cell">Email</th>
+                                            <th class="cell">Phone number</th>
+                                            <th class="cell">Join Date</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <%students.forEach((student)=> {%>
+
+                                            <tr>
+
+                                                <td class="cell">
+                                                    <%=student.studentnumber%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.firstname%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.lastname%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.gender%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.dob%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.course%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.year%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.section%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.address%>
+                                                </td>
+
+                                                <td class="cell">
+                                                    <%=student.email%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.phonenumber%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=student.join_date%>
+                                                </td>
+
+
+
+                                            </tr>
+                                            <%})%>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!--//table-responsive-->
+
+                        </div>
+                        <!--//app-card-body-->
+                    </div>
+                    <h1 class="app-page-title">Gatepass</h1>
+                    <div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
+
+                        <div class="app-card-body">
+
+                            <div class="table-responsive">
+
+                                <table id="gatepassReport" class="table app-table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">Gatepass Ref.</th>
+                                            <th class="cell">Submit Date</th>
+                                            <th class="cell">Student Number</th>
+                                            <th class="cell">Status</th>
+                                            
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <%gatepass.forEach((gatepass)=> {%>
+
+                                            <tr>
+                                                <td class="cell">
+                                                    <%=gatepass.gatepass_ref%>
+                                                </td>
+                                              
+                                                <td class="cell">
+                                                    <%=gatepass.submit_date%>
+                                                </td>
+                                              
+                                        
+                                                <td class="cell">
+                                                    <%=gatepass.studentnumber%>
+                                                </td>
+                                                <td class="cell">
+                                                    <%=gatepass.status%>
+                                                </td>
+                                                
+                                                <%})%>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!--//table-responsive-->
+
+                        </div>
+                        <!--//app-card-body-->
+                    </div>
                 </div>
 
             </div>

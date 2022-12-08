@@ -3,6 +3,7 @@
         <!-- Main -->
         <main id="main">
             <div class="container-lg">
+             
                 <div class="page-header pt-4">
                     <div class="row mb-md-1">
                         <div class="col-12 col-lg-10 text-start">
@@ -31,8 +32,9 @@
                                 <span class="badge bg-danger">Unverified Student</span>
                             <%}%>
                             <div class="text-muted"><small>Joined <%=student.join_date%></small></div>
-                            <a href="/student/profile/edit_avatar/<%=student.studentnumber%>" class="card-link btn btn-primary btn-sm mt-3">Change Avatar</a>
-                            <a href="/student/profile/edit_information/<%=student.studentnumber%>" class="card-link btn btn-outline-secondary btn-sm mt-3">Edit Profile</a>
+                            <a href="/student/profile/edit_avatar/" class="card-link btn btn-success btn-sm mt-3">Change Avatar</a>
+                            <a href="/student/profile/edit_information/" class="card-link btn btn-outline-secondary btn-sm mt-3">Edit Profile</a>
+                            <a href="/student/profile/update_password/" class="card-link btn btn-outline-secondary btn-sm mt-3">Update Password</a>
                         </div>
                     </div>
                     

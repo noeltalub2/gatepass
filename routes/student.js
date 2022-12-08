@@ -19,11 +19,14 @@ router.post("/health", requireAuth, studentController.postHealth);
 
 router.get("/profile", requireAuth, studentController.getProfile);
 
-router.get("/profile/edit_information/:id", requireAuth, studentController.getProfileEditInfo);
+router.get("/profile/edit_information", requireAuth, studentController.getProfileEditInfo);
 router.post("/profile/edit_information", requireAuth, studentController.postProfileEditInfo);
 
-router.get("/profile/edit_avatar/:id", requireAuth, studentController.getProfileEditAvatar);
+router.get("/profile/edit_avatar", requireAuth, studentController.getProfileEditAvatar);
 router.post("/profile/edit_avatar", requireAuth, imageUpload.single("avatar"), studentController.postProfileEditAvatar);
+
+router.get("/profile/update_password", requireAuth, studentController.getProfileEditPass);
+router.post("/profile/update_password", requireAuth, studentController.postProfileEditPass);
 
 router.get("/logout", requireAuth, studentController.getLogout)
 

@@ -3,6 +3,7 @@ const mysql = require("mysql2"); //built in promise
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const session = require("express-session");
+const MemoryStore = require('memorystore')(session)
 const path = require("path");
 
 
@@ -49,9 +50,13 @@ conn.connect((err) => {
 
 app.use(
 	session({
+		cookie: { maxAge: 86400000 },
 		secret: "aJBDcsmnJKqwdLcxjais2",
 		resave: true,
 		saveUninitialized: true,
+		store: new MemoryStore({
+			checkPeriod: 86400000 // prune expired entries every 24h
+		  }),
 	})
 );
 

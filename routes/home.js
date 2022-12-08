@@ -3,6 +3,8 @@ const homeController = require('../controller/home');
 
 const router = express.Router()
 
+router.get('/', homeController.getHome);
+
 router.get('/unauthorized', homeController.getError403);
 
 // should be in last

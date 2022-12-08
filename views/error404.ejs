@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="icon" href="/img/cit_logo.png" type="image/png" sizes="16x16">
 
 
@@ -16,52 +17,69 @@
         @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
         /* CSS */
-        body {
-            background-color: #222;
-            font-family: 'Anton', sans-serif;
-            margin: 0;
-        }
+     
 
         #main {
             text-align: center;
         }
 
-        p {
-            color: #ddd;
+        .message {
+            color: #333;
             font-family: 'Open Sans' sans-serif !important;
             margin: 0 15px;
+            
         }
 
-        h1 {
+        .title {
+            font-family: 'Anton', sans-serif;
             text-transform: uppercase;
             color: #0077ff;
             font-size: 48px;
         }
 
-        h3>a {
-            text-transform: uppercase;
-            font-size: 18px;
-            color: #000;
-            background-color: #0077ff;
-            text-decoration: none;
-            padding: 1px 5px;
-            border: 1px solid #0077ff;
-            border-radius: 5px;
-        }
         .header {
             margin: 4rem auto;
+        }
+        .btn {
+            margin-top: 2rem;
+            display: inline-block;
+            outline: 0;
+            border: none;
+            box-shadow: none;
+            cursor: pointer;
+            padding: 9px 22px;
+            font-size: 18px;
+            height: 40px;
+
+            color: #fff;
+            text-align: center;
+            line-height: normal;
+            border-radius: 50px;
+            transition: color .2s ease, background-color .2s ease, box-shadow .2s ease;
         }
     </style>
 </head>
 
 
 <body>
+    <header>
+        <nav class="navbar navbar-light border-bottom py-1">
+            <div class="container-lg">
+                <a href="/" class="navbar-brand">
+                    <img src="/img/mmsu_logo.png" alt="Logo" height="45" class="d-inline-block align-text-center">
+                    <div class="d-inline-block ">Gatepass Management System</div>
+                </a>
+            </div>
+        </nav>
+    </header>
+    
     <main id="main">
          <div class="header">
-        <h1>404 - Page not found!</h1>
+        <h1 class="title text-success">404 - Page not found!</h1>
         </div>
-        <p>Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</p>
-        <h3><a href="/">Click here to go back home</a></h3>
+        <p class="message fw-bold">Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</p>
+        <a class="btn btn-success btn-sm me-2" href="/">Homepage</a>
+        <a class="btn btn-success btn-sm" onclick="history.back()">Go back</a>
         
 
     </main>

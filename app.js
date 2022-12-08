@@ -49,7 +49,7 @@ conn.connect((err) => {
 
 app.use(
 	session({
-		secret: (process.env.SESSION_SECRET),
+		secret: "aJBDcsmnJKqwdLcxjais2",
 		resave: true,
 		saveUninitialized: true,
 	})

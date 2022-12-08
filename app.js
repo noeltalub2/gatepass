@@ -5,18 +5,19 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const path = require("path");
 
-//Routes
-const student = require("./routes/student");
-const faculty = require("./routes/faculty");
-const admin = require("./routes/admin");
-const home = require("./routes/home");
-//
+
 const app = express();
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 //
 const dotenv = require("dotenv");
 dotenv.config();
+
+//Routes
+const student = require("./routes/student");
+const faculty = require("./routes/faculty");
+const admin = require("./routes/admin");
+const home = require("./routes/home");
 //
 
 
@@ -35,6 +36,7 @@ const conn = mysql.createConnection({
 	password: process.env.DB_PASS,
 	database: process.env.DB_NAME,
 });
+
 
 //Check if the database is working
 conn.connect((err) => {
@@ -76,6 +78,7 @@ app.use("/", home);
 
 // Home Page
 app.use(home);
+
 
 PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

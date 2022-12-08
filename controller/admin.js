@@ -1,18 +1,17 @@
 const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const { nanoid } = require("nanoid");
-const PDFDocument = require("pdfkit");
-const fs = require("fs");
+
 
 const { createTokensAdmin } = require("../utils/token");
 const { date_time, date } = require("../utils/date");
-const { path } = require("pdfkit");
+
 
 const db = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "",
-	database: "gatepass",
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: process.env.DB_NAME,
 });
 
 const queryParam = async (sql, data) => {
@@ -181,8 +180,10 @@ const postStudentEdit = (req, res) => {
 		],
 		(err, rset) => {
 			if (err) {
-				console.log(err);
+				req.flash("error_msg", "Failed to update student account");
+				res.redirect("/admin/student");
 			} else {
+				req.flash("success_msg", "Successfully updated student information");
 				res.redirect("/admin/student");
 			}
 		}
@@ -195,13 +196,13 @@ const getFaculty = async (req, res) => {
 };
 
 const getFacultyAdd = async (req, res) => {
-	res.render("Admin/addfaculty", { msg: "", status: "" });
+	res.render("Admin/addfaculty");
 };
 
 const postFacultyAdd = async (req, res) => {
 	const ID = nanoid(8);
 	const { firstname, lastname, email, phonenumber, password } = req.body;
-
+	let errors = []
 	//Sql statement if there is duplciate in database
 	var phone_exist =
 		"Select count(*) as `count` from faculty where phonenumber = ?";
@@ -209,52 +210,35 @@ const postFacultyAdd = async (req, res) => {
 	//Query statement
 	const phone_count = (await queryParam(phone_exist, [phonenumber]))[0].count;
 	const email_count = (await queryParam(email_exist, [email]))[0].count;
-
-	//Check if there is duplicate
-	if (phone_count > 0 && email_count > 0) {
-		res.render("Admin/addfaculty", {
-			status: "error_warning",
-			msg: "Phone number and Email is already registered",
-		});
-	} else if (phone_count > 0) {
-		res.render("Admin/addfaculty", {
-			status: "error_warning",
-			msg: "Phone number is already registered",
-		});
-	} else if (email_count > 0) {
-		res.render("Admin/addfaculty", {
-			status: "error_warning",
-			msg: "Email is already registered",
-		});
+	
+	if (email_count > 0) {
+		errors.push({ msg: "Email is already registered" });
 	}
-
+	if (phone_count > 0) {
+		errors.push({ msg: "Phonenumber is already registered" });
+	}
+	
 	//To encrypt the password using hash
 	const salt = bcrypt.genSaltSync(15);
 	const hash = bcrypt.hashSync(password, salt);
 	//Data to insert in sql
 	var data = {
-		faculty_id: ID,
-		phonenumber: phonenumber,
 		firstname: firstname,
 		lastname: lastname,
 		email: email,
 		avatar: "default.png",
+		phonenumber: phonenumber,
 		password: hash,
 	};
 	//Add account to database
 	var sql = "INSERT INTO faculty SET ?";
+
 	db.query(sql, data, (err, rset) => {
 		if (err) {
-			console.log(err);
-			res.render("Admin/addfaculty", {
-				status: "error",
-				msg: "An error occur while creating your account",
-			});
+			res.render("Admin/addfaculty",{errors});
 		} else {
-			res.render("Admin/addfaculty", {
-				status: "success",
-				msg: "Faculty account created successfully",
-			});
+			req.flash("success_msg", "Account created successfully");
+			res.redirect("/admin/faculty");
 		}
 	});
 };
@@ -283,8 +267,11 @@ const postFacultyEdit = (req, res) => {
 		[firstname, lastname, email, phonenumber, faculty_id],
 		(err, rset) => {
 			if (err) {
-				console.log(err);
+				req.flash("error_msg", "Failed to update student account");
+				res.redirect("/admin/faculty");
 			} else {
+				
+				req.flash("success_msg","Successfully updated faculty information")
 				res.redirect("/admin/faculty");
 			}
 		}

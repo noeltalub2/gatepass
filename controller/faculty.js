@@ -6,10 +6,10 @@ const { createTokensFaculty } = require("../utils/token");
 const { date_time, date } = require("../utils/date");
 
 const db = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "",
-	database: "gatepass",
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: process.env.DB_NAME,
 });
 
 const queryParam = async (sql, data) => {
@@ -118,7 +118,7 @@ const getGatepass = async (req, res) => {
 const getGatepassApproved = async (req, res) => {
 	const gatepass_ref = req.params.gatepass_ref;
 	const gatepass = await queryParam(
-		"UPDATE gatepass SET status='Approved' WHERE gatepass_ref=?",
+		`UPDATE gatepass SET status='Approved', modified_date = '${date_time()}' WHERE gatepass_ref = ?`,
 		[gatepass_ref]
 	);
 	res.redirect("/faculty/gatepass");
@@ -126,7 +126,7 @@ const getGatepassApproved = async (req, res) => {
 const getGatepassReject = async (req, res) => {
 	const gatepass_ref = req.params.gatepass_ref;
 	const gatepass = await queryParam(
-		"UPDATE gatepass SET status='Reject' WHERE gatepass_ref=?",
+		`UPDATE gatepass SET status='Reject' , modified_date = '${date_time()}' WHERE gatepass_ref = ?`,
 		[gatepass_ref]
 	);
 	res.redirect("/faculty/gatepass");

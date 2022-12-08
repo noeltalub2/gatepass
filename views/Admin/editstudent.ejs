@@ -5,14 +5,14 @@
 
             <div class="app-content pt-3 p-md-3 p-lg-4">
                 <div class="container-xl">
-
+                    
                     <h1 class="app-page-title">Modify Student</h1>
                     <div class="app-card app-card-settings shadow-sm p-4">
 
                         <div class="app-card-body">
 
 
-                            <form method="post" action="/admin/student/edit" class="needs-validation" novalidate>
+                            <form method="post" action="/admin/student/edit" >
                                 <h6 class="heading-small text-muted mb-4">Student information</h6>
 
                                 <div class="text-center mb-3">
@@ -41,14 +41,14 @@
                                         <div class="form-group">
                                             <label class="form-label" for="firstname">First Name</label>
                                             <input type="text" id="firstname" name="firstname" class="form-control"
-                                                required value="<%=student.firstname%>">
+                                                 value="<%=student.firstname%>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-label" for="lastname">Last Name</label>
                                             <input type="text" id="lastname" name="lastname" class="form-control"
-                                                required value="<%=student.lastname%>">
+                                                 value="<%=student.lastname%>">
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-label" for="dob">Date of Birth</label>
-                                            <input type="date" id="dob" name="dob" class="form-control" required
+                                            <input type="date" id="dob" name="dob" class="form-control" 
                                                 value="<%=student.dob%>">
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                     <div class="col-lg-4">
                                         <label for="course" class="form-label">Course</label>
                                         <select class="form-select" name="course" id="course"
-                                            aria-describedby="courseFeedback" required>
+                                            aria-describedby="courseFeedback" >
 
                                             <%course.forEach((courses)=> {%>
                                                 <%if (courses.course_id===student.course) {%>
@@ -98,7 +98,7 @@
                                     <div class="col-lg-4">
                                         <label for="year" class="form-label">Year</label>
                                         <select class="form-select" name="year" id="year"
-                                            aria-describedby="yearFeedback" required>
+                                            aria-describedby="yearFeedback" >
                                             <% var year_1="" ; var year_2="" ; var year_3="" ; var year_4="" ; var
                                                 year_5="" ; if (student.year==="1" ) { year_1="selected" } else if
                                                 (student.year==="2" ) { year_2="selected" } else if (student.year==="3"
@@ -117,7 +117,7 @@
                                     <div class="col-lg-4">
                                         <label for="section" class="form-label">Section</label>
                                         <select class="form-select" name="section" id="section"
-                                            aria-describedby="sectionFeedback" required>
+                                            aria-describedby="sectionFeedback" >
                                             <% var section_a="" ; var section_b="" ; var section_c="" ; var section_d=""
                                                 ; if (student.section==="A" ) { section_a="selected" } else if
                                                 (student.section==="B" ) { section_b="selected" } else if
@@ -138,7 +138,7 @@
                                         <div class="form-group">
                                             <label class="form-label" for="email">Email
                                                 address</label>
-                                            <input type="email" id="email" name="email" class="form-control" required
+                                            <input type="email" id="email" name="email" class="form-control" 
                                                 value="<%=student.email%>">
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
                                         <div class="form-group">
                                             <label for="phonenumber" class="form-label">Phone Number</label>
                                             <input type="tel" class="form-control" id="phonenumber" name="phonenumber"
-                                                minlength="11" maxlength="11" value="<%=student.phonenumber%>" required>
+                                                minlength="11" maxlength="11" value="<%=student.phonenumber%>" >
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label" for="address">Address</label>
-                                            <input id="address" name="address" class="form-control" type="text" required
+                                            <input id="address" name="address" class="form-control" type="text" 
                                                 value="<%=student.address%>" maxlength="50">
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
                                     <div class="col-lg-6">
                                         <label for="is_verified" class="form-label">Status</label>
                                     <select class="form-select" name="is_verified" id="is_verified"
-                                        aria-describedby="sectionFeedback" required>
+                                        aria-describedby="sectionFeedback" >
                                         <% var verified="" ; var not_verified="" ; if (student.is_verified===0 ) {
                                             verified="selected" } else { not_verified="selected" } %>
                                             <option value="0" <%=verified%>>Unverified</option>

@@ -8,10 +8,10 @@ const { date_time, date } = require("../utils/date");
 
 
 const db = mysql.createConnection({
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	password: process.env.DB_PASS,
-	database: process.env.DB_NAME,
+	host: "sql6.freemysqlhosting.net",
+	user: "sql6583703",
+	password: "UljLwCNA1z",
+	database: "sql6583703",
 });
 
 const queryParam = async (sql, data) => {

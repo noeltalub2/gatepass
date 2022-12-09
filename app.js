@@ -3,7 +3,6 @@ const mysql = require("mysql2"); //built in promise
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
-const session = require("express-session");
 const path = require("path");
 
 const app = express();
@@ -45,12 +44,7 @@ conn.connect((err) => {
 	}
 });
 
-app.use(
-	session({
-		resave: false,
-		saveUninitialized: false,
-	})
-);
+
 
 app.use(
 	cookieSession({

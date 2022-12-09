@@ -82,7 +82,7 @@ app.use("/", home);
 // Home Page
 app.use(home);
 
-PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+port = process.env.PORT || 3000;
+app.listen(port, () => {
 	console.log("Server is running");
 });

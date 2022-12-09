@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const path = require("path");
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.static("public"));
@@ -19,21 +20,13 @@ const admin = require("./routes/admin");
 const home = require("./routes/home");
 //
 
-//Create database connection
 
-// const conn = mysql.createConnection({
-// 	host: "localhost",
-// 	user: "root",
-// 	password: "",
-// 	database: "gatepass",
-// });
 
 const conn = mysql.createConnection({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASS,
 	database: process.env.DB_NAME,
-	connectTimeout:2000000,
 });
 
 //Check if the database is working
@@ -83,7 +76,8 @@ app.use("/", home);
 // Home Page
 app.use(home);
 
-PORT = process.env.PORT || 3000;
+
+
 app.listen(PORT, () => {
 	console.log("Server is running");
 });

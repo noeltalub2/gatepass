@@ -2,7 +2,7 @@ const express = require("express");
 const mysql = require("mysql2"); //built in promise
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
-const session = require("express-session");
+const session = require("cookie-session");
 const path = require("path");
 
 
@@ -30,6 +30,8 @@ const home = require("./routes/home");
 // 	database: "gatepass",
 // });
 
+
+
 const conn = mysql.createConnection({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
@@ -49,11 +51,14 @@ conn.connect((err) => {
 
 app.use(
 	session({
-		secret: (process.env.SESSION_SECRET),
 		resave: false,
 		saveUninitialized: false,
+		secret: (process.env.SESSION_SECRET),
+		
 	})
 );
+
+
 
 app.use(flash());
 

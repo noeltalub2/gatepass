@@ -2,9 +2,9 @@ const express = require("express");
 const mysql = require("mysql2"); //built in promise
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
-const session = require("cookie-session");
+const cookieSession = require("cookie-session");
+const session = require("express-session");
 const path = require("path");
-
 
 const app = express();
 app.use(express.static("public"));
@@ -20,7 +20,6 @@ const admin = require("./routes/admin");
 const home = require("./routes/home");
 //
 
-
 //Create database connection
 
 // const conn = mysql.createConnection({
@@ -30,15 +29,12 @@ const home = require("./routes/home");
 // 	database: "gatepass",
 // });
 
-
-
 const conn = mysql.createConnection({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASS,
 	database: process.env.DB_NAME,
 });
-
 
 //Check if the database is working
 conn.connect((err) => {
@@ -53,12 +49,20 @@ app.use(
 	session({
 		resave: false,
 		saveUninitialized: false,
-		secret: (process.env.SESSION_SECRET),
-		
 	})
 );
 
-
+app.use(
+	cookieSession({
+		name: "session",
+		keys: [process.env.SESSION_SECRET],
+		cookie: {
+			secure: true,
+			httpOnly: true,
+			expires: expiryDate,
+		},
+	})
+);
 
 app.use(flash());
 
@@ -83,7 +87,6 @@ app.use("/", home);
 
 // Home Page
 app.use(home);
-
 
 PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

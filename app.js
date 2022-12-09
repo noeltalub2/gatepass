@@ -23,7 +23,6 @@ const home = require("./routes/home");
 //
 
 
-
 const conn = mysql.createConnection({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,

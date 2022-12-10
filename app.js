@@ -30,10 +30,10 @@ const home = require("./routes/home");
 // });
 
 const conn = mysql.createConnection({
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	password: process.env.DB_PASS,
-	database: process.env.DB_NAME,
+	host: "sql6.freemysqlhosting.net",
+	user: "sql6583703",
+	password: "UljLwCNA1z",
+	database: "sql6583703"
 });
 
 //Check if the database is working

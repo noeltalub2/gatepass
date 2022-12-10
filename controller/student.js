@@ -11,7 +11,7 @@ const db = mysql.createConnection({
 	host: "sql6.freemysqlhosting.net",
 	user: "sql6583703",
 	password: "UljLwCNA1z",
-	database: "sql6583703",
+	database: "sql6583703"
 });
 
 const queryParam = async (sql, data) => {

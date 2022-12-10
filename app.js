@@ -4,13 +4,11 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const path = require("path");
+const app = express();
 const port = process.env.PORT || 3000;
 
-const app = express();
 app.use(express.static("public"));
 app.set("view engine", "ejs");
-//
-
 
 //Routes
 const student = require("./routes/student");

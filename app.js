@@ -4,11 +4,15 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const path = require("path");
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+//
+const dotenv = require("dotenv");
+dotenv.config();
 
 //Routes
 const student = require("./routes/student");
@@ -27,10 +31,10 @@ const home = require("./routes/home");
 // });
 
 const conn = mysql.createConnection({
-	host: "sql6.freemysqlhosting.net",
-	user: "sql6583703",
-	password: "UljLwCNA1z",
-	database: "sql6583703"
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: process.env.DB_NAME,
 });
 
 //Check if the database is working
@@ -80,6 +84,7 @@ app.use("/", home);
 
 // Home Page
 app.use(home);
+
 
 app.listen(port, () => {
 	console.log("Server is running");

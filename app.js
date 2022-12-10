@@ -84,7 +84,11 @@ app.use("/", home);
 // Home Page
 app.use(home);
 
+<<<<<<< HEAD
 
+=======
+const port = process.env.PORT || 3000;
+>>>>>>> fb548e9b8b73dc341d686359a19ca69263027e5d
 app.listen(port, () => {
 	console.log("Server is running");
 });

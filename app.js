@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const path = require("path");
+const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.static("public"));
@@ -77,12 +78,13 @@ app.use("/student", student);
 app.use("/faculty", faculty);
 app.use("/admin", admin);
 
+
 app.use("/", home);
 
 // Home Page
 app.use(home);
 
-PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+app.listen(port, () => {
 	console.log("Server is running");
 });

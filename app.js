@@ -1,17 +1,26 @@
 const express = require("express");
-const mysql = require("mysql2"); //built in promise
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const path = require("path");
 
-const app = express();
+const dotenv = require("dotenv")
+dotenv.config()
 
+const app = express();
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 //
 
+
+//Database
+const db = require("./db/db.js")
+db.getConnection((err, connection) => {
+	if (err) throw err;
+	console.log("Database connected successfully");
+	connection.release();
+});
 
 //Routes
 const student = require("./routes/student");
@@ -29,21 +38,6 @@ const home = require("./routes/home");
 // 	database: "gatepass",
 // });
 
-const conn = mysql.createConnection({
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	password: process.env.DB_PASS,
-	database: process.env.DB_NAME,
-});
-
-//Check if the database is working
-conn.connect((err) => {
-	if (err) {
-		console.log(err);
-	} else {
-		console.log("Database connected");
-	}
-});
 
 
 
@@ -54,7 +48,6 @@ app.use(
 		cookie: {
 			secure: true,
 			httpOnly: true,
-			expires: 24 * 60 * 60 * 1000,
 		},
 	})
 );

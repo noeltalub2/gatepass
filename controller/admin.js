@@ -7,12 +7,7 @@ const { createTokensAdmin } = require("../utils/token");
 const { date_time, date } = require("../utils/date");
 
 
-const db = mysql.createConnection({
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	password: process.env.DB_PASS,
-	database: process.env.DB_NAME,
-});
+const db = require("../db/db")
 
 const queryParam = async (sql, data) => {
 	try {
@@ -31,7 +26,7 @@ const zeroParam = async (sql) => {
 };
 
 const getLogin = (req, res) => {
-	res.render("Admin/login", { status: "", msg: "" });
+	res.render("Admin/login");
 };
 
 const postLogin = (req, res) => {
@@ -40,10 +35,11 @@ const postLogin = (req, res) => {
 		const findUser = "SELECT * from admin WHERE username = ?";
 		db.query(findUser, [username], async (err, result) => {
 			if (err) {
-				res.render("Admin/login", {
-					status: "error",
-					msg: "Authentication Failed",
-				});
+				req.flash(
+					"error_msg",
+					"Authentication failed."
+				);
+				res.redirect("/admin/login");
 			} else {
 				if (result.length > 0) {
 					const match_password = await bcrypt.compare(
@@ -57,16 +53,15 @@ const postLogin = (req, res) => {
 						res.cookie("token", generateToken, { httpOnly: true });
 						res.redirect("/admin/dashboard");
 					} else {
-						res.render("Admin/login", {
-							status: "error",
-							msg: "Incorrect student number or password",
-						});
+						req.flash(
+							"error_msg",
+							"Incorrect username or password"
+						);
+						res.redirect("/admin/login");
 					}
 				} else {
-					res.render("Admin/login", {
-						status: "error",
-						msg: "Could'nt find your account",
-					});
+					req.flash("error_msg", "Could'nt find your account");
+					res.redirect("/admin/login");
 				}
 			}
 		});
@@ -77,7 +72,7 @@ const postLogin = (req, res) => {
 
 const getDashboard = async (req, res) => {
 	const recentGatepass = await zeroParam(
-		"SELECT * FROM `gatepass` ORDER BY `gatepass_id` DESC LIMIT 5;"
+		"SELECT * FROM `gatepass` ORDER BY `gatepass_id` DESC LIMIT 6;"
 	);
 	const totalGatepass = (
 		await zeroParam("SELECT count(*) as 'count' FROM gatepass")
@@ -200,7 +195,7 @@ const getFacultyAdd = async (req, res) => {
 };
 
 const postFacultyAdd = async (req, res) => {
-	const ID = nanoid(8);
+
 	const { firstname, lastname, email, phonenumber, password } = req.body;
 	let errors = []
 	//Sql statement if there is duplciate in database

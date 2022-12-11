@@ -13,7 +13,7 @@
 
 
 <script>
-
+    const today = new Date()
     $(document).ready(function () {
         $('#student').DataTable();
     });
@@ -28,7 +28,7 @@
             buttons: [
                 {
                     extend: 'excel',
-                    title: "Student Data",
+                    title: `Student Data - ${today.toDateString()} ${today.toLocaleTimeString()}`,
                     text: 'Export to excel', className: "excelButton", exportOptions: {
                         modifier: {
                             page: 'current'
@@ -45,7 +45,7 @@
             buttons: [
                 {
                     extend: 'excel',
-                    title: "Gatepass Data",
+                    title: `Gatepass Data - ${today.toDateString()} ${today.toLocaleTimeString()}`,
                     text: 'Export to excel', className: "excelButton", exportOptions: {
                         modifier: {
                             page: 'current'
@@ -55,7 +55,9 @@
             ]
         });
     });
-
+    $(".alert").delay(5000).slideUp(200, function () {
+        $(this).alert('close');
+    });
 </script>
 </body>
 

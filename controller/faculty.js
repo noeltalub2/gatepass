@@ -5,12 +5,7 @@ const { nanoid } = require("nanoid");
 const { createTokensFaculty } = require("../utils/token");
 const { date_time, date } = require("../utils/date");
 
-const db = mysql.createConnection({
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	password: process.env.DB_PASS,
-	database: process.env.DB_NAME,
-});
+const db = require("../db/db")
 
 const queryParam = async (sql, data) => {
 	try {
@@ -29,7 +24,7 @@ const zeroParam = async (sql) => {
 };
 
 const getLogin = (req, res) => {
-	res.render("Faculty/login", { status: "", msg: "" });
+	res.render("Faculty/login");
 };
 
 const postLogin = (req, res) => {
@@ -38,10 +33,11 @@ const postLogin = (req, res) => {
 		const findUser = "SELECT * from faculty WHERE email = ?";
 		db.query(findUser, [email], async (err, result) => {
 			if (err) {
-				res.render("Faculty/login", {
-					status: "error",
-					msg: "Authentication Failed",
-				});
+				req.flash(
+					"error_msg",
+					"Authentication failed."
+				);
+				res.redirect("/faculty/login");
 			} else {
 				if (result.length > 0) {
 					const match_password = await bcrypt.compare(
@@ -55,16 +51,15 @@ const postLogin = (req, res) => {
 						res.cookie("token", generateToken, { httpOnly: true });
 						res.redirect("/faculty/dashboard");
 					} else {
-						res.render("Faculty/login", {
-							status: "error",
-							msg: "Incorrect student number or password",
-						});
+						req.flash(
+							"error_msg",
+							"Incorrect email or password"
+						);
+						res.redirect("/faculty/login");
 					}
 				} else {
-					res.render("Faculty/login", {
-						status: "error",
-						msg: "Could'nt find your account",
-					});
+					req.flash("error_msg", "Could'nt find your account");
+					res.redirect("/faculty/login");
 				}
 			}
 		});
@@ -116,20 +111,46 @@ const getGatepass = async (req, res) => {
 };
 
 const getGatepassApproved = async (req, res) => {
+	
 	const gatepass_ref = req.params.gatepass_ref;
-	const gatepass = await queryParam(
-		`UPDATE gatepass SET status='Approved', modified_date = '${date_time()}' WHERE gatepass_ref = ?`,
-		[gatepass_ref]
+	var sql =
+		"UPDATE gatepass SET status=?, modified_date=? WHERE gatepass_ref = ?";
+	//Add account to database
+	db.query(
+		sql,
+		["Approved", date_time(), gatepass_ref],
+		(err, rset) => {
+		
+			if (err) {
+				req.flash("error_msg", `Failed to Update Gatepass Ref: ${gatepass_ref}`);
+				res.redirect("/faculty/gatepass");
+			} else {
+				
+				req.flash("success_msg",`Successfully Approved Gatepass Ref: ${gatepass_ref}`)
+				res.redirect("/faculty/gatepass");
+			}
+		}
 	);
-	res.redirect("/faculty/gatepass");
 };
 const getGatepassReject = async (req, res) => {
 	const gatepass_ref = req.params.gatepass_ref;
-	const gatepass = await queryParam(
-		`UPDATE gatepass SET status='Reject' , modified_date = '${date_time()}' WHERE gatepass_ref = ?`,
-		[gatepass_ref]
+	var sql =
+		"UPDATE gatepass SET status=?, modified_date =? WHERE gatepass_ref = ?";
+	//Add account to database
+	db.query(
+		sql,
+		["Reject", date_time() , gatepass_ref],
+		(err, rset) => {
+			if (err) {
+				req.flash("error_msg", `Failed to Update Gatepass Ref: ${gatepass_ref}`);
+				res.redirect("/faculty/gatepass");
+			} else {
+				
+				req.flash("success_msg",`Successfully Reject Gatepass Ref: ${gatepass_ref}`)
+				res.redirect("/faculty/gatepass");
+			}
+		}
 	);
-	res.redirect("/faculty/gatepass");
 };
 
 const getProfile = async (req, res) => {

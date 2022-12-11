@@ -87,9 +87,9 @@
 
                                             <tr>
 
-                                                <td class="cell">
+                                                <th class="cell">
                                                     <%=student.studentnumber%>
-                                                </td>
+                                                </th>
                                                 <td class="cell">
                                                     <%=student.firstname%>
                                                 </td>
@@ -148,9 +148,9 @@
                                 <table id="gatepassReport" class="table app-table-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th class="cell">Gatepass Ref.</th>
                                             <th class="cell">Submit Date</th>
                                             <th class="cell">Modified Date</th>
+                                            <th class="cell">Gatepass Ref.</th>
                                             <th class="cell">Student Number</th>
                                             <th class="cell">Status</th>
                                             
@@ -163,15 +163,17 @@
 
                                             <tr>
                                                 <td class="cell">
-                                                    <%=gatepass.gatepass_ref%>
-                                                </td>
-                                              
-                                                <td class="cell">
                                                     <%=gatepass.submit_date%>
                                                 </td>
+                                                
                                                 <td class="cell">
                                                     <%=gatepass.modified_date%>
                                                 </td>
+                                                <td class="cell">
+                                                    <%=gatepass.gatepass_ref%>
+                                                </td>
+                                              
+                                                
                                               
                                         
                                                 <td class="cell">

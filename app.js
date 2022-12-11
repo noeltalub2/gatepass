@@ -4,8 +4,8 @@ const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const path = require("path");
 
-const dotenv = require("dotenv")
-dotenv.config()
+// const dotenv = require("dotenv")
+// dotenv.config()
 
 const app = express();
 
@@ -77,7 +77,7 @@ app.use("/", home);
 // Home Page
 app.use(home);
 
-
-app.listen(process.env.PORT || 3000, () => {
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
 	console.log("Server is running");
 });
